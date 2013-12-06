@@ -14,6 +14,8 @@ public class Frame
 	private static int width = 800, height = 600, fps = 40;
 	
 	private boolean exit = false;
+	
+	private BackgroundCreator background;
 
 	public void init() throws LWJGLException
 	{
@@ -28,6 +30,8 @@ public class Frame
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		background = new BackgroundCreator();
 	}
 
 	public void run()
@@ -35,6 +39,9 @@ public class Frame
 		while (!exit)
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			
+			background.update();
+			background.draw();
 			
 			draw();
 			
