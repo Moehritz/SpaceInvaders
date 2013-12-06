@@ -135,9 +135,11 @@ public class Entity
 
 	public void draw()
 	{
+		long rx = x, ry = y;
+		double rrot = rotation;
 		texture.bind();
-		glTranslated(x, y, 0);
-		glRotated(rotation, 0, 0, 1);
+		glTranslated(rx, ry, 0);
+		glRotated(rrot, 0, 0, 1);
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2f(0.0f, 0.0f);
@@ -150,8 +152,8 @@ public class Entity
 			glVertex2f(-width / 2, height / 2);
 		}
 		glEnd();
-		glRotated(-rotation, 0, 0, 1);
-		glTranslated(-x, -y, 0);
+		glRotated(-rrot, 0, 0, 1);
+		glTranslated(-rx, -ry, 0);
 		TextureImpl.bindNone();
 
 	}
