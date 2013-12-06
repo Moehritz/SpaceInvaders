@@ -18,7 +18,7 @@ public class Frame
 	private BackgroundCreator background;
 
 	public void init() throws LWJGLException
-	{
+	{		
 		Display.setDisplayMode(new DisplayMode(width, height));
 		Display.setTitle("SpaceInversion");
 		Display.create();
