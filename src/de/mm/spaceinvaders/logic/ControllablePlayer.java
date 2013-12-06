@@ -3,19 +3,26 @@ package de.mm.spaceinvaders.logic;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.opengl.Texture;
 
 import de.mm.spaceinvaders.Util;
+import de.mm.spaceinvaders.Vector;
 
 public class ControllablePlayer extends Player
 {
+
+	public ControllablePlayer(Texture texture)
+	{
+		super(texture);
+	}
 
 	public void handleInput(long delta)
 	{
 		int mouseX = Mouse.getX();
 		int mouseY = Display.getHeight() - Mouse.getY();
 
-		Double newRotation = Util.calcRotationAngleInDegrees(getX(), getY(), mouseX,
-				mouseY);
+		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()),
+				new Vector(mouseX, mouseY));
 
 		if (!Double.isNaN(newRotation)) setRotation(newRotation);
 
@@ -43,6 +50,13 @@ public class ControllablePlayer extends Player
 			setX((int) (before + ((10.0d / Ticker.tps) * delta)));
 			if (outOfBounds(1)) setX(before);
 		}
-
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+		{
+			if (getAmmo() != 0 && (System.currentTimeMillis() - getLastShot()) > getShotCooldown())
+			{
+				shoot();
+				setLastShot(System.currentTimeMillis());
+			}
+		}
 	}
 }

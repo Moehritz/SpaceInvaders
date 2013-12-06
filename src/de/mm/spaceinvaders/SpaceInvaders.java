@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.LWJGLException;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.gfx.Frame;
+import de.mm.spaceinvaders.gfx.Textures;
+import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.Ticker;
@@ -37,12 +37,13 @@ public class SpaceInvaders
 	}
 
 	private Frame frame;
-	private List<Entity> entities;
+	private List<Entity> entities, outstandingSpawns;
 	private Ticker ticker;
 
 	private void start() throws IOException
 	{
 		entities = new ArrayList<>();
+		outstandingSpawns = new ArrayList<>();
 
 		frame = new Frame();
 		try
@@ -54,11 +55,9 @@ public class SpaceInvaders
 			e.printStackTrace();
 		}
 
-		ControllablePlayer player = new ControllablePlayer();
-		player.setTexture(TextureLoader.getTexture("PNG",
-				ResourceLoader.getResourceAsStream("res/player.png")));
+		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
 
-		entities.add(player);
+		outstandingSpawns.add(player);
 
 		ticker = new Ticker();
 		ticker.start();
@@ -74,6 +73,30 @@ public class SpaceInvaders
 	public void stop()
 	{
 		ticker.stop();
+	}
+
+	public void launchBullet(Entity entity)
+	{
+		try
+		{
+			Bullet bullet = new Bullet(Textures.BULLET.getTexture(), entity);
+			bullet.setRotation(entity.getRotation());
+			bullet.setX(entity.getX());
+			bullet.setY(entity.getY());
+			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(10));
+			outstandingSpawns.add(bullet);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void spawn() {
+		for (Entity e : outstandingSpawns) {
+			loadedEntities().add(e);
+		}
+		outstandingSpawns.clear();
 	}
 
 }

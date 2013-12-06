@@ -2,15 +2,23 @@ package de.mm.spaceinvaders.logic;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 
+import de.mm.spaceinvaders.Vector;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Entity
 {
 
 	private long x = 200, y = 200, health, width, height;
-	private double rotation = 0, speedX, speedY;
+	private double rotation = 0;
+	private Vector speed = new Vector();
 	private Texture texture;
+
+	public Entity(Texture texture)
+	{
+		setTexture(texture);
+	}
 
 	public long getX()
 	{
@@ -103,10 +111,26 @@ public class Entity
 		this.height = height;
 	}
 
-	public void updatePosition()
+	public boolean updatePosition()
 	{
-		x += speedX;
-		y += speedY;
+		boolean ret = true;
+		if (!outOfBounds(1) && !outOfBounds(3))
+		{
+			x += speed.getX();
+		}
+		else
+		{
+			ret = false;
+		}
+		if (!outOfBounds(0) && !outOfBounds(2))
+		{
+			y += speed.getY();
+		}
+		else
+		{
+			ret = false;
+		}
+		return ret;
 	}
 
 	public void draw()
@@ -128,27 +152,18 @@ public class Entity
 		glEnd();
 		glRotated(-rotation, 0, 0, 1);
 		glTranslated(-x, -y, 0);
+		TextureImpl.bindNone();
 
 	}
 
-	public double getSpeedX()
+	public Vector getSpeed()
 	{
-		return speedX;
+		return speed;
 	}
 
-	public void setSpeedX(double speedX)
+	public void setSpeed(Vector speed)
 	{
-		this.speedX = speedX;
-	}
-
-	public double getSpeedY()
-	{
-		return speedY;
-	}
-
-	public void setSpeedY(double speedY)
-	{
-		this.speedY = speedY;
+		this.speed = speed;
 	}
 
 }

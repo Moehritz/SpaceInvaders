@@ -1,5 +1,7 @@
 package de.mm.spaceinvaders.logic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,11 +32,18 @@ public class Ticker extends TimerTask
 		long thisFrame = System.currentTimeMillis();
 		long delta = thisFrame - last;
 		last = thisFrame;
+		List<Entity> toRemove = new ArrayList<>();
 		for (Entity e : SpaceInvaders.getInstance().loadedEntities())
 		{
 			if (e instanceof ControllablePlayer) ((ControllablePlayer) e).handleInput(delta);
-			e.updatePosition();
+			boolean out = e.updatePosition();
+			if (!out && e instanceof Bullet)
+			{
+				toRemove.add(e);
+			}
 		}
+		SpaceInvaders.getInstance().loadedEntities().removeAll(toRemove);
+		SpaceInvaders.getInstance().spawn();
 	}
 
 }
