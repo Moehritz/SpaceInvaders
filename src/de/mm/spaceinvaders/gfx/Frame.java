@@ -6,6 +6,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.logic.Entity;
+import de.mm.spaceinvaders.menu.MenuButton;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Frame
@@ -34,6 +35,7 @@ public class Frame
 		background = new BackgroundCreator();
 	}
 
+	private MenuButton button = new MenuButton(10, 10, 100, 80, "DemoButton");
 	public void run()
 	{
 		while (!exit)
@@ -44,6 +46,8 @@ public class Frame
 			background.draw();
 
 			draw();
+			button.update();
+			button.draw();
 
 			Display.sync(fps);
 

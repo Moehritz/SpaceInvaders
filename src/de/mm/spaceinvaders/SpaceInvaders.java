@@ -12,6 +12,7 @@ import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.Ticker;
+import de.mm.spaceinvaders.menu.MenuButton;
 
 public class SpaceInvaders
 {
@@ -54,6 +55,8 @@ public class SpaceInvaders
 		{
 			e.printStackTrace();
 		}
+		
+		MenuButton.initFont();
 
 		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
 
@@ -91,9 +94,11 @@ public class SpaceInvaders
 			e.printStackTrace();
 		}
 	}
-	
-	public void spawn() {
-		for (Entity e : outstandingSpawns) {
+
+	public void spawn()
+	{
+		for (Entity e : outstandingSpawns)
+		{
 			loadedEntities().add(e);
 		}
 		outstandingSpawns.clear();
