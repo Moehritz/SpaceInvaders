@@ -1,11 +1,17 @@
 package de.mm.spaceinvaders.logic;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.newdawn.slick.opengl.Texture;
 
 import de.mm.spaceinvaders.SpaceInvaders;
 
+@Getter
+@Setter
 public class Player extends Entity
 {
+	@Getter
 	private static final int shotCooldown = 500, maxAmmo = 100;
 
 	private int ammo = maxAmmo;
@@ -20,36 +26,6 @@ public class Player extends Entity
 	{
 		ammo--;
 		SpaceInvaders.getInstance().launchBullet(this);
-	}
-
-	public int getAmmo()
-	{
-		return ammo;
-	}
-
-	public void setAmmo(int ammo)
-	{
-		this.ammo = ammo;
-	}
-
-	public long getLastShot()
-	{
-		return lastShot;
-	}
-
-	public void setLastShot(long lastShot)
-	{
-		this.lastShot = lastShot;
-	}
-
-	public static int getShotCooldown()
-	{
-		return shotCooldown;
-	}
-
-	public static int getMaxAmmo()
-	{
-		return maxAmmo;
 	}
 
 }

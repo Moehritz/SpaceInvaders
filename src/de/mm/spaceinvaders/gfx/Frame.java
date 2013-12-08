@@ -61,7 +61,7 @@ public class Frame
 
 	public void draw()
 	{
-		for (Entity e : SpaceInvaders.getInstance().loadedEntities())
+		for (Entity e : SpaceInvaders.getInstance().getEntities())
 		{
 			e.draw();
 		}

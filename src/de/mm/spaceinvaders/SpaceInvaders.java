@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
 import org.lwjgl.LWJGLException;
 
 import de.mm.spaceinvaders.gfx.Frame;
@@ -14,9 +16,11 @@ import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.Ticker;
 import de.mm.spaceinvaders.menu.MenuButton;
 
+@Getter
 public class SpaceInvaders
 {
 
+	@Getter
 	private static SpaceInvaders instance;
 
 	public static void main(String[] args)
@@ -30,11 +34,6 @@ public class SpaceInvaders
 		{
 			e.printStackTrace();
 		}
-	}
-
-	public static SpaceInvaders getInstance()
-	{
-		return instance;
 	}
 
 	private Frame frame;
@@ -68,11 +67,6 @@ public class SpaceInvaders
 		frame.run();
 	}
 
-	public List<Entity> loadedEntities()
-	{
-		return entities;
-	}
-
 	public void stop()
 	{
 		ticker.stop();
@@ -99,7 +93,7 @@ public class SpaceInvaders
 	{
 		for (Entity e : outstandingSpawns)
 		{
-			loadedEntities().add(e);
+			getEntities().add(e);
 		}
 		outstandingSpawns.clear();
 	}

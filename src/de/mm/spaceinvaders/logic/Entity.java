@@ -1,5 +1,8 @@
 package de.mm.spaceinvaders.logic;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
@@ -7,6 +10,8 @@ import org.newdawn.slick.opengl.TextureImpl;
 import de.mm.spaceinvaders.Vector;
 import static org.lwjgl.opengl.GL11.*;
 
+@Getter
+@Setter
 public class Entity
 {
 
@@ -18,41 +23,6 @@ public class Entity
 	public Entity(Texture texture)
 	{
 		setTexture(texture);
-	}
-
-	public long getX()
-	{
-		return x;
-	}
-
-	public long getY()
-	{
-		return y;
-	}
-
-	public long getHealth()
-	{
-		return health;
-	}
-
-	public void setX(long x)
-	{
-		this.x = x;
-	}
-
-	public void setY(long y)
-	{
-		this.y = y;
-	}
-
-	public void setHealth(long health)
-	{
-		this.health = health;
-	}
-
-	public double getRotation()
-	{
-		return rotation;
 	}
 
 	/**
@@ -74,41 +44,11 @@ public class Entity
 		return false;
 	}
 
-	public void setRotation(double rotation)
-	{
-		this.rotation = rotation;
-	}
-
-	public Texture getTexture()
-	{
-		return texture;
-	}
-
 	public void setTexture(Texture texture)
 	{
 		this.texture = texture;
 		width = texture.getImageWidth() * 3;
 		height = texture.getImageHeight() * 3;
-	}
-
-	public long getWidth()
-	{
-		return width;
-	}
-
-	public void setWidth(long width)
-	{
-		this.width = width;
-	}
-
-	public long getHeight()
-	{
-		return height;
-	}
-
-	public void setHeight(long height)
-	{
-		this.height = height;
 	}
 
 	public boolean updatePosition()
@@ -155,17 +95,5 @@ public class Entity
 		glRotated(-rrot, 0, 0, 1);
 		glTranslated(-rx, -ry, 0);
 		TextureImpl.bindNone();
-
 	}
-
-	public Vector getSpeed()
-	{
-		return speed;
-	}
-
-	public void setSpeed(Vector speed)
-	{
-		this.speed = speed;
-	}
-
 }
