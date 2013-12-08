@@ -14,4 +14,8 @@ import de.mm.spaceinvaders.gfx.Drawable;
 public abstract class MenuObject implements Drawable
 {
 	private Rectangle rect;
+	
+	public void update() {
+		
+	}
 }
