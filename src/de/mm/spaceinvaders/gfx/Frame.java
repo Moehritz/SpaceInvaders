@@ -1,12 +1,13 @@
 package de.mm.spaceinvaders.gfx;
 
+import java.util.List;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.logic.Entity;
-import de.mm.spaceinvaders.menu.MenuButton;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Frame
@@ -19,7 +20,7 @@ public class Frame
 	private BackgroundCreator background;
 
 	public void init() throws LWJGLException
-	{		
+	{
 		Display.setDisplayMode(new DisplayMode(width, height));
 		Display.setTitle("SpaceInversion");
 		Display.create();
@@ -35,7 +36,6 @@ public class Frame
 		background = new BackgroundCreator();
 	}
 
-	private MenuButton button = new MenuButton(10, 10, 100, 80, "DemoButton");
 	public void run()
 	{
 		while (!exit)
@@ -46,8 +46,6 @@ public class Frame
 			background.draw();
 
 			draw();
-			button.update();
-			button.draw();
 
 			Display.sync(fps);
 
@@ -61,9 +59,13 @@ public class Frame
 
 	public void draw()
 	{
-		for (Entity e : SpaceInvaders.getInstance().getEntities())
+		List<Entity> allEntities = SpaceInvaders.getInstance().getEntities();
+		synchronized (allEntities)
 		{
-			e.draw();
+			for (Entity e : allEntities)
+			{
+				e.draw();
+			}
 		}
 	}
 }

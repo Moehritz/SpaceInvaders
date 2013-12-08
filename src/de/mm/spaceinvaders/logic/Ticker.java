@@ -33,16 +33,20 @@ public class Ticker extends TimerTask
 		long delta = thisFrame - last;
 		last = thisFrame;
 		List<Entity> toRemove = new ArrayList<>();
-		for (Entity e : SpaceInvaders.getInstance().getEntities())
+		List<Entity> allEntities = SpaceInvaders.getInstance().getEntities();
+		synchronized (allEntities)
 		{
-			if (e instanceof ControllablePlayer) ((ControllablePlayer) e).handleInput(delta);
-			boolean out = e.updatePosition();
-			if (!out && e instanceof Bullet)
+			for (Entity e : SpaceInvaders.getInstance().getEntities())
 			{
-				toRemove.add(e);
+				if (e instanceof ControllablePlayer) ((ControllablePlayer) e).handleInput(delta);
+				boolean out = e.updatePosition();
+				if (!out && e instanceof Bullet)
+				{
+					toRemove.add(e);
+				}
 			}
 		}
-		SpaceInvaders.getInstance().getEntities().removeAll(toRemove);
+		allEntities.removeAll(toRemove);
 		SpaceInvaders.getInstance().spawn();
 	}
 
