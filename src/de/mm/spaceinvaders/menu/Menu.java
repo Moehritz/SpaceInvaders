@@ -1,6 +1,21 @@
 package de.mm.spaceinvaders.menu;
 
-public class Menu
+import java.util.ArrayList;
+import java.util.List;
+
+import de.mm.spaceinvaders.gfx.Drawable;
+import lombok.Getter;
+
+public class Menu implements Drawable
 {
+
+	@Getter
+	private List<MenuObject> objects = new ArrayList<>();
+
+	@Override
+	public void draw()
+	{
+		
+	}
 
 }

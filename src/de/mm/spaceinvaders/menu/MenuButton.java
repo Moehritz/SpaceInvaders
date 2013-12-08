@@ -4,40 +4,41 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Font;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.TrueTypeFont;
 
-public class MenuButton
+@Getter
+@Setter
+public class MenuButton extends MenuObject
 {
 	private static TrueTypeFont ttf;
-	
-	public static void initFont() {
+
+	public static void initFont()
+	{
 		ttf = new TrueTypeFont(new Font("Arial", 1, 20), false);
 	}
 
-	private int borderUp = 3, borderRight = 5, borderDown = 3, borderLeft = 5;
-
-	private Rectangle rect;
 	private boolean isHover;
 	private String text;
+	private ObjectBorder border;
 
 	public MenuButton(int x, int y, int width, int height, String text)
 	{
-		rect = new Rectangle(x, y, width, height);
+		super(new Rectangle(x, y, width, height));
 		this.text = text;
+		border = new ObjectBorder(getRect());
 	}
 
 	public MenuButton(Rectangle rect, String text)
 	{
-		this.rect = rect;
+		super(rect);
 		this.text = text;
-	}
-
-	public Rectangle getRectangle()
-	{
-		return rect;
+		border = new ObjectBorder(getRect());
 	}
 
 	public void setText(String text)
@@ -52,7 +53,7 @@ public class MenuButton
 
 	public void update()
 	{
-		if (rect.contains(Mouse.getX(), Display.getHeight() - Mouse.getY()))
+		if (getRect().contains(Mouse.getX(), Display.getHeight() - Mouse.getY()))
 		{
 			isHover = true;
 		}
@@ -62,6 +63,7 @@ public class MenuButton
 		}
 	}
 
+	@Override
 	public void draw()
 	{
 		if (isHover)
@@ -72,75 +74,12 @@ public class MenuButton
 		{
 			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		}
-		glBegin(GL_QUADS);
-		{
-			glVertex2i(rect.getX(), rect.getY());
-			glVertex2i(rect.getX() + rect.getWidth(), rect.getY());
-			glVertex2i(rect.getX() + rect.getWidth(), rect.getY() + borderUp);
-			glVertex2i(rect.getX(), rect.getY() + borderUp);
-
-			glVertex2i(rect.getX() + rect.getWidth() - borderRight, rect.getY());
-			glVertex2i(rect.getX() + rect.getWidth(), rect.getY());
-			glVertex2i(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight());
-			glVertex2i(rect.getX() + rect.getWidth() - borderRight, rect.getY() + rect.getHeight());
-
-			glVertex2i(rect.getX(), rect.getY() + rect.getHeight() - borderDown);
-			glVertex2i(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight() - borderDown);
-			glVertex2i(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight());
-			glVertex2i(rect.getX(), rect.getY() + rect.getHeight());
-
-			glVertex2i(rect.getX(), rect.getY());
-			glVertex2i(rect.getX() + borderRight, rect.getY());
-			glVertex2i(rect.getX() + borderRight, rect.getY() + rect.getHeight());
-			glVertex2i(rect.getX(), rect.getY() + rect.getHeight());
-
-		}
-		glEnd();
+		border.draw();
 
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		int fx = rect.getX() + (rect.getWidth() / 2) - (ttf.getWidth(text) / 2);
-		int fy = rect.getY() + (rect.getHeight() / 2) - (ttf.getHeight(text) / 2);
+		int fx = getRect().getX() + (getRect().getWidth() / 2) - (ttf.getWidth(text) / 2);
+		int fy = getRect().getY() + (getRect().getHeight() / 2) - (ttf.getHeight(text) / 2);
 		ttf.drawString(fx, fy, text);
-	}
-
-	public int getBorderUp()
-	{
-		return borderUp;
-	}
-
-	public void setBorderUp(int borderUp)
-	{
-		this.borderUp = borderUp;
-	}
-
-	public int getBorderRight()
-	{
-		return borderRight;
-	}
-
-	public void setBorderRight(int borderRight)
-	{
-		this.borderRight = borderRight;
-	}
-
-	public int getBorderDown()
-	{
-		return borderDown;
-	}
-
-	public void setBorderDown(int borderDown)
-	{
-		this.borderDown = borderDown;
-	}
-
-	public int getBorderLeft()
-	{
-		return borderLeft;
-	}
-
-	public void setBorderLeft(int borderLeft)
-	{
-		this.borderLeft = borderLeft;
 	}
 
 }

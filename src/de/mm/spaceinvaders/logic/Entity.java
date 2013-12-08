@@ -8,11 +8,12 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 
 import de.mm.spaceinvaders.Vector;
+import de.mm.spaceinvaders.gfx.Drawable;
 import static org.lwjgl.opengl.GL11.*;
 
 @Getter
 @Setter
-public class Entity
+public class Entity implements Drawable
 {
 
 	private long x = 200, y = 200, health, width, height;
@@ -73,6 +74,7 @@ public class Entity
 		return ret;
 	}
 
+	@Override
 	public void draw()
 	{
 		long rx = x, ry = y;

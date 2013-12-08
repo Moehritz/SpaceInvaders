@@ -8,11 +8,11 @@ import org.lwjgl.opengl.Display;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class BackgroundCreator
+public class BackgroundCreator implements Drawable
 {
 
-	private int pxlX = Display.getWidth() / 4, pxlY = Display.getHeight() / 4,
-			livingTimeMin = 100, livingTimeMax = 200, starsCount = 80;
+	private int pxlX = Display.getWidth() / 4, pxlY = Display.getHeight() / 4, livingTimeMin = 100,
+			livingTimeMax = 200, starsCount = 80;
 	private List<Star> stars = new ArrayList<>();
 	private Random rand = new Random();
 
@@ -40,6 +40,7 @@ public class BackgroundCreator
 		stars.add(new Star(x, y, time));
 	}
 
+	@Override
 	public void draw()
 	{
 		for (Star star : stars)
