@@ -1,7 +1,5 @@
 package de.mm.spaceinvaders.gfx;
 
-import java.util.List;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -59,10 +57,9 @@ public class Frame
 
 	public void draw()
 	{
-		List<Entity> allEntities = SpaceInvaders.getInstance().getEntities();
-		synchronized (allEntities)
+		synchronized (SpaceInvaders.getInstance().getEntities())
 		{
-			for (Entity e : allEntities)
+			for (Entity e : SpaceInvaders.getInstance().getEntities())
 			{
 				e.draw();
 			}

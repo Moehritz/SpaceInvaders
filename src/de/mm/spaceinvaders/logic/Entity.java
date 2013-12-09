@@ -16,7 +16,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Entity implements Drawable
 {
 
-	private long x = 200, y = 200, health, width, height;
+	private float x = 200, y = 200, health, width, height;
 	private double rotation = 0;
 	private Vector speed = new Vector();
 	private Texture texture;
@@ -77,7 +77,7 @@ public class Entity implements Drawable
 	@Override
 	public void draw()
 	{
-		long rx = x, ry = y;
+		float rx = x, ry = y;
 		double rrot = rotation;
 		texture.bind();
 		glTranslated(rx, ry, 0);

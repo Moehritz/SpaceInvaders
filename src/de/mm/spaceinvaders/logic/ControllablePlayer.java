@@ -28,25 +28,25 @@ public class ControllablePlayer extends Player
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 		{
-			long before = getY();
+			float before = getY();
 			setY((long) (before - ((10.0d / Ticker.tps) * delta)));
 			if (outOfBounds(2)) setY(before);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A))
 		{
-			long before = getX();
+			float before = getX();
 			setX((int) (before - ((10.0d / Ticker.tps) * delta)));
 			if (outOfBounds(3)) setX(before);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S))
 		{
-			long before = getY();
+			float before = getY();
 			setY((int) (before + ((10.0d / Ticker.tps) * delta)));
 			if (outOfBounds(0)) setY(before);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
 		{
-			long before = getX();
+			float before = getX();
 			setX((int) (before + ((10.0d / Ticker.tps) * delta)));
 			if (outOfBounds(1)) setX(before);
 		}

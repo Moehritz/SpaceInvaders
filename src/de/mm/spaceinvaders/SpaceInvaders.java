@@ -80,7 +80,7 @@ public class SpaceInvaders
 			bullet.setRotation(entity.getRotation());
 			bullet.setX(entity.getX());
 			bullet.setY(entity.getY());
-			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(10));
+			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(10.0f));
 			outstandingSpawns.add(bullet);
 		}
 		catch (IOException e)
