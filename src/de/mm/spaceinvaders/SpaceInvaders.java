@@ -14,7 +14,7 @@ import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.Ticker;
-import de.mm.spaceinvaders.menu.MenuButton;
+import de.mm.spaceinvaders.menu.MenuObject;
 
 @Getter
 public class SpaceInvaders
@@ -55,7 +55,7 @@ public class SpaceInvaders
 			e.printStackTrace();
 		}
 		
-		MenuButton.initFont();
+		MenuObject.initFont();
 
 		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
 

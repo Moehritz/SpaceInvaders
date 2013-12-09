@@ -15,10 +15,20 @@ public class Menu implements Drawable
 	@Override
 	public void draw()
 	{
-		for (MenuObject object : objects) {
+		for (MenuObject object : objects)
+		{
 			object.update();
 			object.draw();
 		}
+	}
+
+	protected void addObject(MenuObject object)
+	{
+		objects.add(object);
+	}
+
+	public void init()
+	{
 	}
 
 }
