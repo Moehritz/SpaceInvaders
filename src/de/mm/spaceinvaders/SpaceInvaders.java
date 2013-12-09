@@ -54,7 +54,7 @@ public class SpaceInvaders
 		{
 			e.printStackTrace();
 		}
-		
+
 		MenuObject.initFont();
 
 		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());

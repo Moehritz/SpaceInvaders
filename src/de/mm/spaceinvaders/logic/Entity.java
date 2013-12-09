@@ -80,6 +80,7 @@ public class Entity implements Drawable
 		float rx = x, ry = y;
 		double rrot = rotation;
 		texture.bind();
+		glColor3f(1.0f, 1.0f, 1.0f);
 		glTranslated(rx, ry, 0);
 		glRotated(rrot, 0, 0, 1);
 		glBegin(GL_QUADS);

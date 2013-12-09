@@ -1,11 +1,11 @@
 package de.mm.spaceinvaders.menu;
 
 import static org.lwjgl.opengl.GL11.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
 import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.TrueTypeFont;
 
 @Getter
 @Setter
@@ -13,19 +13,14 @@ public class MenuButton extends MenuObject
 {
 	private String text;
 	private ObjectBorder border;
+	private TrueTypeFont ttf;
 
-	public MenuButton(int x, int y, int width, int height, String text)
-	{
-		super(new Rectangle(x, y, width, height));
-		this.text = text;
-		border = new ObjectBorder(getRect());
-	}
-
-	public MenuButton(Rectangle rect, String text)
+	public MenuButton(Rectangle rect, String text, float size)
 	{
 		super(rect);
 		this.text = text;
 		border = new ObjectBorder(getRect());
+		ttf = new TrueTypeFont(font.deriveFont(size), false);
 	}
 
 	public void setText(String text)

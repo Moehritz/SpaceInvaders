@@ -1,16 +1,19 @@
 package de.mm.spaceinvaders.menu;
 
 import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.TrueTypeFont;
 
 public class MenuText extends MenuObject
 {
 
 	private String text;
+	private TrueTypeFont ttf;
 
-	public MenuText(Rectangle rect, String text)
+	public MenuText(Rectangle rect, String text, float size)
 	{
 		super(rect);
 		this.text = text;
+		ttf = new TrueTypeFont(font.deriveFont(size), false);
 	}
 
 	@Override
