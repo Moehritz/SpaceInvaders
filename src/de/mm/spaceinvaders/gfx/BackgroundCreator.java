@@ -11,8 +11,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class BackgroundCreator implements Drawable
 {
 
-	private int pxlX = Display.getWidth() / 4, pxlY = Display.getHeight() / 4, livingTimeMin = 100,
-			livingTimeMax = 200, starsCount = 80;
+	private int livingTimeMin = 100, livingTimeMax = 200, starsCount = 1000, minSize = 2, maxSize = 10;
 	private List<Star> stars = new ArrayList<>();
 	private Random rand = new Random();
 
@@ -34,10 +33,11 @@ public class BackgroundCreator implements Drawable
 
 	private void newStar()
 	{
-		int x = rand.nextInt(pxlX);
-		int y = rand.nextInt(pxlY);
+		int x = rand.nextInt(Display.getWidth());
+		int y = rand.nextInt(Display.getHeight());
 		long time = livingTimeMin + rand.nextInt(livingTimeMax - livingTimeMin);
-		stars.add(new Star(x, y, time));
+		int size = rand.nextInt(maxSize - minSize) + minSize;
+		stars.add(new Star(x, y, time, size));
 	}
 
 	@Override
@@ -48,26 +48,25 @@ public class BackgroundCreator implements Drawable
 			float opacity = star.getOpacity();
 			int x = star.x;
 			int y = star.y;
-			drawPixel(x, y, opacity);
-			drawPixel(x + 1, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)));
-			drawPixel(x - 1, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)));
-			drawPixel(x, y + 1, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)));
-			drawPixel(x, y - 1, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)));
+			drawPixel(x, y, opacity, star.size);
+			drawPixel(x + 1, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), star.size);
+			drawPixel(x - 1, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), star.size);
+			drawPixel(x, y + 1, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), star.size);
+			drawPixel(x, y - 1, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), star.size);
 		}
 	}
 
-	private void drawPixel(int x, int y, float opacity)
+	private void drawPixel(int x, int y, float opacity, int size)
 	{
 		if (opacity == 0) return;
-		float sizePerPixelX = Display.getWidth() / pxlX;
-		float sizePerPixelY = Display.getHeight() / pxlY;
+		float sizePerPixel = size / 2;
 		glColor4f(1.0f, 1.0f, 1.0f, opacity / 100);
 		glBegin(GL_QUADS);
 		{
-			glVertex2f(x * sizePerPixelX, y * sizePerPixelY);
-			glVertex2f((x + 1) * sizePerPixelX, y * sizePerPixelY);
-			glVertex2f((x + 1) * sizePerPixelX, (y + 1) * sizePerPixelY);
-			glVertex2f(x * sizePerPixelX, (y + 1) * sizePerPixelY);
+			glVertex2f(x * sizePerPixel, y * sizePerPixel);
+			glVertex2f((x + 1) * sizePerPixel, y * sizePerPixel);
+			glVertex2f((x + 1) * sizePerPixel, (y + 1) * sizePerPixel);
+			glVertex2f(x * sizePerPixel, (y + 1) * sizePerPixel);
 		}
 		glEnd();
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -75,15 +74,16 @@ public class BackgroundCreator implements Drawable
 
 	private class Star
 	{
-		private Star(int x, int y, long start)
+		private Star(int x, int y, long start, int size)
 		{
 			this.x = x;
 			this.y = y;
 			this.start = start;
 			this.timeToLive = start;
+			this.size = size;
 		}
 
-		private int x, y;
+		private int x, y, size;
 		private long timeToLive, start;
 
 		private float getOpacity()

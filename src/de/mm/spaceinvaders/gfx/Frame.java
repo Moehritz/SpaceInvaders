@@ -58,7 +58,7 @@ public class Frame
 		{
 			e.printStackTrace();
 		}
-		
+
 		background = new BackgroundCreator();
 
 		MenuObject.initFont();
