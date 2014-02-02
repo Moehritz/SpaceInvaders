@@ -26,7 +26,7 @@ public class ObjectBorder implements Drawable
 	public void draw()
 	{
 		glBegin(GL_QUADS);
-
+		
 		glVertex2i(getRect().getX(), getRect().getY());
 		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY());
 		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY() + borderUp);
@@ -52,6 +52,5 @@ public class ObjectBorder implements Drawable
 		glVertex2i(getRect().getX(), getRect().getY() + getRect().getHeight());
 
 		glEnd();
-
 	}
 }

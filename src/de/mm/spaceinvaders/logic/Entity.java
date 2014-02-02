@@ -20,6 +20,7 @@ public class Entity implements Drawable
 	private double rotation = 0;
 	private Vector speed = new Vector();
 	private Texture texture;
+	private boolean visible = true;
 
 	public Entity(Texture texture)
 	{

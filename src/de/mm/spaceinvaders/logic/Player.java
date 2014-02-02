@@ -12,7 +12,7 @@ import de.mm.spaceinvaders.SpaceInvaders;
 public class Player extends Entity
 {
 	@Getter
-	private static final int shotCooldown = 500, maxAmmo = 100;
+	private static final int shotCooldown = 70, maxAmmo = Integer.MAX_VALUE;
 
 	private int ammo = maxAmmo;
 	private long lastShot;

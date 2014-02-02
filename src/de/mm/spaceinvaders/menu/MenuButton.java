@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
+
+import de.mm.spaceinvaders.gfx.TextDrawable;
 
 @Getter
 @Setter
-public class MenuButton extends MenuObject
+public class MenuButton extends MenuObject implements TextDrawable
 {
 	private String text;
 	private ObjectBorder border;
@@ -44,12 +47,26 @@ public class MenuButton extends MenuObject
 		{
 			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		}
+
 		border.draw();
 
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		int fx = getRect().getX() + (getRect().getWidth() / 2) - (ttf.getWidth(text) / 2);
 		int fy = getRect().getY() + (getRect().getHeight() / 2) - (ttf.getHeight(text) / 2);
 		ttf.drawString(fx, fy, text);
+	}
+
+	@Override
+	public void drawText()
+	{
+		int fx = getRect().getX() + (getRect().getWidth() / 2) - (ttf.getWidth(text) / 2);
+		int fy = getRect().getY() + (getRect().getHeight() / 2) - (ttf.getHeight(text) / 2);
+		Color color = Color.white;
+		if (isHover())
+		{
+			color = Color.red;
+		}
+		ttf.drawString(fx, fy, text, color);
 	}
 
 }

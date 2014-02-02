@@ -1,11 +1,27 @@
 package de.mm.spaceinvaders.gfx;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Cursor;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.newdawn.slick.opengl.TextureImpl;
+import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.logic.Entity;
+import de.mm.spaceinvaders.menu.Menu;
+import de.mm.spaceinvaders.menu.MenuObject;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Frame
@@ -17,10 +33,13 @@ public class Frame
 
 	private BackgroundCreator background;
 
+	private Menu currentMenu;
+
 	public void init() throws LWJGLException
 	{
 		Display.setDisplayMode(new DisplayMode(width, height));
 		Display.setTitle("SpaceInversion");
+		Display.setVSyncEnabled(true);
 		Display.create();
 
 		glMatrixMode(GL_PROJECTION);
@@ -31,7 +50,47 @@ public class Frame
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		try
+		{
+			Mouse.setNativeCursor(new Cursor(16, 16, 8, 8, 1, getHandMousePointer(), null));
+		}
+		catch (MalformedURLException | URISyntaxException e)
+		{
+			e.printStackTrace();
+		}
+		
 		background = new BackgroundCreator();
+
+		MenuObject.initFont();
+	}
+
+	public static IntBuffer getHandMousePointer() throws MalformedURLException, URISyntaxException
+	{
+		Image c = Toolkit.getDefaultToolkit().getImage(
+				ResourceLoader.getResource("res/cursor.png").toURI().toURL());
+		BufferedImage biCursor = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+		while (!biCursor.createGraphics().drawImage(c, 0, 15, 15, 0, 0, 0, 15, 15, null))
+			try
+			{
+				Thread.sleep(5);
+			}
+			catch (InterruptedException e)
+			{
+			}
+
+		int[] data = biCursor.getRaster().getPixels(0, 0, 16, 16, (int[]) null);
+
+		IntBuffer ib = BufferUtils.createIntBuffer(16 * 16);
+		for (int i = 0; i < data.length; i += 4)
+			ib.put(data[i] | data[i + 1] << 8 | data[i + 2] << 16 | data[i + 3] << 24);
+		ib.flip();
+		return ib;
+	}
+
+	public void setMenu(Menu menu)
+	{
+		if (menu != null) menu.init();
+		currentMenu = menu;
 	}
 
 	public void run()
@@ -43,7 +102,14 @@ public class Frame
 			background.update();
 			background.draw();
 
+			if (currentMenu != null)
+			{
+				currentMenu.draw();
+			}
+
 			draw();
+
+			TextureImpl.bindNone();
 
 			Display.sync(fps);
 
@@ -57,11 +123,15 @@ public class Frame
 
 	public void draw()
 	{
-		synchronized (SpaceInvaders.getInstance().getEntities())
+		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getEntities());
+		for (Entity e : allEntities)
 		{
-			for (Entity e : SpaceInvaders.getInstance().getEntities())
+			if (e != null)
 			{
-				e.draw();
+				if (e.isVisible())
+				{
+					e.draw();
+				}
 			}
 		}
 	}

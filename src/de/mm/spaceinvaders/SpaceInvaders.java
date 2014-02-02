@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import org.lwjgl.LWJGLException;
 
@@ -14,12 +15,12 @@ import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.Ticker;
-import de.mm.spaceinvaders.menu.MenuObject;
+import de.mm.spaceinvaders.menu.MainMenu;
 
 @Getter
 public class SpaceInvaders
 {
-
+	
 	@Getter
 	private static SpaceInvaders instance;
 
@@ -39,9 +40,12 @@ public class SpaceInvaders
 	private Frame frame;
 	private List<Entity> entities, outstandingSpawns;
 	private Ticker ticker;
+	@Setter
+	private boolean gameActive;
 
 	private void start() throws IOException
 	{
+		gameActive = false;
 		entities = new ArrayList<>();
 		outstandingSpawns = new ArrayList<>();
 
@@ -54,15 +58,9 @@ public class SpaceInvaders
 		{
 			e.printStackTrace();
 		}
-
-		MenuObject.initFont();
-
-		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
-
-		outstandingSpawns.add(player);
-
+		frame.setMenu(new MainMenu());
+		
 		ticker = new Ticker();
-		ticker.start();
 
 		frame.run();
 	}
@@ -80,7 +78,7 @@ public class SpaceInvaders
 			bullet.setRotation(entity.getRotation());
 			bullet.setX(entity.getX());
 			bullet.setY(entity.getY());
-			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(10.0f));
+			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(8.0f));
 			outstandingSpawns.add(bullet);
 		}
 		catch (IOException e)
@@ -96,6 +94,17 @@ public class SpaceInvaders
 			getEntities().add(e);
 		}
 		outstandingSpawns.clear();
+	}
+
+	public void startNewGame()
+	{
+		frame.setMenu(null);
+		ticker.start();
+
+		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
+		
+		outstandingSpawns.add(player);
+
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mm.spaceinvaders.gfx.Drawable;
+import de.mm.spaceinvaders.gfx.TextDrawable;
 import lombok.Getter;
 
 public class Menu implements Drawable
@@ -19,6 +20,10 @@ public class Menu implements Drawable
 		{
 			object.update();
 			object.draw();
+		}
+		for (MenuObject object : objects)
+		{
+			if (object instanceof TextDrawable) ((TextDrawable) object).drawText();
 		}
 	}
 

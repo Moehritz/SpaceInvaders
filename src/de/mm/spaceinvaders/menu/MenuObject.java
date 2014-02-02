@@ -1,6 +1,8 @@
 package de.mm.spaceinvaders.menu;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.IOException;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -10,6 +12,7 @@ import lombok.Setter;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.gfx.Drawable;
 
@@ -22,22 +25,48 @@ public abstract class MenuObject implements Drawable
 
 	public static void initFont()
 	{
-		font = new Font("Arial", 1, 20);
+		try
+		{
+			font = Font.createFont(Font.TRUETYPE_FONT,
+					ResourceLoader.getResourceAsStream("res/arcade.ttf"));
+		}
+		catch (FontFormatException | IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
-	
+
 	@NonNull
 	private Rectangle rect;
-	private boolean hover = false;
+	private boolean hover = false, clicked = false;
+	private MenuActionListener listener;
 
 	public void update()
 	{
 		if (getRect().contains(Mouse.getX(), Display.getHeight() - Mouse.getY()))
 		{
+			if (hover == false && listener != null)
+			{
+				listener.onHover();
+			}
 			hover = true;
+			if (Mouse.isButtonDown(0))
+			{
+				if (clicked == false && listener != null)
+				{
+					listener.onClick();
+				}
+				clicked = true;
+			}
+			else
+			{
+				clicked = false;
+			}
 		}
 		else
 		{
 			hover = false;
 		}
+		
 	}
 }
