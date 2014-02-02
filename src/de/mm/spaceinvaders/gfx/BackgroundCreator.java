@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class BackgroundCreator implements Drawable
 {
 
-	private int livingTimeMin = 100, livingTimeMax = 200, starsCount = 1000, minSize = 2, maxSize = 10;
+	private int livingTimeMin = 80, livingTimeMax = 300, starsCount = 1500, minSize = 2, maxSize = 10;
 	private List<Star> stars = new ArrayList<>();
 	private Random rand = new Random();
 
