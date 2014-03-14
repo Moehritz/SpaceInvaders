@@ -25,6 +25,8 @@ public class ControllablePlayer extends Player
 
 		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()), new Vector(mouseX, mouseY));
 
+		if (!Double.isNaN(newRotation)) setRotation(newRotation);
+		
 		ammoRegain++;
 		if (ammoRegain >= Ticker.tps && getAmmo() < Player.getMaxAmmo())
 		{
@@ -32,31 +34,48 @@ public class ControllablePlayer extends Player
 			setAmmo(getAmmo() + 1);
 		}
 
-		if (!Double.isNaN(newRotation)) setRotation(newRotation);
-
+		getSpeed().setX(getSpeed().getX() * 0.9);
+		getSpeed().setY(getSpeed().getY() * 0.9);
+		
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 		{
 			float before = getY();
-			setY((long) (before - ((10.0d / Ticker.tps) * delta)));
-			if (outOfBounds(2)) setY(before);
+			getSpeed().setY((int) (-(10.0d / Ticker.tps) * delta));
+			if (outOfBounds(2))
+			{
+				setY(before);
+				getSpeed().setY(0);
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A))
 		{
 			float before = getX();
-			setX((int) (before - ((10.0d / Ticker.tps) * delta)));
-			if (outOfBounds(3)) setX(before);
+			getSpeed().setX((int) (-(10.0d / Ticker.tps) * delta));
+			if (outOfBounds(3))
+			{
+				setX(before);
+				getSpeed().setX(0);
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S))
 		{
 			float before = getY();
-			setY((int) (before + ((10.0d / Ticker.tps) * delta)));
-			if (outOfBounds(0)) setY(before);
+			getSpeed().setY((int) ((10.0d / Ticker.tps) * delta));
+			if (outOfBounds(0))
+			{
+				setY(before);
+				getSpeed().setY(0);
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
 		{
 			float before = getX();
-			setX((int) (before + ((10.0d / Ticker.tps) * delta)));
-			if (outOfBounds(1)) setX(before);
+			getSpeed().setX((int) ((10.0d / Ticker.tps) * delta));
+			if (outOfBounds(1))
+			{
+				setX(before);
+				getSpeed().setX(0);
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 		{

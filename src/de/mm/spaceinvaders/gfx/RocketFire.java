@@ -41,7 +41,8 @@ public class RocketFire implements Drawable
 		for (SingleRocketFire fire : ended)
 			fires.remove(fire);
 		int spawns = 0;
-		while (fires.size() < count && spawns < maxSpawnsPerTick)
+		Vector playerSpeed = SpaceInvaders.getInstance().getThePlayer().getSpeed();
+		while (fires.size() < count && spawns < maxSpawnsPerTick && (playerSpeed.getX() != 0 || playerSpeed.getY() != 0))
 		{
 			newFire();
 			spawns++;
