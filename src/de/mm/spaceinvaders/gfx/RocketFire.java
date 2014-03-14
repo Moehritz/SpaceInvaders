@@ -3,12 +3,14 @@ package de.mm.spaceinvaders.gfx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.newdawn.slick.opengl.TextureImpl;
 
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.Util;
 import de.mm.spaceinvaders.Vector;
+
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glColor4f;
@@ -20,7 +22,7 @@ public class RocketFire implements Drawable
 
 	private int livingTimeMin = 30, livingTimeMax = 50, maxSpawnsPerTick = 4, count = 50, rotChangeMax = 50;
 	private float speed = 2f;
-	private volatile List<SingleRocketFire> fires = new ArrayList<>(count);
+	private ConcurrentLinkedQueue<SingleRocketFire> fires = new ConcurrentLinkedQueue<SingleRocketFire>();
 	private Random rand = new Random();
 
 	public void update()
