@@ -28,7 +28,7 @@ public class Entity implements Drawable
 	}
 
 	/**
-	 * NORTH = 0, EAST = 1, SOUTH = 2, WEST = 3
+	 * UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3
 	 */
 	public boolean outOfBounds(int side)
 	{
@@ -56,7 +56,7 @@ public class Entity implements Drawable
 	public boolean updatePosition()
 	{
 		boolean ret = true;
-		if (!outOfBounds(1) && !outOfBounds(3))
+		if ((!outOfBounds(1) && speed.getX() > 0) || (!outOfBounds(3) && speed.getX() < 0))
 		{
 			x += speed.getX();
 		}
@@ -64,7 +64,7 @@ public class Entity implements Drawable
 		{
 			ret = false;
 		}
-		if (!outOfBounds(0) && !outOfBounds(2))
+		if ((!outOfBounds(0) && speed.getY() > 0) || (!outOfBounds(2) && speed.getY() < 0))
 		{
 			y += speed.getY();
 		}
@@ -72,6 +72,9 @@ public class Entity implements Drawable
 		{
 			ret = false;
 		}
+		
+		if (speed.getX() < 0.01 && speed.getX() > -0.01) speed.setX(0);
+		if (speed.getY() < 0.01 && speed.getY() > -0.01) speed.setY(0);
 		return ret;
 	}
 
