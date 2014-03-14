@@ -17,7 +17,7 @@ public class Player extends Entity
 
 	private int ammo = maxAmmo;
 	private long lastShot;
-	
+
 	private RocketFire fire;
 
 	public Player(Texture texture)
@@ -37,14 +37,14 @@ public class Player extends Entity
 		setAmmo(ammo - 1);
 		SpaceInvaders.getInstance().launchBullet(this);
 	}
-	
+
 	@Override
 	public boolean updatePosition()
 	{
 		fire.update();
 		return super.updatePosition();
 	}
-	
+
 	@Override
 	public void draw()
 	{

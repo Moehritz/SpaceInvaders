@@ -8,18 +8,21 @@ public class ScoreManager
 	private int ticks;
 	private int currentScore = 0;
 	private int scorePerSecond = 1;
-	
-	public void addScore(int score) {
+
+	public void addScore(int score)
+	{
 		currentScore += score;
 		SpaceInvaders.getInstance().getIngameMenu().updateScore(currentScore);
 	}
-	
-	public void tick() {
+
+	public void tick()
+	{
 		ticks++;
-		if (ticks == Ticker.tps) {
+		if (ticks == Ticker.tps)
+		{
 			ticks = 0;
 			addScore(scorePerSecond);
 		}
 	}
-	
+
 }

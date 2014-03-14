@@ -18,8 +18,8 @@ public enum Textures
 	{
 		try
 		{
-			texture = TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/" + name + ".png"), GL11.GL_NEAREST);
+			texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/" + name + ".png"),
+					GL11.GL_NEAREST);
 		}
 		catch (IOException e)
 		{

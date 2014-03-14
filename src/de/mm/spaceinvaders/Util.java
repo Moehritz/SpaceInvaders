@@ -4,8 +4,7 @@ public class Util
 {
 	public static double calcRotationAngleInDegrees(Vector v1, Vector v2)
 	{
-		return Math
-				.toDegrees((Math.atan2(v2.getY() - v1.getY(), v2.getX() - v1.getX()) + (Math.PI * 2)));
+		return Math.toDegrees((Math.atan2(v2.getY() - v1.getY(), v2.getX() - v1.getX()) + (Math.PI * 2)));
 	}
 
 	public static Vector calcVectorFromDegrees(double alpha)

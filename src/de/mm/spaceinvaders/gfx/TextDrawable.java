@@ -4,5 +4,5 @@ public interface TextDrawable
 {
 
 	public void drawText();
-	
+
 }

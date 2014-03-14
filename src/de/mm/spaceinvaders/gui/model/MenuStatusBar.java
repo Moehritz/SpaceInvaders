@@ -30,14 +30,14 @@ public class MenuStatusBar extends MenuObject
 		border.setBorderRight(1);
 		border.setBorderDown(2);
 		border.setBorderUp(2);
-		
+
 	}
 
 	@Override
 	public void draw()
 	{
 		border.draw();
-		
+
 		glBegin(GL_QUADS);
 		int sizeX = (int) (getRect().getWidth() * percent / 100);
 

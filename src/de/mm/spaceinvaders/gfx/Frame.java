@@ -66,8 +66,7 @@ public class Frame
 
 	public static IntBuffer getHandMousePointer() throws MalformedURLException, URISyntaxException
 	{
-		Image c = Toolkit.getDefaultToolkit().getImage(
-				ResourceLoader.getResource("res/cursor.png").toURI().toURL());
+		Image c = Toolkit.getDefaultToolkit().getImage(ResourceLoader.getResource("res/cursor.png").toURI().toURL());
 		BufferedImage biCursor = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 		while (!biCursor.createGraphics().drawImage(c, 0, 15, 15, 0, 0, 0, 15, 15, null))
 			try
