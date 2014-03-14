@@ -19,9 +19,9 @@ import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gui.model.Menu;
+import de.mm.spaceinvaders.gui.model.MenuObject;
 import de.mm.spaceinvaders.logic.Entity;
-import de.mm.spaceinvaders.menu.Menu;
-import de.mm.spaceinvaders.menu.MenuObject;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Frame

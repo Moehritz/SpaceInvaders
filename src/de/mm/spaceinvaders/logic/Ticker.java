@@ -45,6 +45,7 @@ public class Ticker extends TimerTask
 		}
 		SpaceInvaders.getInstance().getEntities().removeAll(toRemove);
 		SpaceInvaders.getInstance().spawn();
+		SpaceInvaders.getInstance().getScoreManager().tick();
 	}
 
 }

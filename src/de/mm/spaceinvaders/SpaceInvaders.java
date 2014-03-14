@@ -11,16 +11,18 @@ import org.lwjgl.LWJGLException;
 
 import de.mm.spaceinvaders.gfx.Frame;
 import de.mm.spaceinvaders.gfx.Textures;
+import de.mm.spaceinvaders.gui.IngameGui;
+import de.mm.spaceinvaders.gui.MainMenu;
 import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
+import de.mm.spaceinvaders.logic.ScoreManager;
 import de.mm.spaceinvaders.logic.Ticker;
-import de.mm.spaceinvaders.menu.MainMenu;
 
 @Getter
 public class SpaceInvaders
 {
-	
+
 	@Getter
 	private static SpaceInvaders instance;
 
@@ -40,8 +42,12 @@ public class SpaceInvaders
 	private Frame frame;
 	private List<Entity> entities, outstandingSpawns;
 	private Ticker ticker;
+	private ScoreManager scoreManager;
 	@Setter
 	private boolean gameActive;
+	private MainMenu mainMenu = new MainMenu();
+	private IngameGui ingameMenu = new IngameGui();
+	private ControllablePlayer thePlayer;
 
 	private void start() throws IOException
 	{
@@ -59,7 +65,7 @@ public class SpaceInvaders
 			e.printStackTrace();
 		}
 		frame.setMenu(new MainMenu());
-		
+
 		ticker = new Ticker();
 
 		frame.run();
@@ -98,12 +104,18 @@ public class SpaceInvaders
 
 	public void startNewGame()
 	{
-		frame.setMenu(null);
-		ticker.start();
+		frame.setMenu(ingameMenu);
+		scoreManager = new ScoreManager();
 
 		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
-		
+
 		outstandingSpawns.add(player);
+
+		thePlayer = player;
+
+		ticker.start();
+
+		ingameMenu.updateScore(0);
 
 	}
 

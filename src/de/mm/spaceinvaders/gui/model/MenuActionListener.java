@@ -1,4 +1,4 @@
-package de.mm.spaceinvaders.menu;
+package de.mm.spaceinvaders.gui.model;
 
 public interface MenuActionListener
 {

@@ -1,10 +1,14 @@
-package de.mm.spaceinvaders.menu;
+package de.mm.spaceinvaders.gui;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 
 import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gui.model.Menu;
+import de.mm.spaceinvaders.gui.model.MenuActionListener;
+import de.mm.spaceinvaders.gui.model.MenuButton;
+import de.mm.spaceinvaders.gui.model.MenuText;
 
 public class MainMenu extends Menu
 {
@@ -39,7 +43,6 @@ public class MainMenu extends Menu
 			@Override
 			public void onHover()
 			{
-
 			}
 
 			@Override

@@ -1,4 +1,4 @@
-package de.mm.spaceinvaders.menu;
+package de.mm.spaceinvaders.gui.model;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;

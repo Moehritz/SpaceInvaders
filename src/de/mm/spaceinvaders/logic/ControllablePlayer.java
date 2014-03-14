@@ -11,6 +11,8 @@ import de.mm.spaceinvaders.Vector;
 public class ControllablePlayer extends Player
 {
 
+	private int ammoRegain = 0;
+
 	public ControllablePlayer(Texture texture)
 	{
 		super(texture);
@@ -21,8 +23,14 @@ public class ControllablePlayer extends Player
 		int mouseX = Mouse.getX();
 		int mouseY = Display.getHeight() - Mouse.getY();
 
-		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()),
-				new Vector(mouseX, mouseY));
+		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()), new Vector(mouseX, mouseY));
+
+		ammoRegain++;
+		if (ammoRegain >= Ticker.tps && getAmmo() < Player.getMaxAmmo())
+		{
+			ammoRegain = 0;
+			setAmmo(getAmmo() + 1);
+		}
 
 		if (!Double.isNaN(newRotation)) setRotation(newRotation);
 
