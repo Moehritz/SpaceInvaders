@@ -37,48 +37,30 @@ public class ControllablePlayer extends Player
 		getSpeed().setX(getSpeed().getX() * 0.9);
 		getSpeed().setY(getSpeed().getY() * 0.9);
 		
-		Vector direction = Util.calcVectorFromDegrees(newRotation).normalize().multiply(1.0d); // Fly speed
+		double flySpeed = 10.0d;
+		
+		Vector direction = Util.calcVectorFromDegrees(newRotation).normalize().multiply(flySpeed);
+		Vector directionVertical = Util.calcVectorFromDegrees(newRotation + 90).normalize().multiply(flySpeed);
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 		{
-			float before = getY();
 			getSpeed().setX((int) ((direction.getX() / Ticker.tps) * delta));
-			getSpeed().setY((int) (-(direction.getY() / Ticker.tps) * delta));
-			if (outOfBounds(2))
-			{
-				setY(before);
-				getSpeed().setY(0);
-			}
+			getSpeed().setY((int) ((direction.getY() / Ticker.tps) * delta));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A))
 		{
-			float before = getX();
-			getSpeed().setX((int) (-(10.0d / Ticker.tps) * delta));
-			if (outOfBounds(3))
-			{
-				setX(before);
-				getSpeed().setX(0);
-			}
+			getSpeed().setX((int) ((directionVertical.getX() / Ticker.tps) * delta));
+			getSpeed().setY((int) ((directionVertical.getY() / Ticker.tps) * delta));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S))
 		{
-			float before = getY();
-			getSpeed().setY((int) ((10.0d / Ticker.tps) * delta));
-			if (outOfBounds(0))
-			{
-				setY(before);
-				getSpeed().setY(0);
-			}
+			getSpeed().setX((int) (-(direction.getX() / Ticker.tps) * delta));
+			getSpeed().setY((int) (-(direction.getY() / Ticker.tps) * delta));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
 		{
-			float before = getX();
-			getSpeed().setX((int) ((10.0d / Ticker.tps) * delta));
-			if (outOfBounds(1))
-			{
-				setX(before);
-				getSpeed().setX(0);
-			}
+			getSpeed().setX((int) (-(directionVertical.getX() / Ticker.tps) * delta));
+			getSpeed().setY((int) (-(directionVertical.getY() / Ticker.tps) * delta));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 		{
