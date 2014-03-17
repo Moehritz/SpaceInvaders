@@ -37,10 +37,13 @@ public class ControllablePlayer extends Player
 		getSpeed().setX(getSpeed().getX() * 0.9);
 		getSpeed().setY(getSpeed().getY() * 0.9);
 		
+		Vector direction = Util.calcVectorFromDegrees(newRotation).normalize().multiply(1.0d); // Fly speed
+		
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 		{
 			float before = getY();
-			getSpeed().setY((int) (-(10.0d / Ticker.tps) * delta));
+			getSpeed().setX((int) ((direction.getX() / Ticker.tps) * delta));
+			getSpeed().setY((int) (-(direction.getY() / Ticker.tps) * delta));
 			if (outOfBounds(2))
 			{
 				setY(before);
