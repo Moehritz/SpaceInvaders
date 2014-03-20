@@ -72,7 +72,7 @@ public class Entity implements Drawable
 		{
 			ret = false;
 		}
-		
+
 		if (speed.getX() < 0.01 && speed.getX() > -0.01) speed.setX(0);
 		if (speed.getY() < 0.01 && speed.getY() > -0.01) speed.setY(0);
 		return ret;
@@ -82,11 +82,13 @@ public class Entity implements Drawable
 	public void draw()
 	{
 		float rx = x, ry = y;
-		double rrot = rotation;
 		texture.bind();
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glTranslated(rx, ry, 0);
-		glRotated(rrot, 0, 0, 1);
+		if (!Double.isNaN(rotation))
+		{
+			glRotated(rotation, 0, 0, 1);
+		}
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2f(0.0f, 0.0f);
@@ -99,7 +101,10 @@ public class Entity implements Drawable
 			glVertex2f(-width / 2, height / 2);
 		}
 		glEnd();
-		glRotated(-rrot, 0, 0, 1);
+		if (!Double.isNaN(rotation))
+		{
+			glRotated(-rotation, 0, 0, 1);
+		}
 		glTranslated(-rx, -ry, 0);
 		TextureImpl.bindNone();
 	}

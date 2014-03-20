@@ -15,6 +15,7 @@ import de.mm.spaceinvaders.gui.IngameGui;
 import de.mm.spaceinvaders.gui.MainMenu;
 import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
+import de.mm.spaceinvaders.logic.Enemy;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.ScoreManager;
 import de.mm.spaceinvaders.logic.Ticker;
@@ -91,6 +92,13 @@ public class SpaceInvaders
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public void spawnEnemy()
+	{
+		// TODO Gegnertextur
+		Enemy e = new Enemy(Textures.PLAYER.getTexture());
+		outstandingSpawns.add(e);
 	}
 
 	public void spawn()
