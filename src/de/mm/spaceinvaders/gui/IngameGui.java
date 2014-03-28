@@ -17,6 +17,8 @@ public class IngameGui extends Menu
 	@Override
 	public void init()
 	{
+		super.init();
+		
 		score = new MenuText(new Rectangle(7, 13, 200, 10), "Bitte warten...", 25.0f, Color.white);
 		score.setAlignment(TextAlignment.LEFT);
 		addObject(score);
@@ -25,6 +27,8 @@ public class IngameGui extends Menu
 		statusBar.setPercent(100);
 		statusBar.setRight(true);
 		addObject(statusBar);
+		
+		updateScore(0);
 	}
 
 	public void updateScore(int newScore)

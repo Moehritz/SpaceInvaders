@@ -84,8 +84,10 @@ public class Frame
 
 	public void setMenu(Menu menu)
 	{
-		if (menu != null) menu.init();
-		currentMenu = menu;
+		if (menu != null)
+		{
+			currentMenu = menu;
+		}
 	}
 
 	public void run()
@@ -94,8 +96,8 @@ public class Frame
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			StarBackground bg = SpaceInvaders.getInstance().getWorld().getBackground();
-			
+			StarBackground bg = SpaceInvaders.getInstance().getCurrLevel().getBackground();
+
 			bg.update();
 			bg.draw();
 
@@ -120,7 +122,12 @@ public class Frame
 
 	public void draw()
 	{
-		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getEntities());
+		if (!currentMenu.isInitialized())
+		{
+			currentMenu.init();
+		}
+
+		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getCurrLevel().getEntities());
 		for (Entity e : allEntities)
 		{
 			if (e != null)

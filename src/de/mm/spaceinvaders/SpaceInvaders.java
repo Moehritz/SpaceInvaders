@@ -2,6 +2,7 @@ package de.mm.spaceinvaders;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import lombok.Getter;
@@ -12,13 +13,10 @@ import de.mm.spaceinvaders.gfx.Frame;
 import de.mm.spaceinvaders.gfx.Textures;
 import de.mm.spaceinvaders.gui.IngameGui;
 import de.mm.spaceinvaders.gui.MainMenu;
-import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
-import de.mm.spaceinvaders.logic.Enemy;
-import de.mm.spaceinvaders.logic.Entity;
-import de.mm.spaceinvaders.logic.ScoreManager;
+import de.mm.spaceinvaders.logic.Level;
 import de.mm.spaceinvaders.logic.Ticker;
-import de.mm.spaceinvaders.logic.World;
+import de.mm.spaceinvaders.logic.levels.*;
 
 @Getter
 public class SpaceInvaders
@@ -41,18 +39,25 @@ public class SpaceInvaders
 	}
 
 	private Frame frame;
-	private List<Entity> entities, outstandingSpawns;
 	private Ticker ticker;
-	private ScoreManager scoreManager;
-	private World world;
 	private MainMenu mainMenu = new MainMenu();
 	private IngameGui ingameMenu = new IngameGui();
 	private ControllablePlayer thePlayer;
+	private Level currLevel;
+	private List<Class<? extends Level>> levels;
+	private Iterator<Class<? extends Level>> levelIterator;
 
 	private void start() throws IOException
 	{
-		entities = new ArrayList<>();
-		outstandingSpawns = new ArrayList<>();
+		levels = new ArrayList<Class<? extends Level>>();
+
+		levels.add(Level01.class);
+		levels.add(Level02.class);
+		levels.add(Level03.class);
+		levels.add(Level04.class);
+		// TODO More levels ;)
+
+		levelIterator = levels.iterator();
 
 		frame = new Frame();
 		try
@@ -65,8 +70,8 @@ public class SpaceInvaders
 		}
 		frame.setMenu(new MainMenu());
 
-		world = new World();
-		
+		currLevel = new MenuLevel();
+
 		ticker = new Ticker();
 
 		frame.run();
@@ -75,58 +80,47 @@ public class SpaceInvaders
 	public void stop()
 	{
 		ticker.stop();
-	}
+		
+		frame.setMenu(new MainMenu());
 
-	public void launchBullet(Entity entity)
-	{
-		try
-		{
-			Bullet bullet = new Bullet(Textures.BULLET.getTexture(), entity);
-			bullet.setRotation(entity.getRotation());
-			bullet.setX(entity.getX());
-			bullet.setY(entity.getY());
-			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(8.0f));
-			outstandingSpawns.add(bullet);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void spawnEnemy()
-	{
-		// TODO Gegnertextur
-		Enemy e = new Enemy(Textures.PLAYER.getTexture());
-		outstandingSpawns.add(e);
-	}
-
-	public void spawn()
-	{
-		for (Entity e : outstandingSpawns)
-		{
-			getEntities().add(e);
-		}
-		outstandingSpawns.clear();
+		currLevel = new MenuLevel();
 	}
 
 	public void startNewGame()
 	{
-		world.setSpeed(0.1f);
-		
 		frame.setMenu(ingameMenu);
-		scoreManager = new ScoreManager();
+
+		levelIterator = levels.iterator();
+
+		nextLevel();
+
+		ticker.start();
+	}
+
+	public void nextLevel()
+	{
+		try
+		{
+			if (levelIterator.hasNext())
+			{
+				currLevel = levelIterator.next().newInstance();
+			}
+			else
+			{
+				stop();
+			}
+		}
+		catch (InstantiationException | IllegalAccessException e)
+		{
+			System.err.println("Please send this to the author");
+			e.printStackTrace();
+		}
 
 		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
 
-		outstandingSpawns.add(player);
+		currLevel.getOutstandingSpawns().add(player);
 
 		thePlayer = player;
-
-		ticker.start();
-
-		ingameMenu.updateScore(0);
-
 	}
 
 }

@@ -7,10 +7,11 @@ import de.mm.spaceinvaders.gfx.Drawable;
 import de.mm.spaceinvaders.gfx.TextDrawable;
 import lombok.Getter;
 
+@Getter
 public class Menu implements Drawable
 {
 
-	@Getter
+	private boolean initialized;
 	private List<MenuObject> objects = new ArrayList<>();
 
 	@Override
@@ -34,6 +35,7 @@ public class Menu implements Drawable
 
 	public void init()
 	{
+		this.initialized = true;
 	}
 
 }

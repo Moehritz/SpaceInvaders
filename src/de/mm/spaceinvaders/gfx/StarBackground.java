@@ -6,7 +6,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.Display;
 
-import de.mm.spaceinvaders.logic.World;
+import de.mm.spaceinvaders.logic.Level;
 import static org.lwjgl.opengl.GL11.*;
 
 public class StarBackground implements Drawable
@@ -15,9 +15,9 @@ public class StarBackground implements Drawable
 	private int livingTimeMin = 80, livingTimeMax = 300, starsCount = 1000, minSize = 2, maxSize = 10;
 	private List<Star> stars = new ArrayList<>();
 	private Random rand = new Random();
-	private World world;
+	private Level world;
 
-	public StarBackground(World world)
+	public StarBackground(Level world)
 	{
 		this.world = world;
 	}

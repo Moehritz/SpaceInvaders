@@ -16,6 +16,8 @@ public class MainMenu extends Menu
 	@Override
 	public void init()
 	{
+		super.init();
+		
 		addObject(new MenuText(new Rectangle(40, 40, Display.getWidth() - 80, 80), "SPACE INVERSION", 30, Color.green));
 		MenuButton button = new MenuButton(new Rectangle(160, 270, Display.getWidth() - 320, 50), "Start Game", 25);
 		button.setListener(new MenuActionListener()
