@@ -33,7 +33,7 @@ public class StarBackground implements Drawable
 				ended.add(star);
 			}
 			star.x -= world.getSpeed();
-			if (star.x <= 0)
+			if (star.x <= 0 || star.x >= Display.getWidth())
 			{
 				ended.add(star);
 			}
