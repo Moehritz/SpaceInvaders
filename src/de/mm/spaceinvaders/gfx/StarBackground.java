@@ -6,14 +6,21 @@ import java.util.Random;
 
 import org.lwjgl.opengl.Display;
 
+import de.mm.spaceinvaders.logic.World;
 import static org.lwjgl.opengl.GL11.*;
 
-public class BackgroundCreator implements Drawable
+public class StarBackground implements Drawable
 {
 
 	private int livingTimeMin = 80, livingTimeMax = 300, starsCount = 1000, minSize = 2, maxSize = 10;
 	private List<Star> stars = new ArrayList<>();
 	private Random rand = new Random();
+	private World world;
+
+	public StarBackground(World world)
+	{
+		this.world = world;
+	}
 
 	public void update()
 	{
@@ -21,7 +28,15 @@ public class BackgroundCreator implements Drawable
 		for (Star star : stars)
 		{
 			star.timeToLive--;
-			if (star.timeToLive <= 0) ended.add(star);
+			if (star.timeToLive <= 0)
+			{
+				ended.add(star);
+			}
+			star.x -= world.getSpeed();
+			if (star.x <= 0)
+			{
+				ended.add(star);
+			}
 		}
 		for (Star star : ended)
 			stars.remove(star);
@@ -46,8 +61,8 @@ public class BackgroundCreator implements Drawable
 		for (Star star : stars)
 		{
 			float opacity = star.getOpacity();
-			int x = star.x;
-			int y = star.y;
+			float x = star.x;
+			float y = star.y;
 			drawPixel(x, y, opacity, star.size);
 			drawPixel(x + 1, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), star.size);
 			drawPixel(x - 1, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), star.size);
@@ -56,7 +71,7 @@ public class BackgroundCreator implements Drawable
 		}
 	}
 
-	private void drawPixel(int x, int y, float opacity, int size)
+	private void drawPixel(float x, float y, float opacity, float size)
 	{
 		if (opacity == 0) return;
 		float sizePerPixel = size / 2;
@@ -74,7 +89,7 @@ public class BackgroundCreator implements Drawable
 
 	private class Star
 	{
-		private Star(int x, int y, long start, int size)
+		private Star(float x, float y, long start, float size)
 		{
 			this.x = x;
 			this.y = y;
@@ -83,7 +98,7 @@ public class BackgroundCreator implements Drawable
 			this.size = size;
 		}
 
-		private int x, y, size;
+		private float x, y, size;
 		private long timeToLive, start;
 
 		private float getOpacity()

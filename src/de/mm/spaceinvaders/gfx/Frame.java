@@ -31,8 +31,6 @@ public class Frame
 
 	private boolean exit = false;
 
-	private BackgroundCreator background;
-
 	private Menu currentMenu;
 
 	public void init() throws LWJGLException
@@ -58,8 +56,6 @@ public class Frame
 		{
 			e.printStackTrace();
 		}
-
-		background = new BackgroundCreator();
 
 		MenuObject.initFont();
 	}
@@ -98,8 +94,10 @@ public class Frame
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			background.update();
-			background.draw();
+			StarBackground bg = SpaceInvaders.getInstance().getWorld().getBackground();
+			
+			bg.update();
+			bg.draw();
 
 			if (currentMenu != null)
 			{

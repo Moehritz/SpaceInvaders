@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import org.lwjgl.LWJGLException;
 
@@ -19,6 +18,7 @@ import de.mm.spaceinvaders.logic.Enemy;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.ScoreManager;
 import de.mm.spaceinvaders.logic.Ticker;
+import de.mm.spaceinvaders.logic.World;
 
 @Getter
 public class SpaceInvaders
@@ -44,15 +44,13 @@ public class SpaceInvaders
 	private List<Entity> entities, outstandingSpawns;
 	private Ticker ticker;
 	private ScoreManager scoreManager;
-	@Setter
-	private boolean gameActive;
+	private World world;
 	private MainMenu mainMenu = new MainMenu();
 	private IngameGui ingameMenu = new IngameGui();
 	private ControllablePlayer thePlayer;
 
 	private void start() throws IOException
 	{
-		gameActive = false;
 		entities = new ArrayList<>();
 		outstandingSpawns = new ArrayList<>();
 
@@ -67,6 +65,8 @@ public class SpaceInvaders
 		}
 		frame.setMenu(new MainMenu());
 
+		world = new World();
+		
 		ticker = new Ticker();
 
 		frame.run();
@@ -112,6 +112,8 @@ public class SpaceInvaders
 
 	public void startNewGame()
 	{
+		world.setSpeed(0.1f);
+		
 		frame.setMenu(ingameMenu);
 		scoreManager = new ScoreManager();
 
