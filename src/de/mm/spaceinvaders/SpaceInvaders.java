@@ -2,7 +2,6 @@ package de.mm.spaceinvaders;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import lombok.Getter;
@@ -10,13 +9,15 @@ import lombok.Getter;
 import org.lwjgl.LWJGLException;
 
 import de.mm.spaceinvaders.gfx.Frame;
+import de.mm.spaceinvaders.gfx.StarBackground;
 import de.mm.spaceinvaders.gfx.Textures;
 import de.mm.spaceinvaders.gui.IngameGui;
 import de.mm.spaceinvaders.gui.MainMenu;
+import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
-import de.mm.spaceinvaders.logic.Level;
+import de.mm.spaceinvaders.logic.Entity;
+import de.mm.spaceinvaders.logic.ScoreManager;
 import de.mm.spaceinvaders.logic.Ticker;
-import de.mm.spaceinvaders.logic.levels.*;
 
 @Getter
 public class SpaceInvaders
@@ -43,22 +44,13 @@ public class SpaceInvaders
 	private MainMenu mainMenu = new MainMenu();
 	private IngameGui ingameMenu = new IngameGui();
 	private ControllablePlayer thePlayer;
-	private Level currLevel;
-	private List<Class<? extends Level>> levels;
-	private Iterator<Class<? extends Level>> levelIterator;
+	private StarBackground background = new StarBackground();
+	private List<Entity> entities = new ArrayList<>();
+	private List<Entity> outstandingSpawns = new ArrayList<>();
+	private ScoreManager scoreManager;
 
 	private void start() throws IOException
 	{
-		levels = new ArrayList<Class<? extends Level>>();
-
-		levels.add(Level01.class);
-		levels.add(Level02.class);
-		levels.add(Level03.class);
-		levels.add(Level04.class);
-		// TODO More levels ;)
-
-		levelIterator = levels.iterator();
-
 		frame = new Frame();
 		try
 		{
@@ -70,8 +62,6 @@ public class SpaceInvaders
 		}
 		frame.setMenu(new MainMenu());
 
-		currLevel = new MenuLevel();
-
 		ticker = new Ticker();
 
 		frame.run();
@@ -80,47 +70,49 @@ public class SpaceInvaders
 	public void stop()
 	{
 		ticker.stop();
-		
-		frame.setMenu(new MainMenu());
 
-		currLevel = new MenuLevel();
+		frame.setMenu(new MainMenu());
 	}
 
 	public void startNewGame()
 	{
 		frame.setMenu(ingameMenu);
 
-		levelIterator = levels.iterator();
+		scoreManager = new ScoreManager();
 
-		nextLevel();
+		background.setSpeed(0f);
+
+		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture());
+
+		outstandingSpawns.add(thePlayer);
 
 		ticker.start();
 	}
 
-	public void nextLevel()
+	public void launchBullet()
 	{
 		try
 		{
-			if (levelIterator.hasNext())
-			{
-				currLevel = levelIterator.next().newInstance();
-			}
-			else
-			{
-				stop();
-			}
+			Bullet bullet = new Bullet(Textures.BULLET.getTexture());
+			bullet.setRotation(thePlayer.getRotation());
+			bullet.setX(thePlayer.getX());
+			bullet.setY(thePlayer.getY());
+			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(8.0f));
+			outstandingSpawns.add(bullet);
+
 		}
-		catch (InstantiationException | IllegalAccessException e)
+		catch (IOException e)
 		{
-			System.err.println("Please send this to the author");
 			e.printStackTrace();
 		}
-
-		ControllablePlayer player = new ControllablePlayer(Textures.PLAYER.getTexture());
-
-		currLevel.getOutstandingSpawns().add(player);
-
-		thePlayer = player;
 	}
 
+	public void spawn()
+	{
+		for (Entity e : outstandingSpawns)
+		{
+			entities.add(e);
+		}
+		outstandingSpawns.clear();
+	}
 }

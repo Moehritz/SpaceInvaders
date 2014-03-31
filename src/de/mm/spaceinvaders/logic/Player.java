@@ -35,7 +35,7 @@ public class Player extends Entity
 	public void shoot()
 	{
 		setAmmo(ammo - 1);
-		SpaceInvaders.getInstance().getCurrLevel().launchBullet(this);
+		SpaceInvaders.getInstance().launchBullet();
 	}
 
 	@Override

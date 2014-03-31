@@ -96,7 +96,7 @@ public class Frame
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			StarBackground bg = SpaceInvaders.getInstance().getCurrLevel().getBackground();
+			StarBackground bg = SpaceInvaders.getInstance().getBackground();
 
 			bg.update();
 			bg.draw();
@@ -127,7 +127,7 @@ public class Frame
 			currentMenu.init();
 		}
 
-		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getCurrLevel().getEntities());
+		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getEntities());
 		for (Entity e : allEntities)
 		{
 			if (e != null)

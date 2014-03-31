@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.lwjgl.opengl.Display;
 
-import de.mm.spaceinvaders.logic.Level;
 import static org.lwjgl.opengl.GL11.*;
 
 public class StarBackground implements Drawable
@@ -15,11 +17,12 @@ public class StarBackground implements Drawable
 	private int livingTimeMin = 80, livingTimeMax = 300, starsCount = 1000, minSize = 2, maxSize = 10;
 	private List<Star> stars = new ArrayList<>();
 	private Random rand = new Random();
-	private Level world;
+	@Getter
+	@Setter
+	private float speed;
 
-	public StarBackground(Level world)
+	public StarBackground()
 	{
-		this.world = world;
 	}
 
 	public void update()
@@ -32,7 +35,7 @@ public class StarBackground implements Drawable
 			{
 				ended.add(star);
 			}
-			star.x -= world.getSpeed();
+			star.x -= speed;
 			if (star.x <= 0 || star.x >= Display.getWidth())
 			{
 				ended.add(star);

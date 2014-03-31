@@ -9,15 +9,9 @@ public class Bullet extends Entity
 
 	private Entity sender;
 
-	private Bullet(Texture texture) throws IOException
+	public Bullet(Texture texture) throws IOException
 	{
 		super(texture);
-	}
-
-	public Bullet(Texture texture, Entity sender) throws IOException
-	{
-		this(texture);
-		this.sender = sender;
 	}
 
 	public Entity getSender()
