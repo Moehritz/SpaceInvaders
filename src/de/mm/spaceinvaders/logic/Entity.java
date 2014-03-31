@@ -53,12 +53,12 @@ public class Entity implements Drawable
 		height = texture.getImageHeight() * 3;
 	}
 
-	public boolean updatePosition()
+	public boolean updatePosition(long delta)
 	{
 		boolean ret = true;
 		if ((!outOfBounds(1) && speed.getX() > 0) || (!outOfBounds(3) && speed.getX() < 0))
 		{
-			x += speed.getX();
+			x += speed.getX() * (double) delta;
 		}
 		else
 		{
@@ -66,7 +66,7 @@ public class Entity implements Drawable
 		}
 		if ((!outOfBounds(0) && speed.getY() > 0) || (!outOfBounds(2) && speed.getY() < 0))
 		{
-			y += speed.getY();
+			y += speed.getY() * (double) delta;
 		}
 		else
 		{
@@ -83,6 +83,7 @@ public class Entity implements Drawable
 	{
 		float rx = x, ry = y;
 		texture.bind();
+		double rotation = this.rotation;
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glTranslated(rx, ry, 0);
 		if (!Double.isNaN(rotation))

@@ -5,15 +5,17 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.lwjgl.Sys;
+
 import de.mm.spaceinvaders.SpaceInvaders;
 
 public class Ticker extends TimerTask
 {
 
-	public static int tps = 50;
+	public static int tps = 500;
 
 	private Timer timer;
-	private long last = System.currentTimeMillis();
+	private long last = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
 	public void start()
 	{
@@ -29,7 +31,7 @@ public class Ticker extends TimerTask
 	@Override
 	public void run()
 	{
-		long thisFrame = System.currentTimeMillis();
+		long thisFrame = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 		long delta = thisFrame - last;
 		last = thisFrame;
 		List<Entity> toRemove = new ArrayList<>();
@@ -37,7 +39,7 @@ public class Ticker extends TimerTask
 		for (Entity e : allEntities)
 		{
 			if (e instanceof ControllablePlayer) ((ControllablePlayer) e).handleInput(delta);
-			boolean out = e.updatePosition();
+			boolean out = e.updatePosition(delta);
 			if (!out && e instanceof Bullet)
 			{
 				toRemove.add(e);

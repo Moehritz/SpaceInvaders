@@ -116,7 +116,7 @@ public class Frame
 
 			Display.update();
 		}
-		SpaceInvaders.getInstance().stop();
+		SpaceInvaders.getInstance().toMainMenu();
 		Display.destroy();
 	}
 
@@ -130,12 +130,9 @@ public class Frame
 		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getEntities());
 		for (Entity e : allEntities)
 		{
-			if (e != null)
+			if (e.isVisible())
 			{
-				if (e.isVisible())
-				{
-					e.draw();
-				}
+				e.draw();
 			}
 		}
 	}

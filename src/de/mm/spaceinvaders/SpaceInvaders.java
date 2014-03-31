@@ -67,7 +67,7 @@ public class SpaceInvaders
 		frame.run();
 	}
 
-	public void stop()
+	public void toMainMenu()
 	{
 		ticker.stop();
 
@@ -97,7 +97,7 @@ public class SpaceInvaders
 			bullet.setRotation(thePlayer.getRotation());
 			bullet.setX(thePlayer.getX());
 			bullet.setY(thePlayer.getY());
-			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).multiply(8.0f));
+			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).normalize().multiply(0.6f));
 			outstandingSpawns.add(bullet);
 
 		}

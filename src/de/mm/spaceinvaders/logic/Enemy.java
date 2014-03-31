@@ -18,10 +18,10 @@ public class Enemy extends Entity
 	}
 
 	@Override
-	public boolean updatePosition()
+	public boolean updatePosition(long delta)
 	{
 		updateDirection();
-		return super.updatePosition();
+		return super.updatePosition(delta);
 	}
 
 	private void updateDirection()

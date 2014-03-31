@@ -28,9 +28,9 @@ public class MenuTextField extends MenuObject
 	}
 
 	@Override
-	public void draw()
+	public void update()
 	{
-		border.draw();
+		super.update();
 
 		while (Keyboard.next())
 		{
@@ -57,8 +57,13 @@ public class MenuTextField extends MenuObject
 			}
 		}
 		textContainer.setText(text.toString());
+	}
+
+	@Override
+	public void draw()
+	{
+		border.draw();
 
 		textContainer.drawText();
-
 	}
 }

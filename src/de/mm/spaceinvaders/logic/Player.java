@@ -13,7 +13,7 @@ import de.mm.spaceinvaders.gfx.RocketFire;
 public class Player extends Entity
 {
 	@Getter
-	private static final int shotCooldown = 100, maxAmmo = 100;
+	private static final int shotCooldown = 100, maxAmmo = 50;
 
 	private int ammo = maxAmmo;
 	private long lastShot;
@@ -39,15 +39,15 @@ public class Player extends Entity
 	}
 
 	@Override
-	public boolean updatePosition()
+	public boolean updatePosition(long delta)
 	{
-		fire.update();
-		return super.updatePosition();
+		return super.updatePosition(delta);
 	}
 
 	@Override
 	public void draw()
 	{
+		fire.update();
 		fire.draw();
 		super.draw();
 	}

@@ -26,9 +26,9 @@ public class ControllablePlayer extends Player
 		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()), new Vector(mouseX, mouseY));
 
 		if (!Double.isNaN(newRotation)) setRotation(newRotation);
-		
+
 		ammoRegain++;
-		if (ammoRegain >= Ticker.tps && getAmmo() < Player.getMaxAmmo())
+		if (ammoRegain >= Ticker.tps / 3 && getAmmo() < Player.getMaxAmmo())
 		{
 			ammoRegain = 0;
 			setAmmo(getAmmo() + 1);
@@ -36,31 +36,27 @@ public class ControllablePlayer extends Player
 
 		getSpeed().setX(getSpeed().getX() * 0.9);
 		getSpeed().setY(getSpeed().getY() * 0.9);
-		
-		double flySpeed = 10.0d;
-		
+
+		double flySpeed = 0.3f;
+
 		Vector direction = Util.calcVectorFromDegrees(newRotation).normalize().multiply(flySpeed);
 		Vector directionVertical = Util.calcVectorFromDegrees(newRotation + 90).normalize().multiply(flySpeed);
-		
+
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 		{
-			getSpeed().setX((int) ((direction.getX() / Ticker.tps) * delta));
-			getSpeed().setY((int) ((direction.getY() / Ticker.tps) * delta));
+			setSpeed(direction);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A))
 		{
-			getSpeed().setX((int) ((directionVertical.getX() / Ticker.tps) * delta));
-			getSpeed().setY((int) ((directionVertical.getY() / Ticker.tps) * delta));
+			setSpeed(directionVertical);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S))
 		{
-			getSpeed().setX((int) (-(direction.getX() / Ticker.tps) * delta));
-			getSpeed().setY((int) (-(direction.getY() / Ticker.tps) * delta));
+			setSpeed(direction.multiply(-1));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
 		{
-			getSpeed().setX((int) (-(directionVertical.getX() / Ticker.tps) * delta));
-			getSpeed().setY((int) (-(directionVertical.getY() / Ticker.tps) * delta));
+			setSpeed(directionVertical.multiply(-1));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 		{
