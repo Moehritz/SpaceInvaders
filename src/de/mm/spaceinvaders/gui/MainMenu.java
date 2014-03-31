@@ -9,6 +9,7 @@ import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
 import de.mm.spaceinvaders.gui.model.MenuText;
+import de.mm.spaceinvaders.gui.model.MenuTextField;
 
 public class MainMenu extends Menu
 {
@@ -19,7 +20,8 @@ public class MainMenu extends Menu
 		super.init();
 		
 		addObject(new MenuText(new Rectangle(40, 40, Display.getWidth() - 80, 80), "SPACE INVERSION", 30, Color.green));
-		MenuButton button = new MenuButton(new Rectangle(160, 270, Display.getWidth() - 320, 50), "Start Game", 25);
+		addObject(new MenuTextField(new Rectangle(160, 400, Display.getWidth() - 320, 50)));
+		MenuButton button = new MenuButton(new Rectangle(160, 270, Display.getWidth() - 320, 50), "Verbinden!", 25);
 		button.setListener(new MenuActionListener()
 		{
 
