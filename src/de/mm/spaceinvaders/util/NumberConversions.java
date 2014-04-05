@@ -1,4 +1,4 @@
-package de.mm.spaceinvaders;
+package de.mm.spaceinvaders.util;
 
 /**
  * Utils for casting number types to other number types

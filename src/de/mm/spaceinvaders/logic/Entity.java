@@ -7,8 +7,8 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 
-import de.mm.spaceinvaders.Vector;
 import de.mm.spaceinvaders.gfx.Drawable;
+import de.mm.spaceinvaders.util.Vector;
 import static org.lwjgl.opengl.GL11.*;
 
 @Getter

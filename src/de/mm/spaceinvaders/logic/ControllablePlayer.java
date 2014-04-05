@@ -5,8 +5,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 
-import de.mm.spaceinvaders.Util;
-import de.mm.spaceinvaders.Vector;
+import de.mm.spaceinvaders.util.Util;
+import de.mm.spaceinvaders.util.Vector;
 
 public class ControllablePlayer extends Player
 {

@@ -1,4 +1,4 @@
-package de.mm.spaceinvaders;
+package de.mm.spaceinvaders.util;
 
 import lombok.Getter;
 import lombok.Setter;

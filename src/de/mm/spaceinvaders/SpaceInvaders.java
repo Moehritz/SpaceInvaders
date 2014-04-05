@@ -18,6 +18,7 @@ import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.ScoreManager;
 import de.mm.spaceinvaders.logic.Ticker;
+import de.mm.spaceinvaders.util.Util;
 
 @Getter
 public class SpaceInvaders

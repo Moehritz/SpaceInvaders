@@ -8,9 +8,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.newdawn.slick.opengl.TextureImpl;
 
 import de.mm.spaceinvaders.SpaceInvaders;
-import de.mm.spaceinvaders.Util;
-import de.mm.spaceinvaders.Vector;
-
+import de.mm.spaceinvaders.util.Util;
+import de.mm.spaceinvaders.util.Vector;
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glColor4f;
