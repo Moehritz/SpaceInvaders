@@ -26,7 +26,7 @@ public class MenuTextField extends MenuObject
 
 		textContainer = new MenuText(rect, text.toString(), 20f, Color.white);
 	}
-
+	
 	public void setText(String text) {
 		this.text = new StringBuilder(text);
 		textContainer.setText(text);

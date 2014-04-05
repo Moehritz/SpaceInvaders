@@ -73,6 +73,8 @@ public class SpaceInvaders
 		ticker.stop();
 
 		frame.setMenu(new MainMenu());
+
+		entities.clear();
 	}
 
 	public void startNewGame()
@@ -87,6 +89,7 @@ public class SpaceInvaders
 
 		outstandingSpawns.add(thePlayer);
 
+		ticker = new Ticker();
 		ticker.start();
 	}
 
