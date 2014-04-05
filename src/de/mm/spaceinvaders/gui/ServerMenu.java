@@ -12,6 +12,8 @@ public class ServerMenu extends Menu
 	@Override
 	public void init()
 	{
+		super.init();
+
 		MenuButton exit = new MenuButton(new Rectangle(10, 10, 100, 30), "Back", 20);
 		exit.setListener(new MenuActionListener()
 		{

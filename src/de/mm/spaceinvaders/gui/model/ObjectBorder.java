@@ -6,6 +6,7 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glVertex2i;
 
 import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.opengl.TextureImpl;
 
 import de.mm.spaceinvaders.gfx.Drawable;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class ObjectBorder implements Drawable
 	@Override
 	public void draw()
 	{
+		TextureImpl.bindNone();
 		glBegin(GL_QUADS);
 
 		glVertex2i(getRect().getX(), getRect().getY());

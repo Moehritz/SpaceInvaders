@@ -27,7 +27,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Frame
 {
 
-	private static int width = 800, height = 600, fps = 40;
+	private static int width = 800, height = 600, fps = 50;
 
 	private boolean exit = false;
 
@@ -96,15 +96,7 @@ public class Frame
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			StarBackground bg = SpaceInvaders.getInstance().getBackground();
-
-			bg.update();
-			bg.draw();
-
-			if (currentMenu != null)
-			{
-				currentMenu.draw();
-			}
+			SpaceInvaders.getInstance().getBackground().update();
 
 			draw();
 
@@ -112,9 +104,9 @@ public class Frame
 
 			Display.sync(fps);
 
-			if (Display.isCloseRequested()) exit = true;
-
 			Display.update();
+
+			if (Display.isCloseRequested()) exit = true;
 		}
 		SpaceInvaders.getInstance().toMainMenu();
 		Display.destroy();
@@ -125,6 +117,13 @@ public class Frame
 		if (!currentMenu.isInitialized())
 		{
 			currentMenu.init();
+		}
+
+		SpaceInvaders.getInstance().getBackground().draw();
+
+		if (currentMenu != null)
+		{
+			currentMenu.draw();
 		}
 
 		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getEntities());

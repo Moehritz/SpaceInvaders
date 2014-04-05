@@ -21,6 +21,7 @@ import de.mm.spaceinvaders.gfx.Drawable;
 @RequiredArgsConstructor
 public abstract class MenuObject implements Drawable
 {
+	private static boolean mouseDown = false;
 	protected static Font font;
 
 	public static void initFont()
@@ -51,14 +52,19 @@ public abstract class MenuObject implements Drawable
 			hover = true;
 			if (Mouse.isButtonDown(0))
 			{
-				if (clicked == false && listener != null)
+				if (!mouseDown)
 				{
-					listener.onClick();
+					if (clicked == false && listener != null)
+					{
+						listener.onClick();
+					}
+					clicked = true;
 				}
-				clicked = true;
+				mouseDown = true;
 			}
 			else
 			{
+				mouseDown = false;
 				clicked = false;
 			}
 		}

@@ -17,14 +17,17 @@ public class Menu implements Drawable
 	@Override
 	public void draw()
 	{
-		for (MenuObject object : objects)
+		for (int i = 0; i < objects.size(); i++)
 		{
-			object.update();
-			object.draw();
+			objects.get(i).update();
+			objects.get(i).draw();
 		}
 		for (MenuObject object : objects)
 		{
-			if (object instanceof TextDrawable) ((TextDrawable) object).drawText();
+			if (object instanceof TextDrawable)
+			{
+				((TextDrawable) object).drawText();
+			}
 		}
 	}
 
@@ -36,6 +39,10 @@ public class Menu implements Drawable
 	public void init()
 	{
 		this.initialized = true;
+	}
+	
+	protected void removeObject(MenuObject object) {
+		objects.remove(object);
 	}
 
 }
