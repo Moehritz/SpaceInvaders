@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import org.lwjgl.LWJGLException;
 
+import de.mm.spaceinvaders.client.ServerConnection;
 import de.mm.spaceinvaders.gfx.Frame;
 import de.mm.spaceinvaders.gfx.StarBackground;
 import de.mm.spaceinvaders.gfx.Textures;
@@ -29,6 +31,7 @@ public class SpaceInvaders
 
 	public static void main(String[] args)
 	{
+		System.out.println("Client");
 		instance = new SpaceInvaders();
 		try
 		{
@@ -49,6 +52,8 @@ public class SpaceInvaders
 	private List<Entity> entities = new ArrayList<>();
 	private List<Entity> outstandingSpawns = new ArrayList<>();
 	private ScoreManager scoreManager;
+	@Setter
+	private ServerConnection connection;
 
 	private void start() throws IOException
 	{
@@ -101,9 +106,9 @@ public class SpaceInvaders
 			bullet.setRotation(thePlayer.getRotation());
 			bullet.setX(thePlayer.getX());
 			bullet.setY(thePlayer.getY());
-			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).normalize().multiply(0.6f));
+			bullet.setSpeed(Util.calcVectorFromDegrees(bullet.getRotation()).normalize()
+					.multiply(0.6f));
 			outstandingSpawns.add(bullet);
-
 		}
 		catch (IOException e)
 		{
