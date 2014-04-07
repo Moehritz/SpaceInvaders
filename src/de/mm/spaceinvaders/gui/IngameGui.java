@@ -21,11 +21,13 @@ public class IngameGui extends Menu
 	{
 		super.init();
 
-		score = new MenuText(new Rectangle(7, 13, 200, 10), "Bitte warten...", 25.0f, Color.white);
+		score = new MenuText(new Rectangle(7, 13, 200, 10), "Bitte warten...", 25.0f,
+				Color.white);
 		score.setAlignment(TextAlignment.LEFT);
 		addObject(score);
 
-		statusBar = new MenuStatusBar(new Rectangle(Display.getWidth() - 150, 10, 143, 10));
+		statusBar = new MenuStatusBar(
+				new Rectangle(Display.getWidth() - 150, 10, 143, 10));
 		statusBar.setPercent(100);
 		statusBar.setRight(true);
 		addObject(statusBar);

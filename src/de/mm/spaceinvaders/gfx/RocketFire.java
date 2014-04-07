@@ -19,7 +19,8 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 public class RocketFire implements Drawable
 {
 
-	private int livingTimeMin = 30, livingTimeMax = 50, maxSpawnsPerTick = 2, rotChangeMax = 100;
+	private int livingTimeMin = 30, livingTimeMax = 50, maxSpawnsPerTick = 2,
+			rotChangeMax = 100;
 	private float speed = 2f;
 	private ConcurrentLinkedQueue<SingleRocketFire> fires = new ConcurrentLinkedQueue<SingleRocketFire>();
 	private Random rand = new Random();
@@ -41,7 +42,8 @@ public class RocketFire implements Drawable
 			fires.remove(fire);
 		int spawns = 0;
 		Vector playerSpeed = SpaceInvaders.getInstance().getThePlayer().getSpeed();
-		while (spawns < maxSpawnsPerTick && (playerSpeed.getX() != 0 || playerSpeed.getY() != 0))
+		while (spawns < maxSpawnsPerTick
+				&& (playerSpeed.getX() != 0 || playerSpeed.getY() != 0))
 		{
 			newFire();
 			spawns++;
@@ -53,7 +55,8 @@ public class RocketFire implements Drawable
 		int x = (int) SpaceInvaders.getInstance().getThePlayer().getX();
 		int y = (int) SpaceInvaders.getInstance().getThePlayer().getY();
 		long time = livingTimeMin + rand.nextInt(livingTimeMax - livingTimeMin);
-		fires.add(new SingleRocketFire(x, y, time, SpaceInvaders.getInstance().getThePlayer().getRotation()
+		fires.add(new SingleRocketFire(x, y, time, SpaceInvaders.getInstance()
+				.getThePlayer().getRotation()
 				+ (rand.nextInt(rotChangeMax))));
 	}
 

@@ -56,7 +56,8 @@ public class Entity implements Drawable
 	public boolean updatePosition(long delta)
 	{
 		boolean ret = true;
-		if ((!outOfBounds(1) && speed.getX() > 0) || (!outOfBounds(3) && speed.getX() < 0))
+		if ((!outOfBounds(1) && speed.getX() > 0)
+				|| (!outOfBounds(3) && speed.getX() < 0))
 		{
 			x += speed.getX() * (double) delta;
 		}
@@ -64,7 +65,8 @@ public class Entity implements Drawable
 		{
 			ret = false;
 		}
-		if ((!outOfBounds(0) && speed.getY() > 0) || (!outOfBounds(2) && speed.getY() < 0))
+		if ((!outOfBounds(0) && speed.getY() > 0)
+				|| (!outOfBounds(2) && speed.getY() < 0))
 		{
 			y += speed.getY() * (double) delta;
 		}

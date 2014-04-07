@@ -10,6 +10,7 @@ import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
 import de.mm.spaceinvaders.gui.model.MenuTextField;
+import de.mm.spaceinvaders.protocol.packets.ChangeName;
 
 public class ServerMenu extends Menu
 {
@@ -39,7 +40,8 @@ public class ServerMenu extends Menu
 		});
 		addObject(exit);
 
-		changeNameButton = new MenuButton(new Rectangle(Display.getWidth() - 245, 10, 235, 30), "Change Name", 20);
+		changeNameButton = new MenuButton(new Rectangle(Display.getWidth() - 245, 10,
+				235, 30), "Change Name", 20);
 		changeNameButton.setListener(new MenuActionListener()
 		{
 			@Override
@@ -55,8 +57,9 @@ public class ServerMenu extends Menu
 		});
 		changeNameMode(false);
 
-		changeNameTextField = new MenuTextField(new Rectangle(160, 400, Display.getWidth() - 320, 50));
-		changeNameTextField.setText("User" + new Random().nextInt(Integer.MAX_VALUE));
+		changeNameTextField = new MenuTextField(new Rectangle(160, 400,
+				Display.getWidth() - 320, 50));
+		changeNameTextField.setText(SpaceInvaders.getInstance().getName());
 	}
 
 	private void back()
@@ -71,6 +74,17 @@ public class ServerMenu extends Menu
 		}
 	}
 
+	public String getName()
+	{
+		if (changeNameTextField == null)
+		{
+			SpaceInvaders.getInstance().setName(
+					"User" + new Random().nextInt(Integer.MAX_VALUE));
+			return SpaceInvaders.getInstance().getName();
+		}
+		return changeNameTextField.getText().toString();
+	}
+
 	public void changeNameMode(boolean use)
 	{
 		changeName = use;
@@ -78,9 +92,13 @@ public class ServerMenu extends Menu
 		{
 			removeObject(changeNameButton);
 			addObject(changeNameTextField);
-		} else {
+		}
+		else
+		{
 			addObject(changeNameButton);
 			removeObject(changeNameTextField);
+			SpaceInvaders.getInstance().getClient().getConnection()
+					.write(new ChangeName(getName()));
 		}
 	}
 }

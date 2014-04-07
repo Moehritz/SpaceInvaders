@@ -23,7 +23,8 @@ public class ControllablePlayer extends Player
 		int mouseX = Mouse.getX();
 		int mouseY = Display.getHeight() - Mouse.getY();
 
-		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()), new Vector(mouseX, mouseY));
+		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()),
+				new Vector(mouseX, mouseY));
 
 		if (!Double.isNaN(newRotation)) setRotation(newRotation);
 
@@ -39,8 +40,10 @@ public class ControllablePlayer extends Player
 
 		double flySpeed = 0.3f;
 
-		Vector direction = Util.calcVectorFromDegrees(newRotation).normalize().multiply(flySpeed);
-		Vector directionVertical = Util.calcVectorFromDegrees(newRotation + 90).normalize().multiply(flySpeed);
+		Vector direction = Util.calcVectorFromDegrees(newRotation).normalize()
+				.multiply(flySpeed);
+		Vector directionVertical = Util.calcVectorFromDegrees(newRotation + 90)
+				.normalize().multiply(flySpeed);
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 		{
@@ -60,7 +63,8 @@ public class ControllablePlayer extends Player
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
 		{
-			if (getAmmo() != 0 && (System.currentTimeMillis() - getLastShot()) > getShotCooldown())
+			if (getAmmo() != 0
+					&& (System.currentTimeMillis() - getLastShot()) > getShotCooldown())
 			{
 				shoot();
 				setLastShot(System.currentTimeMillis());

@@ -20,7 +20,7 @@ public class SpaceClientHandler extends ChannelHandlerAdapter
 		handler = new ServerConnection();
 		handler.connected(ctx.channel());
 	}
-	
+
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception
 	{

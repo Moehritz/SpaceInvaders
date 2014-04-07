@@ -45,8 +45,10 @@ public class MenuStatusBar extends MenuObject
 		{
 			glVertex2i(getRect().getX() + getRect().getWidth() - sizeX, getRect().getY());
 			glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY());
-			glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY() + getRect().getHeight());
-			glVertex2i(getRect().getX() + getRect().getWidth() - sizeX, getRect().getY() + getRect().getHeight());
+			glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY()
+					+ getRect().getHeight());
+			glVertex2i(getRect().getX() + getRect().getWidth() - sizeX, getRect().getY()
+					+ getRect().getHeight());
 		}
 		else
 		{

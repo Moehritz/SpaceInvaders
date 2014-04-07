@@ -28,7 +28,8 @@ public abstract class MenuObject implements Drawable
 	{
 		try
 		{
-			font = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/arcade.ttf"));
+			font = Font.createFont(Font.TRUETYPE_FONT,
+					ResourceLoader.getResourceAsStream("res/arcade.ttf"));
 		}
 		catch (FontFormatException | IOException e)
 		{

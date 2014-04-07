@@ -60,9 +60,11 @@ public class Frame
 		MenuObject.initFont();
 	}
 
-	public static IntBuffer getHandMousePointer() throws MalformedURLException, URISyntaxException
+	public static IntBuffer getHandMousePointer() throws MalformedURLException,
+			URISyntaxException
 	{
-		Image c = Toolkit.getDefaultToolkit().getImage(ResourceLoader.getResource("res/cursor.png").toURI().toURL());
+		Image c = Toolkit.getDefaultToolkit().getImage(
+				ResourceLoader.getResource("res/cursor.png").toURI().toURL());
 		BufferedImage biCursor = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 		while (!biCursor.createGraphics().drawImage(c, 0, 15, 15, 0, 0, 0, 15, 15, null))
 			try
@@ -126,7 +128,8 @@ public class Frame
 			currentMenu.draw();
 		}
 
-		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance().getEntities());
+		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance()
+				.getEntities());
 		for (Entity e : allEntities)
 		{
 			if (e.isVisible())

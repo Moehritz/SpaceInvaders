@@ -18,10 +18,12 @@ public class MainMenu extends Menu
 	public void init()
 	{
 		super.init();
-		
-		addObject(new MenuText(new Rectangle(40, 40, Display.getWidth() - 80, 80), "SPACE INVERSION", 30, Color.green));
+
+		addObject(new MenuText(new Rectangle(40, 40, Display.getWidth() - 80, 80),
+				"SPACE INVERSION", 30, Color.green));
 		addObject(new MenuTextField(new Rectangle(160, 400, Display.getWidth() - 320, 50)));
-		MenuButton button = new MenuButton(new Rectangle(160, 270, Display.getWidth() - 320, 50), "Verbinden!", 25);
+		MenuButton button = new MenuButton(new Rectangle(160, 270,
+				Display.getWidth() - 320, 50), "Verbinden!", 25);
 		button.setListener(new MenuActionListener()
 		{
 
@@ -33,7 +35,7 @@ public class MainMenu extends Menu
 			@Override
 			public void onClick()
 			{
-				SpaceInvaders.getInstance().startNewGame();
+				SpaceInvaders.getInstance().connect();
 			}
 		});
 		addObject(button);

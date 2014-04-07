@@ -40,8 +40,9 @@ public class Menu implements Drawable
 	{
 		this.initialized = true;
 	}
-	
-	protected void removeObject(MenuObject object) {
+
+	protected void removeObject(MenuObject object)
+	{
 		objects.remove(object);
 	}
 

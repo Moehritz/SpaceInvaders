@@ -8,7 +8,6 @@ import java.util.TimerTask;
 import org.lwjgl.Sys;
 
 import de.mm.spaceinvaders.SpaceInvaders;
-import de.mm.spaceinvaders.client.Client;
 
 public class Ticker extends TimerTask
 {
@@ -52,21 +51,6 @@ public class Ticker extends TimerTask
 		i.getEntities().removeAll(toRemove);
 		i.spawn();
 		i.getScoreManager().tick();
-		if (!a)
-		{
-			System.out.println("Start client");
-			try
-			{
-				new Client().run();
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			a = true;
-		}
 	}
-
-	private boolean a = false;
 
 }

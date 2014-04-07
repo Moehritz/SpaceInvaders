@@ -9,17 +9,19 @@ import lombok.Setter;
 
 import org.lwjgl.LWJGLException;
 
-import de.mm.spaceinvaders.client.ServerConnection;
+import de.mm.spaceinvaders.client.Client;
 import de.mm.spaceinvaders.gfx.Frame;
 import de.mm.spaceinvaders.gfx.StarBackground;
 import de.mm.spaceinvaders.gfx.Textures;
 import de.mm.spaceinvaders.gui.IngameGui;
 import de.mm.spaceinvaders.gui.MainMenu;
+import de.mm.spaceinvaders.gui.ServerMenu;
 import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.ScoreManager;
 import de.mm.spaceinvaders.logic.Ticker;
+import de.mm.spaceinvaders.protocol.Protocol;
 import de.mm.spaceinvaders.util.Util;
 
 @Getter
@@ -47,16 +49,20 @@ public class SpaceInvaders
 	private Ticker ticker;
 	private MainMenu mainMenu = new MainMenu();
 	private IngameGui ingameMenu = new IngameGui();
+	private ServerMenu serverMenu = new ServerMenu();
 	private ControllablePlayer thePlayer;
 	private StarBackground background = new StarBackground();
 	private List<Entity> entities = new ArrayList<>();
 	private List<Entity> outstandingSpawns = new ArrayList<>();
 	private ScoreManager scoreManager;
+	private Client client;
 	@Setter
-	private ServerConnection connection;
+	private String name;
 
 	private void start() throws IOException
 	{
+		new Protocol();
+
 		frame = new Frame();
 		try
 		{
@@ -82,20 +88,18 @@ public class SpaceInvaders
 		entities.clear();
 	}
 
-	public void startNewGame()
+	public void connect()
 	{
-		frame.setMenu(ingameMenu);
-
-		scoreManager = new ScoreManager();
-
-		background.setSpeed(0f);
-
-		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture());
-
-		outstandingSpawns.add(thePlayer);
-
-		ticker = new Ticker();
-		ticker.start();
+		try
+		{
+			client = new Client();
+			client.run();
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		frame.setMenu(serverMenu);
 	}
 
 	public void launchBullet()

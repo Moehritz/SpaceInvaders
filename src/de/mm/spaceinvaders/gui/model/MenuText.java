@@ -47,7 +47,8 @@ public class MenuText extends MenuObject implements TextDrawable
 		{
 			fx += getRect().getWidth() - ttf.getWidth(text);
 		}
-		int fy = getRect().getY() + (getRect().getHeight() / 2) - (ttf.getHeight(text) / 2);
+		int fy = getRect().getY() + (getRect().getHeight() / 2)
+				- (ttf.getHeight(text) / 2);
 		ttf.drawString(fx, fy, text, color);
 	}
 

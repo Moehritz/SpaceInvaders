@@ -34,19 +34,26 @@ public class ObjectBorder implements Drawable
 		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY() + borderUp);
 		glVertex2i(getRect().getX(), getRect().getY() + borderUp);
 
-		glVertex2i(getRect().getX() + getRect().getWidth() - borderRight, getRect().getY());
+		glVertex2i(getRect().getX() + getRect().getWidth() - borderRight, getRect()
+				.getY());
 		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY());
-		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY() + getRect().getHeight());
-		glVertex2i(getRect().getX() + getRect().getWidth() - borderRight, getRect().getY() + getRect().getHeight());
+		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY()
+				+ getRect().getHeight());
+		glVertex2i(getRect().getX() + getRect().getWidth() - borderRight, getRect()
+				.getY() + getRect().getHeight());
 
-		glVertex2i(getRect().getX(), getRect().getY() + getRect().getHeight() - borderDown);
-		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY() + getRect().getHeight() - borderDown);
-		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY() + getRect().getHeight());
+		glVertex2i(getRect().getX(), getRect().getY() + getRect().getHeight()
+				- borderDown);
+		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY()
+				+ getRect().getHeight() - borderDown);
+		glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY()
+				+ getRect().getHeight());
 		glVertex2i(getRect().getX(), getRect().getY() + getRect().getHeight());
 
 		glVertex2i(getRect().getX(), getRect().getY());
 		glVertex2i(getRect().getX() + borderRight, getRect().getY());
-		glVertex2i(getRect().getX() + borderRight, getRect().getY() + getRect().getHeight());
+		glVertex2i(getRect().getX() + borderRight, getRect().getY()
+				+ getRect().getHeight());
 		glVertex2i(getRect().getX(), getRect().getY() + getRect().getHeight());
 
 		glEnd();

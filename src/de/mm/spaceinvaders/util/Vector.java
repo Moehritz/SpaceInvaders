@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Represents a mutable vector. Because the components of Vectors are mutable, storing Vectors long term may be dangerous if
- * passing code modifies the Vector later. If you want to keep around a Vector, it may be wise to call <code>clone()</code> in
- * order to get a copy.
+ * Represents a mutable vector. Because the components of Vectors are mutable, storing Vectors long
+ * term may be dangerous if passing code modifies the Vector later. If you want to keep around a
+ * Vector, it may be wise to call <code>clone()</code> in order to get a copy.
  */
 @Getter
 @Setter
@@ -143,9 +143,10 @@ public class Vector implements Cloneable
 	}
 
 	/**
-	 * Gets the magnitude of the vector, defined as sqrt(x^2+y^2). The value of this method is not cached and uses a costly
-	 * square-root function, so do not repeatedly call this method to get the vector's magnitude. NaN will be returned if the
-	 * inner result of the sqrt() function overflows, which will be caused if the length is too long.
+	 * Gets the magnitude of the vector, defined as sqrt(x^2+y^2). The value of this method is not
+	 * cached and uses a costly square-root function, so do not repeatedly call this method to get
+	 * the vector's magnitude. NaN will be returned if the inner result of the sqrt() function
+	 * overflows, which will be caused if the length is too long.
 	 * 
 	 * @return the magnitude
 	 */
@@ -165,9 +166,10 @@ public class Vector implements Cloneable
 	}
 
 	/**
-	 * Get the distance between this vector and another. The value of this method is not cached and uses a costly square-root
-	 * function, so do not repeatedly call this method to get the vector's magnitude. NaN will be returned if the inner result of
-	 * the sqrt() function overflows, which will be caused if the distance is too long.
+	 * Get the distance between this vector and another. The value of this method is not cached and
+	 * uses a costly square-root function, so do not repeatedly call this method to get the vector's
+	 * magnitude. NaN will be returned if the inner result of the sqrt() function overflows, which
+	 * will be caused if the distance is too long.
 	 * 
 	 * @param o
 	 *            The other vector
@@ -175,7 +177,8 @@ public class Vector implements Cloneable
 	 */
 	public double distance(Vector o)
 	{
-		return Math.sqrt(NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y));
+		return Math.sqrt(NumberConversions.square(x - o.x)
+				+ NumberConversions.square(y - o.y));
 	}
 
 	/**
@@ -275,8 +278,8 @@ public class Vector implements Cloneable
 	}
 
 	/**
-	 * Calculates the dot product of this vector with another. The dot product is defined as x1*x2+y1*y2. The returned value is a
-	 * scalar.
+	 * Calculates the dot product of this vector with another. The dot product is defined as
+	 * x1*x2+y1*y2. The returned value is a scalar.
 	 * 
 	 * @param other
 	 *            The other vector
@@ -315,8 +318,8 @@ public class Vector implements Cloneable
 	}
 
 	/**
-	 * Returns whether this vector is in an axis-aligned bounding box. The minimum and maximum vectors given must be truly the
-	 * minimum and maximum X and Y components.
+	 * Returns whether this vector is in an axis-aligned bounding box. The minimum and maximum
+	 * vectors given must be truly the minimum and maximum X and Y components.
 	 * 
 	 * @param min
 	 *            Minimum vector
@@ -340,15 +343,15 @@ public class Vector implements Cloneable
 	 */
 	public boolean isInSphere(Vector origin, double radius)
 	{
-		return (NumberConversions.square(origin.x - x) + NumberConversions.square(origin.y - y)) <= NumberConversions
-				.square(radius);
+		return (NumberConversions.square(origin.x - x) + NumberConversions
+				.square(origin.y - y)) <= NumberConversions.square(radius);
 	}
 
 	/**
 	 * Checks to see if two objects are equal.
 	 * <p>
-	 * Only two Vectors can ever return true. This method uses a fuzzy match to account for floating point errors. The epsilon can
-	 * be retrieved with epsilon.
+	 * Only two Vectors can ever return true. This method uses a fuzzy match to account for floating
+	 * point errors. The epsilon can be retrieved with epsilon.
 	 */
 	@Override
 	public boolean equals(Object obj)

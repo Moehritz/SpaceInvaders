@@ -14,7 +14,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class StarBackground implements Drawable
 {
 
-	private int livingTimeMin = 80, livingTimeMax = 300, starsCount = 1000, minSize = 2, maxSize = 10;
+	private int livingTimeMin = 80, livingTimeMax = 300, starsCount = 1000, minSize = 2,
+			maxSize = 10;
 	private List<Star> stars = new ArrayList<>();
 	private Random rand = new Random();
 	@Getter

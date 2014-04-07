@@ -26,8 +26,9 @@ public class MenuTextField extends MenuObject
 
 		textContainer = new MenuText(rect, text.toString(), 20f, Color.white);
 	}
-	
-	public void setText(String text) {
+
+	public void setText(String text)
+	{
 		this.text = new StringBuilder(text);
 		textContainer.setText(text);
 	}
@@ -54,7 +55,8 @@ public class MenuTextField extends MenuObject
 					break;
 				default:
 					char c = Keyboard.getEventCharacter();
-					if (Character.isAlphabetic(c) || Character.isDigit(c) || '.' == c || ':' == c)
+					if (Character.isAlphabetic(c) || Character.isDigit(c) || '.' == c
+							|| ':' == c)
 					{
 						text.append(Keyboard.getEventCharacter());
 					}
