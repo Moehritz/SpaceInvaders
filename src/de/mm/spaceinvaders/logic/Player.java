@@ -17,6 +17,8 @@ public class Player extends Entity
 
 	private int ammo = maxAmmo;
 	private long lastShot;
+	
+	private String name;
 
 	private RocketFire fire;
 

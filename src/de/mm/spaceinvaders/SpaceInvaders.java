@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import org.lwjgl.LWJGLException;
 
@@ -33,7 +32,6 @@ public class SpaceInvaders
 
 	public static void main(String[] args)
 	{
-		System.out.println("Client");
 		instance = new SpaceInvaders();
 		try
 		{
@@ -56,8 +54,6 @@ public class SpaceInvaders
 	private List<Entity> outstandingSpawns = new ArrayList<>();
 	private ScoreManager scoreManager;
 	private Client client;
-	@Setter
-	private String name;
 
 	private void start() throws IOException
 	{

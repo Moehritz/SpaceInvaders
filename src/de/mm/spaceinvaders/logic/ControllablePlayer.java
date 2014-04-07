@@ -1,5 +1,7 @@
 package de.mm.spaceinvaders.logic;
 
+import java.util.Random;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -16,6 +18,7 @@ public class ControllablePlayer extends Player
 	public ControllablePlayer(Texture texture)
 	{
 		super(texture);
+		setName("User" + new Random().nextInt(Integer.MAX_VALUE));
 	}
 
 	public void handleInput(long delta)

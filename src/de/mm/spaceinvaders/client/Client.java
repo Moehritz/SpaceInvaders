@@ -9,9 +9,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import de.mm.spaceinvaders.client.netty.SpaceClientHandler;
-import de.mm.spaceinvaders.client.netty.SpaceDecoder;
-import de.mm.spaceinvaders.client.netty.SpaceEncoder;
+import de.mm.spaceinvaders.io.SpaceDecoder;
+import de.mm.spaceinvaders.io.SpaceEncoder;
 import de.mm.spaceinvaders.protocol.Protocol;
 
 public class Client

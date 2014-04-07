@@ -1,7 +1,5 @@
 package de.mm.spaceinvaders.gui;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 
@@ -59,7 +57,7 @@ public class ServerMenu extends Menu
 
 		changeNameTextField = new MenuTextField(new Rectangle(160, 400,
 				Display.getWidth() - 320, 50));
-		changeNameTextField.setText(SpaceInvaders.getInstance().getName());
+		changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer().getName());
 	}
 
 	private void back()
@@ -78,9 +76,7 @@ public class ServerMenu extends Menu
 	{
 		if (changeNameTextField == null)
 		{
-			SpaceInvaders.getInstance().setName(
-					"User" + new Random().nextInt(Integer.MAX_VALUE));
-			return SpaceInvaders.getInstance().getName();
+			return SpaceInvaders.getInstance().getThePlayer().getName();
 		}
 		return changeNameTextField.getText().toString();
 	}
