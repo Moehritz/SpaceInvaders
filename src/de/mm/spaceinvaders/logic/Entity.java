@@ -1,13 +1,18 @@
 package de.mm.spaceinvaders.logic;
 
+import java.util.UUID;
+
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 
+import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gfx.Drawable;
+import de.mm.spaceinvaders.protocol.packets.UpdatePosition;
 import de.mm.spaceinvaders.util.Vector;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -15,6 +20,9 @@ import static org.lwjgl.opengl.GL11.*;
 @Setter
 public class Entity implements Drawable
 {
+
+	@NonNull
+	private final String uuid;
 
 	private float x = 200, y = 200, health, width, height;
 	private double rotation = 0;
@@ -24,7 +32,13 @@ public class Entity implements Drawable
 
 	public Entity(Texture texture)
 	{
+		this(texture, UUID.randomUUID().toString());
+	}
+
+	public Entity(Texture texture, String uuid)
+	{
 		setTexture(texture);
+		this.uuid = uuid;
 	}
 
 	/**
@@ -74,6 +88,9 @@ public class Entity implements Drawable
 		{
 			ret = false;
 		}
+
+		SpaceInvaders.getInstance().getClient()
+				.write(new UpdatePosition(uuid, x, y, rotation));
 
 		if (speed.getX() < 0.01 && speed.getX() > -0.01) speed.setX(0);
 		if (speed.getY() < 0.01 && speed.getY() > -0.01) speed.setY(0);

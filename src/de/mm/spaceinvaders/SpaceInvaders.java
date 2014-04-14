@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import org.lwjgl.LWJGLException;
 
@@ -15,6 +16,7 @@ import de.mm.spaceinvaders.gfx.Textures;
 import de.mm.spaceinvaders.gui.IngameGui;
 import de.mm.spaceinvaders.gui.MainMenu;
 import de.mm.spaceinvaders.gui.ServerMenu;
+import de.mm.spaceinvaders.io.ConnectionHandler;
 import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
@@ -53,7 +55,8 @@ public class SpaceInvaders
 	private List<Entity> entities = new ArrayList<>();
 	private List<Entity> outstandingSpawns = new ArrayList<>();
 	private ScoreManager scoreManager;
-	private Client client;
+	@Setter
+	private ConnectionHandler client;
 
 	private void start() throws IOException
 	{
@@ -86,16 +89,26 @@ public class SpaceInvaders
 
 	public void connect()
 	{
-		try
-		{
-			client = new Client();
-			client.run();
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
+		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture());
+
 		frame.setMenu(serverMenu);
+
+		new Thread(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				try
+				{
+					Client.connect("127.0.0.1", 7654);
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 	public void launchBullet()
@@ -116,11 +129,39 @@ public class SpaceInvaders
 		}
 	}
 
+	public Entity getEntity(String uuid)
+	{
+		for (Entity e : entities)
+		{
+			if (e.getUuid() == uuid)
+			{
+				return e;
+			}
+		}
+		return null;
+	}
+
+	public void startGame()
+	{
+		outstandingSpawns.add(thePlayer);
+		frame.setMenu(ingameMenu);
+		scoreManager = new ScoreManager();
+		ticker = new Ticker();
+		ticker.start();
+	}
+
 	public void spawn()
 	{
 		for (Entity e : outstandingSpawns)
 		{
-			entities.add(e);
+			if (entities.contains(e))
+			{
+				entities.remove(e);
+			}
+			else
+			{
+				entities.add(e);
+			}
 		}
 		outstandingSpawns.clear();
 	}

@@ -17,7 +17,7 @@ public class Player extends Entity
 
 	private int ammo = maxAmmo;
 	private long lastShot;
-	
+
 	private String name;
 
 	private RocketFire fire;
@@ -25,6 +25,12 @@ public class Player extends Entity
 	public Player(Texture texture)
 	{
 		super(texture);
+		fire = new RocketFire();
+	}
+
+	public Player(Texture texture, String uuid)
+	{
+		super(texture, uuid);
 		fire = new RocketFire();
 	}
 

@@ -53,11 +53,11 @@ public class ServerMenu extends Menu
 				changeNameMode(true);
 			}
 		});
-		changeNameMode(false);
 
 		changeNameTextField = new MenuTextField(new Rectangle(160, 400,
 				Display.getWidth() - 320, 50));
 		changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer().getName());
+		addObject(changeNameButton);
 	}
 
 	private void back()
@@ -76,7 +76,7 @@ public class ServerMenu extends Menu
 	{
 		if (changeNameTextField == null)
 		{
-			return SpaceInvaders.getInstance().getThePlayer().getName();
+			return "";
 		}
 		return changeNameTextField.getText().toString();
 	}
@@ -86,6 +86,8 @@ public class ServerMenu extends Menu
 		changeName = use;
 		if (changeName)
 		{
+			changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer()
+					.getName());
 			removeObject(changeNameButton);
 			addObject(changeNameTextField);
 		}
@@ -93,8 +95,7 @@ public class ServerMenu extends Menu
 		{
 			addObject(changeNameButton);
 			removeObject(changeNameTextField);
-			SpaceInvaders.getInstance().getClient().getConnection()
-					.write(new ChangeName(getName()));
+			SpaceInvaders.getInstance().getClient().write(new ChangeName(getName()));
 		}
 	}
 }

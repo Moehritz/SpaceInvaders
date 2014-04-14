@@ -1,59 +1,44 @@
 package de.mm.spaceinvaders.client;
 
-import lombok.Getter;
-import lombok.Setter;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+
+import de.mm.spaceinvaders.io.ConnectionHandler;
+import de.mm.spaceinvaders.io.FrameDecoder;
+import de.mm.spaceinvaders.io.FramePrepender;
 import de.mm.spaceinvaders.io.SpaceDecoder;
 import de.mm.spaceinvaders.io.SpaceEncoder;
-import de.mm.spaceinvaders.protocol.Protocol;
 
 public class Client
 {
 
-	private String target = "localhost:8765";
-
-	private EventLoopGroup eventLoops;
-
-	@Getter
-	@Setter
-	private ServerConnection connection;
-
-	public void run() throws InterruptedException
+	public static void connect(String host, int port) throws InterruptedException
 	{
-		new Protocol();
-
-		// TODO Falsche Eingaben handlen
-		String host = target.split(":")[0];
-		int port = Integer.parseInt(target.split(":")[1]);
-
-		eventLoops = new NioEventLoopGroup();
+		EventLoopGroup eventLoops = new NioEventLoopGroup();
 
 		Bootstrap b = new Bootstrap();
 		b.group(eventLoops).channel(NioSocketChannel.class)
-				.option(ChannelOption.SO_KEEPALIVE, true)
 				.handler(new ChannelInitializer<SocketChannel>()
 				{
 
 					@Override
-					protected void initChannel(SocketChannel ch) throws Exception
+					protected void initChannel(SocketChannel channel) throws Exception
 					{
-						ch.pipeline().addLast(new SpaceEncoder());
-						ch.pipeline().addLast(new SpaceDecoder());
-						ch.pipeline().addLast(new SpaceClientHandler());
+						channel.pipeline().addLast(new FrameDecoder());
+						channel.pipeline().addLast(new FramePrepender());
+						channel.pipeline().addLast(new SpaceEncoder());
+						channel.pipeline().addLast(new SpaceDecoder());
+						channel.pipeline()
+								.addLast(
+										new ConnectionHandler(channel,
+												new ClientPacketHandler()));
 					}
 				});
 		b.connect(host, port).await();
-	}
-
-	public void exit()
-	{
-		eventLoops.shutdownGracefully();
 	}
 
 }
