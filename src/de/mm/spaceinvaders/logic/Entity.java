@@ -8,11 +8,8 @@ import lombok.Setter;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureImpl;
 
-import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gfx.Drawable;
-import de.mm.spaceinvaders.protocol.packets.UpdatePosition;
 import de.mm.spaceinvaders.util.Vector;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -89,8 +86,8 @@ public class Entity implements Drawable
 			ret = false;
 		}
 
-		SpaceInvaders.getInstance().getClient()
-				.write(new UpdatePosition(uuid, x, y, rotation));
+		// SpaceInvaders.getInstance().getClient()
+		// .write(new UpdatePosition(uuid, x, y, rotation));
 
 		if (speed.getX() < 0.01 && speed.getX() > -0.01) speed.setX(0);
 		if (speed.getY() < 0.01 && speed.getY() > -0.01) speed.setY(0);
@@ -126,6 +123,5 @@ public class Entity implements Drawable
 			glRotated(-rotation, 0, 0, 1);
 		}
 		glTranslated(-rx, -ry, 0);
-		TextureImpl.bindNone();
 	}
 }

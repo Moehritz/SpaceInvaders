@@ -3,12 +3,10 @@ package de.mm.spaceinvaders.gui;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 
-import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
 import de.mm.spaceinvaders.gui.model.MenuTextField;
-import de.mm.spaceinvaders.protocol.packets.ChangeName;
 
 public class ServerMenuGui extends Menu
 {
@@ -96,7 +94,7 @@ public class ServerMenuGui extends Menu
 		{
 			addObject(changeNameButton);
 			removeObject(changeNameTextField);
-			SpaceInvaders.getInstance().getClient().write(new ChangeName(getName()));
+			// SpaceInvaders.getInstance().getClient().write(new ChangeName(getName()));
 		}
 	}
 }

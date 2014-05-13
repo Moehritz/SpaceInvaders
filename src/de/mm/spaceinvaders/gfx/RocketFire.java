@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.newdawn.slick.opengl.TextureImpl;
-
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.logic.Entity;
@@ -66,7 +64,6 @@ public class RocketFire implements Drawable
 	@Override
 	public void draw()
 	{
-		TextureImpl.bindNone();
 		for (SingleRocketFire fire : fires)
 		{
 			float opacity = fire.getOpacity();
