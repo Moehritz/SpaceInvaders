@@ -5,15 +5,25 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 
+import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuStatusBar;
 import de.mm.spaceinvaders.gui.model.MenuText;
 import de.mm.spaceinvaders.gui.model.MenuText.TextAlignment;
+import de.mm.spaceinvaders.protocol.packets.ResetGame;
 
 public class IngameGui extends Menu
 {
 	private MenuText score;
 	private MenuStatusBar statusBar;
+
+	private Ingame ingame;
+
+	public IngameGui(Ingame ingame)
+	{
+		this.ingame = ingame;
+	}
 
 	@Override
 	public void init()
@@ -39,8 +49,11 @@ public class IngameGui extends Menu
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 		{
-			// TODO
-			System.exit(0);
+			SpaceInvaders.getInstance().switchToMainMenu();
+		}
+		else if (Keyboard.isKeyDown(Keyboard.KEY_R))
+		{
+			ingame.getConnection().sendPackets(new ResetGame());
 		}
 	}
 

@@ -7,6 +7,9 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 
+import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gamestate.Ingame;
+import de.mm.spaceinvaders.protocol.packets.UpdatePosition;
 import de.mm.spaceinvaders.util.Util;
 import de.mm.spaceinvaders.util.Vector;
 
@@ -73,5 +76,9 @@ public class ControllablePlayer extends Player
 				setLastShot(System.currentTimeMillis());
 			}
 		}
+
+		Ingame ig = (Ingame) SpaceInvaders.getInstance().getGameState();
+		ig.getConnection().sendPackets(
+				new UpdatePosition(getUuid(), getX(), getY(), getRotation(), getSpeed()));
 	}
 }

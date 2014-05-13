@@ -8,6 +8,7 @@ import org.lwjgl.LWJGLException;
 
 import de.mm.spaceinvaders.client.Client;
 import de.mm.spaceinvaders.gamestate.GameState;
+import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.gamestate.Loading;
 import de.mm.spaceinvaders.gamestate.MainMenu;
 import de.mm.spaceinvaders.gamestate.ServerConnect;
@@ -108,5 +109,12 @@ public class SpaceInvaders
 		gameState.end();
 		gameState = new ServerMenu(connection);
 		return (ServerMenu) gameState;
+	}
+
+	public Ingame switchToIngame(ConnectionHandler connection)
+	{
+		gameState.end();
+		gameState = new Ingame(connection);
+		return (Ingame) gameState;
 	}
 }

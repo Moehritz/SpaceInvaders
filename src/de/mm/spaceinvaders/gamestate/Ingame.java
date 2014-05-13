@@ -7,6 +7,7 @@ import lombok.Getter;
 import de.mm.spaceinvaders.gfx.Drawable;
 import de.mm.spaceinvaders.gfx.Textures;
 import de.mm.spaceinvaders.gui.IngameGui;
+import de.mm.spaceinvaders.io.ConnectionHandler;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.GameTicker;
@@ -19,11 +20,18 @@ public class Ingame extends GameState
 	@Getter
 	private ControllablePlayer thePlayer;
 	private GameTicker ticker;
+	@Getter
+	private ConnectionHandler connection;
+
+	public Ingame(ConnectionHandler connection)
+	{
+		this.connection = connection;
+	}
 
 	@Override
 	public void init()
 	{
-		super.visibleMenu = new IngameGui();
+		super.visibleMenu = new IngameGui(this);
 
 		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture());
 		prepareSpawn(thePlayer);
@@ -80,6 +88,7 @@ public class Ingame extends GameState
 	@Override
 	public void end()
 	{
+		getConnection().closeConnection();
 		ticker.stop();
 	}
 }

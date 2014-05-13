@@ -21,23 +21,28 @@ public class MenuText extends MenuObject implements TextDrawable
 	@Getter
 	@Setter
 	private TextAlignment alignment = TextAlignment.CENTER;
+	@Getter
+	private float fontSize;
+	private boolean fontInitialized = false;
 
 	public MenuText(Rectangle rect, String text, float size, Color color)
 	{
 		super(rect);
 		this.text = text;
-		setSize(size);
+		this.fontSize = size;
 		this.color = color;
 	}
 
-	public void setSize(float size)
+	public void initThisFont()
 	{
-		ttf = new TrueTypeFont(font.deriveFont(size), false);
+		ttf = new TrueTypeFont(font.deriveFont(fontSize), false);
+		fontInitialized = true;
 	}
 
 	@Override
 	public void drawText()
 	{
+		if (!fontInitialized) initThisFont();
 		int fx = getRect().getX(); // LEFT
 		if (alignment == TextAlignment.CENTER)
 		{
@@ -52,15 +57,21 @@ public class MenuText extends MenuObject implements TextDrawable
 		ttf.drawString(fx, fy, text, color);
 	}
 
-	@Override
-	public void draw()
+	public void setSize(float size)
 	{
-
+		fontInitialized = false;
+		this.fontSize = size;
 	}
 
 	public enum TextAlignment
 	{
 		LEFT, CENTER, RIGHT
+	}
+
+	@Override
+	public void draw()
+	{
+
 	}
 
 }

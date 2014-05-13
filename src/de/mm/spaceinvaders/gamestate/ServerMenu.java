@@ -31,4 +31,15 @@ public class ServerMenu extends GameState
 		this.ownName = newName;
 		connection.sendPackets(new ChangeName(newName));
 	}
+
+	@Override
+	public void end()
+	{
+		getConnection().closeConnection();
+	}
+
+	public ServerMenuGui getGui()
+	{
+		return (ServerMenuGui) super.visibleMenu;
+	}
 }
