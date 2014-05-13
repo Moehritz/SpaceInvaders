@@ -85,7 +85,9 @@ public class Frame
 
 			if (Display.isCloseRequested()) exit = true;
 		}
+		SpaceInvaders.getInstance().switchToMainMenu();
 		Display.destroy();
+		System.exit(0);
 	}
 
 	public void draw()

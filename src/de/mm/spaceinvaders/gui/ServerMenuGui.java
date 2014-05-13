@@ -4,6 +4,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 
 import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gamestate.ServerMenu;
 import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
@@ -11,17 +12,24 @@ import de.mm.spaceinvaders.gui.model.MenuTextField;
 
 public class ServerMenuGui extends Menu
 {
+	private ServerMenu serverMenu;
+
 	private boolean changeName = false;
 
 	private MenuButton changeNameButton;
 	private MenuTextField changeNameTextField;
+
+	public ServerMenuGui(ServerMenu serverMenu)
+	{
+		this.serverMenu = serverMenu;
+	}
 
 	@Override
 	public void init()
 	{
 		super.init();
 
-		MenuButton exit = new MenuButton(new Rectangle(10, 10, 100, 30), "Back", 20);
+		MenuButton exit = new MenuButton(new Rectangle(10, 10, 100, 30), "<-", 20);
 		exit.setListener(new MenuActionListener()
 		{
 			@Override
@@ -38,7 +46,7 @@ public class ServerMenuGui extends Menu
 		addObject(exit);
 
 		changeNameButton = new MenuButton(new Rectangle(Display.getWidth() - 245, 10,
-				235, 30), "Change Name", 20);
+				235, 30), "Name", 20);
 		changeNameButton.setListener(new MenuActionListener()
 		{
 			@Override
@@ -55,7 +63,7 @@ public class ServerMenuGui extends Menu
 
 		changeNameTextField = new MenuTextField(new Rectangle(160, 400,
 				Display.getWidth() - 320, 50));
-		// changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer().getName());
+		changeNameTextField.setText(serverMenu.getOwnName());
 		addObject(changeNameButton);
 	}
 
@@ -85,8 +93,7 @@ public class ServerMenuGui extends Menu
 		changeName = use;
 		if (changeName)
 		{
-			// changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer()
-			// .getName());
+			serverMenu.getOwnName();
 			removeObject(changeNameButton);
 			addObject(changeNameTextField);
 		}
@@ -94,7 +101,7 @@ public class ServerMenuGui extends Menu
 		{
 			addObject(changeNameButton);
 			removeObject(changeNameTextField);
-			// SpaceInvaders.getInstance().getClient().write(new ChangeName(getName()));
+			serverMenu.setOwnName(getName());
 		}
 	}
 }

@@ -14,6 +14,7 @@ import de.mm.spaceinvaders.gamestate.ServerConnect;
 import de.mm.spaceinvaders.gamestate.ServerMenu;
 import de.mm.spaceinvaders.gfx.Frame;
 import de.mm.spaceinvaders.gfx.StarBackground;
+import de.mm.spaceinvaders.io.ConnectionHandler;
 import de.mm.spaceinvaders.protocol.Protocol;
 
 @Getter
@@ -61,19 +62,21 @@ public class SpaceInvaders
 		frame.run();
 	}
 
-	public void switchToMainMenu()
+	public MainMenu switchToMainMenu()
 	{
 		gameState.end();
 		gameState = new MainMenu();
+		return (MainMenu) gameState;
 	}
 
-	public void switchToServerInfo()
+	public ServerConnect switchToServerInfo()
 	{
 		gameState.end();
 		gameState = new ServerConnect();
+		return (ServerConnect) gameState;
 	}
 
-	public void switchToSererConnection(final String host, final int port)
+	public Loading switchToServerConnection(final String host, final int port)
 	{
 		gameState.end();
 		Loading loadingScreen = new Loading();
@@ -97,11 +100,13 @@ public class SpaceInvaders
 				}
 			}
 		}).start();
+		return loadingScreen;
 	}
 
-	public void switchToServerMenu()
+	public ServerMenu switchToServerMenu(ConnectionHandler connection)
 	{
 		gameState.end();
-		gameState = new ServerMenu();
+		gameState = new ServerMenu(connection);
+		return (ServerMenu) gameState;
 	}
 }

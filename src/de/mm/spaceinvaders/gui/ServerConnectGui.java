@@ -56,7 +56,7 @@ public class ServerConnectGui extends Menu
 						return;
 					}
 				}
-				SpaceInvaders.getInstance().switchToSererConnection(host, port);
+				SpaceInvaders.getInstance().switchToServerConnection(host, port);
 			}
 		});
 		addObject(button);
