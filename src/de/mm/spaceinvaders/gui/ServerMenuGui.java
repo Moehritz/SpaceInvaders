@@ -86,7 +86,7 @@ public class ServerMenuGui extends Menu
 		if (changeName)
 		{
 			// changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer()
-			//		.getName());
+			// .getName());
 			removeObject(changeNameButton);
 			addObject(changeNameTextField);
 		}

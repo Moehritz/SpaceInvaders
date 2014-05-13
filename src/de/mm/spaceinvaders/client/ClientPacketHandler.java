@@ -14,7 +14,7 @@ public class ClientPacketHandler extends PacketHandler
 	{
 		SpaceInvaders.getInstance().switchToServerMenu();
 	}
-	
+
 	@Override
 	public void disconnected() throws Exception
 	{
@@ -24,24 +24,24 @@ public class ClientPacketHandler extends PacketHandler
 	@Override
 	public void handle(GameStart start) throws Exception
 	{
-		
+
 	}
 
 	@Override
 	public void handle(UpdatePosition pos) throws Exception
 	{
-		
+
 	}
 
 	@Override
 	public void handle(UserJoin join) throws Exception
 	{
-		
+
 	}
 
 	@Override
 	public void handle(UserLeave leave) throws Exception
 	{
-		
+
 	}
 }

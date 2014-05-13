@@ -61,7 +61,7 @@ public class Frame
 				ResourceLoader.getResource("res/cursor.png").toURI().toURL());
 		BufferedImage biCursor = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 		while (!biCursor.createGraphics().drawImage(c, 0, 15, 15, 0, 0, 0, 15, 15, null));
-		
+
 		int[] data = biCursor.getRaster().getPixels(0, 0, 16, 16, (int[]) null);
 
 		IntBuffer ib = BufferUtils.createIntBuffer(16 * 16);

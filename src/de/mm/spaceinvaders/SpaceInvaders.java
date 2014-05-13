@@ -98,8 +98,9 @@ public class SpaceInvaders
 			}
 		}).start();
 	}
-	
-	public void switchToServerMenu() {
+
+	public void switchToServerMenu()
+	{
 		gameState.end();
 		gameState = new ServerMenu();
 	}
