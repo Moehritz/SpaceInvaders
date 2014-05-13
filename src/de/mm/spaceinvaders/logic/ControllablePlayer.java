@@ -32,7 +32,7 @@ public class ControllablePlayer extends Player
 		if (!Double.isNaN(newRotation)) setRotation(newRotation);
 
 		ammoRegain++;
-		if (ammoRegain >= Ticker.tps / 3 && getAmmo() < Player.getMaxAmmo())
+		if (ammoRegain >= GameTicker.tps / 3 && getAmmo() < Player.getMaxAmmo())
 		{
 			ammoRegain = 0;
 			setAmmo(getAmmo() + 1);

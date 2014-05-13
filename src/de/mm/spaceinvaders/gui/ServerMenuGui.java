@@ -10,7 +10,7 @@ import de.mm.spaceinvaders.gui.model.MenuButton;
 import de.mm.spaceinvaders.gui.model.MenuTextField;
 import de.mm.spaceinvaders.protocol.packets.ChangeName;
 
-public class ServerMenu extends Menu
+public class ServerMenuGui extends Menu
 {
 	private boolean changeName = false;
 
@@ -56,7 +56,7 @@ public class ServerMenu extends Menu
 
 		changeNameTextField = new MenuTextField(new Rectangle(160, 400,
 				Display.getWidth() - 320, 50));
-		changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer().getName());
+		// changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer().getName());
 		addObject(changeNameButton);
 	}
 
@@ -68,7 +68,8 @@ public class ServerMenu extends Menu
 		}
 		else
 		{
-			SpaceInvaders.getInstance().toMainMenu();
+			// TODO
+			System.exit(0);
 		}
 	}
 
@@ -86,8 +87,8 @@ public class ServerMenu extends Menu
 		changeName = use;
 		if (changeName)
 		{
-			changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer()
-					.getName());
+			// changeNameTextField.setText(SpaceInvaders.getInstance().getThePlayer()
+			//		.getName());
 			removeObject(changeNameButton);
 			addObject(changeNameTextField);
 		}

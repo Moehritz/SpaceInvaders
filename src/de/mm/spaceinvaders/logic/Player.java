@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import org.newdawn.slick.opengl.Texture;
 
-import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gfx.RocketFire;
 
 @Getter
@@ -37,13 +36,12 @@ public class Player extends Entity
 	public void setAmmo(int ammo)
 	{
 		this.ammo = ammo;
-		SpaceInvaders.getInstance().getIngameMenu().updateAmmo(ammo, maxAmmo);
 	}
 
 	public void shoot()
 	{
 		setAmmo(ammo - 1);
-		SpaceInvaders.getInstance().launchBullet();
+		// TODO
 	}
 
 	@Override

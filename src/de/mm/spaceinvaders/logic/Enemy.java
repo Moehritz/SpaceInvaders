@@ -3,6 +3,7 @@ package de.mm.spaceinvaders.logic;
 import org.newdawn.slick.opengl.Texture;
 
 import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.util.Util;
 import de.mm.spaceinvaders.util.Vector;
 
@@ -26,7 +27,7 @@ public class Enemy extends Entity
 
 	private void updateDirection()
 	{
-		ControllablePlayer p = SpaceInvaders.getInstance().getThePlayer();
+		Entity p = ((Ingame) SpaceInvaders.getInstance().getGameState()).getThePlayer();
 		Vector v = new Vector(p.getX() - getX(), p.getY() - getY()).normalize();
 		double speed = getSpeed().length();
 		if (speed != Double.NaN)

@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.BufferUtils;
@@ -15,13 +14,10 @@ import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.SpaceInvaders;
-import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuObject;
-import de.mm.spaceinvaders.logic.Entity;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Frame
@@ -30,8 +26,6 @@ public class Frame
 	private static int width = 800, height = 600, fps = 50;
 
 	private boolean exit = false;
-
-	private Menu currentMenu;
 
 	public void init() throws LWJGLException
 	{
@@ -66,15 +60,8 @@ public class Frame
 		Image c = Toolkit.getDefaultToolkit().getImage(
 				ResourceLoader.getResource("res/cursor.png").toURI().toURL());
 		BufferedImage biCursor = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-		while (!biCursor.createGraphics().drawImage(c, 0, 15, 15, 0, 0, 0, 15, 15, null))
-			try
-			{
-				Thread.sleep(5);
-			}
-			catch (InterruptedException e)
-			{
-			}
-
+		while (!biCursor.createGraphics().drawImage(c, 0, 15, 15, 0, 0, 0, 15, 15, null));
+		
 		int[] data = biCursor.getRaster().getPixels(0, 0, 16, 16, (int[]) null);
 
 		IntBuffer ib = BufferUtils.createIntBuffer(16 * 16);
@@ -84,58 +71,32 @@ public class Frame
 		return ib;
 	}
 
-	public void setMenu(Menu menu)
-	{
-		if (menu != null)
-		{
-			currentMenu = menu;
-		}
-	}
-
 	public void run()
 	{
 		while (!exit)
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 			SpaceInvaders.getInstance().getBackground().update();
 
 			draw();
 
-			TextureImpl.bindNone();
-
 			Display.sync(fps);
-
 			Display.update();
 
 			if (Display.isCloseRequested()) exit = true;
 		}
-		SpaceInvaders.getInstance().toMainMenu();
 		Display.destroy();
 	}
 
 	public void draw()
 	{
-		if (!currentMenu.isInitialized())
-		{
-			currentMenu.init();
-		}
-
 		SpaceInvaders.getInstance().getBackground().draw();
 
-		if (currentMenu != null)
+		List<Drawable> allEntities = SpaceInvaders.getInstance().getGameState()
+				.getThingsToDraw();
+		for (Drawable d : allEntities)
 		{
-			currentMenu.draw();
-		}
-
-		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance()
-				.getEntities());
-		for (Entity e : allEntities)
-		{
-			if (e.isVisible())
-			{
-				e.draw();
-			}
+			d.draw();
 		}
 	}
 }

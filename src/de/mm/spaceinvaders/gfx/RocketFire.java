@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.newdawn.slick.opengl.TextureImpl;
 
 import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gamestate.Ingame;
+import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.util.Util;
 import de.mm.spaceinvaders.util.Vector;
 import static org.lwjgl.opengl.GL11.GL_QUADS;
@@ -41,7 +43,8 @@ public class RocketFire implements Drawable
 		for (SingleRocketFire fire : ended)
 			fires.remove(fire);
 		int spawns = 0;
-		Vector playerSpeed = SpaceInvaders.getInstance().getThePlayer().getSpeed();
+		Vector playerSpeed = ((Ingame) SpaceInvaders.getInstance().getGameState())
+				.getThePlayer().getSpeed();
 		while (spawns < maxSpawnsPerTick
 				&& (playerSpeed.getX() != 0 || playerSpeed.getY() != 0))
 		{
@@ -52,11 +55,11 @@ public class RocketFire implements Drawable
 
 	private void newFire()
 	{
-		int x = (int) SpaceInvaders.getInstance().getThePlayer().getX();
-		int y = (int) SpaceInvaders.getInstance().getThePlayer().getY();
+		Entity p = ((Ingame) SpaceInvaders.getInstance().getGameState()).getThePlayer();
+		int x = (int) p.getX();
+		int y = (int) p.getY();
 		long time = livingTimeMin + rand.nextInt(livingTimeMax - livingTimeMin);
-		fires.add(new SingleRocketFire(x, y, time, SpaceInvaders.getInstance()
-				.getThePlayer().getRotation()
+		fires.add(new SingleRocketFire(x, y, time, p.getRotation()
 				+ (rand.nextInt(rotChangeMax))));
 	}
 

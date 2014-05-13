@@ -5,7 +5,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 
-import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuStatusBar;
 import de.mm.spaceinvaders.gui.model.MenuText;
@@ -21,8 +20,8 @@ public class IngameGui extends Menu
 	{
 		super.init();
 
-		score = new MenuText(new Rectangle(7, 13, 200, 10), "Bitte warten...", 25.0f,
-				Color.white);
+		score = new MenuText(new Rectangle(7, 13, 200, 10), "", 25.0f, Color.white);
+		updateScore(0);
 		score.setAlignment(TextAlignment.LEFT);
 		addObject(score);
 
@@ -31,8 +30,6 @@ public class IngameGui extends Menu
 		statusBar.setPercent(100);
 		statusBar.setRight(true);
 		addObject(statusBar);
-
-		updateScore(0);
 	}
 
 	@Override
@@ -42,7 +39,8 @@ public class IngameGui extends Menu
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 		{
-			SpaceInvaders.getInstance().toMainMenu();
+			// TODO
+			System.exit(0);
 		}
 	}
 

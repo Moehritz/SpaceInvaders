@@ -17,6 +17,10 @@ public class Menu implements Drawable
 	@Override
 	public void draw()
 	{
+		if (!initialized)
+		{
+			init();
+		}
 		for (int i = 0; i < objects.size(); i++)
 		{
 			objects.get(i).update();

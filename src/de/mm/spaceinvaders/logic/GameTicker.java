@@ -7,9 +7,10 @@ import java.util.TimerTask;
 
 import org.lwjgl.Sys;
 
+import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.SpaceInvaders;
 
-public class Ticker extends TimerTask
+public class GameTicker extends TimerTask
 {
 
 	public static int tps = 500;
@@ -34,9 +35,8 @@ public class Ticker extends TimerTask
 		long thisFrame = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 		long delta = thisFrame - last;
 		last = thisFrame;
-		List<Entity> toRemove = new ArrayList<>();
-		List<Entity> allEntities = new ArrayList<>(SpaceInvaders.getInstance()
-				.getEntities());
+		Ingame ing = (Ingame) SpaceInvaders.getInstance().getGameState();
+		List<Entity> allEntities = new ArrayList<>(ing.getEntities());
 		for (Entity e : allEntities)
 		{
 			if (e instanceof ControllablePlayer)
@@ -44,13 +44,8 @@ public class Ticker extends TimerTask
 			boolean out = e.updatePosition(delta);
 			if (!out && e instanceof Bullet)
 			{
-				toRemove.add(e);
+				ing.prepareSpawn(e);
 			}
 		}
-		SpaceInvaders i = SpaceInvaders.getInstance();
-		i.getEntities().removeAll(toRemove);
-		i.spawn();
-		i.getScoreManager().tick();
 	}
-
 }
