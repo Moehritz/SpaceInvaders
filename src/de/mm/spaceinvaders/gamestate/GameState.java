@@ -9,8 +9,9 @@ import de.mm.spaceinvaders.gui.model.Menu;
 public class GameState
 {
 	protected Menu visibleMenu;
-	
-	public GameState() {
+
+	public GameState()
+	{
 		init();
 	}
 
@@ -18,6 +19,10 @@ public class GameState
 	{
 		throw new UnsupportedOperationException(
 				"[GameState] init() Methode muss überschrieben werden!");
+	}
+
+	public void end()
+	{
 	}
 
 	public List<Drawable> getThingsToDraw()

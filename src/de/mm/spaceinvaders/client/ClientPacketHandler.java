@@ -1,5 +1,6 @@
 package de.mm.spaceinvaders.client;
 
+import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.io.PacketHandler;
 import de.mm.spaceinvaders.protocol.packets.GameStart;
 import de.mm.spaceinvaders.protocol.packets.UpdatePosition;
@@ -11,7 +12,13 @@ public class ClientPacketHandler extends PacketHandler
 	@Override
 	public void connected() throws Exception
 	{
-		
+		SpaceInvaders.getInstance().switchToServerMenu();
+	}
+	
+	@Override
+	public void disconnected() throws Exception
+	{
+		SpaceInvaders.getInstance().switchToMainMenu();
 	}
 
 	@Override

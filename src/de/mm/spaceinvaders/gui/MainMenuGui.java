@@ -4,6 +4,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 
+import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
@@ -32,7 +33,7 @@ public class MainMenuGui extends Menu
 			@Override
 			public void onClick()
 			{
-				// TODO - Mit Server Verbinden
+				SpaceInvaders.getInstance().switchToServerInfo();
 			}
 		});
 		addObject(button);

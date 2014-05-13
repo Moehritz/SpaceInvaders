@@ -11,6 +11,7 @@ import de.mm.spaceinvaders.gui.model.MenuText.TextAlignment;
 public class LoadingGui extends Menu
 {
 	private MenuText textfield;
+	private String text;
 
 	@Override
 	public void init()
@@ -18,14 +19,15 @@ public class LoadingGui extends Menu
 		super.init();
 
 		textfield = new MenuText(new Rectangle(0, 0, Display.getWidth(),
-				Display.getHeight()), "", 25.0f, Color.white);
+				Display.getHeight()), text, 25.0f, Color.white);
 		textfield.setAlignment(TextAlignment.CENTER);
 		addObject(textfield);
 	}
 
 	public void setText(String text)
 	{
-		textfield.setText(text);
+		this.text = text;
+		if (textfield != null) textfield.setText(text);
 	}
 
 	public String getText()

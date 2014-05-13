@@ -76,4 +76,10 @@ public class Ingame extends GameState
 	{
 		if (!outstandingSpawns.contains(e)) outstandingSpawns.add(e);
 	}
+
+	@Override
+	public void end()
+	{
+		ticker.stop();
+	}
 }

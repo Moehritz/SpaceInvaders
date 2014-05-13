@@ -3,6 +3,7 @@ package de.mm.spaceinvaders.gui;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Rectangle;
 
+import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
@@ -66,8 +67,7 @@ public class ServerMenuGui extends Menu
 		}
 		else
 		{
-			// TODO
-			System.exit(0);
+			SpaceInvaders.getInstance().switchToMainMenu();
 		}
 	}
 
@@ -77,7 +77,7 @@ public class ServerMenuGui extends Menu
 		{
 			return "";
 		}
-		return changeNameTextField.getText().toString();
+		return changeNameTextField.getText();
 	}
 
 	public void changeNameMode(boolean use)

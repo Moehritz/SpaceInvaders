@@ -1,7 +1,5 @@
 package de.mm.spaceinvaders.gui.model;
 
-import lombok.Getter;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
@@ -9,7 +7,6 @@ import org.newdawn.slick.Color;
 public class MenuTextField extends MenuObject
 {
 
-	@Getter
 	private StringBuilder text = new StringBuilder();
 
 	private ObjectBorder border;
@@ -31,6 +28,11 @@ public class MenuTextField extends MenuObject
 	{
 		this.text = new StringBuilder(text);
 		textContainer.setText(text);
+	}
+
+	public String getText()
+	{
+		return text.toString();
 	}
 
 	@Override
@@ -55,6 +57,7 @@ public class MenuTextField extends MenuObject
 					break;
 				default:
 					char c = Keyboard.getEventCharacter();
+					// TODO Nicht immer URL-Limits nehmen (Nicknames etc)
 					if (Character.isAlphabetic(c) || Character.isDigit(c) || '.' == c
 							|| ':' == c)
 					{

@@ -10,7 +10,7 @@ import org.lwjgl.Sys;
 import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.SpaceInvaders;
 
-public class GameTicker extends TimerTask
+public class GameTicker
 {
 
 	public static int tps = 500;
@@ -21,7 +21,14 @@ public class GameTicker extends TimerTask
 	public void start()
 	{
 		timer = new Timer();
-		timer.schedule(this, 0, 1000 / tps);
+		timer.schedule(new TimerTask()
+		{
+			@Override
+			public void run()
+			{
+				run();
+			}
+		}, 0, 1000 / tps);
 	}
 
 	public void stop()
@@ -29,7 +36,6 @@ public class GameTicker extends TimerTask
 		if (timer != null) timer.cancel();
 	}
 
-	@Override
 	public void run()
 	{
 		long thisFrame = (Sys.getTime() * 1000) / Sys.getTimerResolution();
