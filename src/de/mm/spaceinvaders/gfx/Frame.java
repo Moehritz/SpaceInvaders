@@ -17,6 +17,8 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.SpaceInvaders;
+import de.mm.spaceinvaders.gamestate.GameState;
+import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.gui.model.MenuObject;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -96,6 +98,12 @@ public class Frame
 	{
 		SpaceInvaders.getInstance().getBackground().draw();
 
+		GameState gs = SpaceInvaders.getInstance().getGameState();
+		if (gs instanceof Ingame)
+		{
+			Ingame ig = (Ingame) gs;
+			ig.spawnEntities();
+		}
 		List<Drawable> allEntities = SpaceInvaders.getInstance().getGameState()
 				.getThingsToDraw();
 		for (Drawable d : allEntities)

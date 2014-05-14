@@ -2,6 +2,8 @@ package de.mm.spaceinvaders.gamestate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import lombok.Getter;
 import de.mm.spaceinvaders.gfx.Drawable;
@@ -11,6 +13,8 @@ import de.mm.spaceinvaders.io.ConnectionHandler;
 import de.mm.spaceinvaders.logic.ControllablePlayer;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.GameTicker;
+import de.mm.spaceinvaders.logic.Player;
+import de.mm.spaceinvaders.protocol.packets.Respawn;
 
 public class Ingame extends GameState
 {
@@ -23,17 +27,33 @@ public class Ingame extends GameState
 	@Getter
 	private ConnectionHandler connection;
 
-	public Ingame(ConnectionHandler connection)
+	public Ingame(ConnectionHandler connection, Respawn respawn,
+			Map<String, String> players,  String uuid)
 	{
 		this.connection = connection;
+
+		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture(), uuid);
+		thePlayer.setX(respawn.getX());
+		thePlayer.setY(respawn.getY());
+		thePlayer.setRotation(respawn.getRotation());
+		
+		for (Entry<String, String> e : players.entrySet()) {
+			joinInvisiblePlayer(e.getKey(), e.getValue());
+		}
+	}
+
+	public void joinInvisiblePlayer(String uuid, String name)
+	{
+		Player p = new Player(Textures.PLAYER.getTexture(), uuid);
+		p.setName(name);
+		p.setVisible(false);
+		prepareSpawn(p);
 	}
 
 	@Override
 	public void init()
 	{
 		super.visibleMenu = new IngameGui(this);
-
-		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture());
 		ticker = new GameTicker();
 	}
 
@@ -67,6 +87,7 @@ public class Ingame extends GameState
 					entities.add(e);
 				}
 			}
+			if (outstandingSpawns.size() >= 1)
 			outstandingSpawns.clear();
 		}
 
@@ -76,7 +97,7 @@ public class Ingame extends GameState
 	{
 		for (Entity e : entities)
 		{
-			if (e.getUuid() == uuid)
+			if (e.getUuid().equals(uuid))
 			{
 				return e;
 			}

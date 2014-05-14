@@ -18,21 +18,27 @@ public class ControllablePlayer extends Player
 
 	private int ammoRegain = 0;
 
-	public ControllablePlayer(Texture texture)
+	public ControllablePlayer(Texture texture, String uuid)
 	{
-		super(texture);
+		super(texture, uuid);
 		setName("User" + new Random().nextInt(Integer.MAX_VALUE));
 	}
 
 	public void handleInput(long delta)
 	{
+		boolean moved = false;
+
 		int mouseX = Mouse.getX();
 		int mouseY = Display.getHeight() - Mouse.getY();
 
 		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()),
 				new Vector(mouseX, mouseY));
 
-		if (!Double.isNaN(newRotation)) setRotation(newRotation);
+		if (!Double.isNaN(newRotation) && newRotation != getRotation())
+		{
+			setRotation(newRotation);
+			moved = true;
+		}
 
 		ammoRegain++;
 		if (ammoRegain >= GameTicker.tps / 3 && getAmmo() < Player.getMaxAmmo())
@@ -53,18 +59,22 @@ public class ControllablePlayer extends Player
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_W))
 		{
+			moved = true;
 			setSpeed(direction);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A))
 		{
+			moved = true;
 			setSpeed(directionVertical);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S))
 		{
+			moved = true;
 			setSpeed(direction.multiply(-1));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
 		{
+			moved = true;
 			setSpeed(directionVertical.multiply(-1));
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
@@ -76,9 +86,12 @@ public class ControllablePlayer extends Player
 				setLastShot(System.currentTimeMillis());
 			}
 		}
-
-		Ingame ig = (Ingame) SpaceInvaders.getInstance().getGameState();
-		ig.getConnection().sendPackets(
-				new UpdatePosition(getUuid(), getX(), getY(), getRotation(), getSpeed()));
+		if (moved)
+		{
+			Ingame ig = (Ingame) SpaceInvaders.getInstance().getGameState();
+			ig.getConnection().sendPackets(
+					new UpdatePosition(getUuid(), getX(), getY(), getRotation(),
+							getSpeed()));
+		}
 	}
 }

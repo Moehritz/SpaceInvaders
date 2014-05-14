@@ -4,15 +4,14 @@ import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gamestate.GameState;
 import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.gamestate.ServerMenu;
-import de.mm.spaceinvaders.gfx.Textures;
 import de.mm.spaceinvaders.io.PacketHandler;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.Player;
 import de.mm.spaceinvaders.protocol.Protocol;
 import de.mm.spaceinvaders.protocol.packets.ChatMessage;
-import de.mm.spaceinvaders.protocol.packets.GameStart;
 import de.mm.spaceinvaders.protocol.packets.JoinGame;
 import de.mm.spaceinvaders.protocol.packets.Login;
+import de.mm.spaceinvaders.protocol.packets.Respawn;
 import de.mm.spaceinvaders.protocol.packets.UpdatePlayerName;
 import de.mm.spaceinvaders.protocol.packets.UpdatePosition;
 import de.mm.spaceinvaders.protocol.packets.UserJoin;
@@ -37,10 +36,11 @@ public class ClientPacketHandler extends PacketHandler
 	}
 
 	@Override
-	public void handle(GameStart start) throws Exception
+	public void handle(Respawn respawn) throws Exception
 	{
-		SpaceInvaders.getInstance().switchToIngame(getConnection());
-		System.out.println("GAMESTART");
+		SpaceInvaders i = SpaceInvaders.getInstance();
+		ServerMenu sm = ((ServerMenu) i.getGameState());
+		i.switchToIngame(getConnection(), respawn, sm.getOtherPlayers(), sm.getOwnUUID());
 	}
 
 	@Override
@@ -48,6 +48,7 @@ public class ClientPacketHandler extends PacketHandler
 	{
 		Ingame ig = (Ingame) SpaceInvaders.getInstance().getGameState();
 		Entity e = ig.getEntity(pos.getUuid());
+		if (e == null) return;
 		e.setX(pos.getX());
 		e.setY(pos.getY());
 		e.setRotation(pos.getRotation());
@@ -58,11 +59,12 @@ public class ClientPacketHandler extends PacketHandler
 	public void handle(UpdatePlayerName update) throws Exception
 	{
 		GameState gs = SpaceInvaders.getInstance().getGameState();
+		System.out.println("[NAME] " + update.getNewName());
 		if (gs instanceof ServerMenu)
 		{
 			ServerMenu sm = (ServerMenu) gs;
-			sm.getGui().removePlayer(update.getUuid());
-			sm.getGui().addPlayer(update.getNewName(), update.getUuid());
+			sm.removePlayer(update.getUuid());
+			sm.addPlayer(update.getNewName(), update.getUuid());
 		}
 		else if (gs instanceof Ingame)
 		{
@@ -82,18 +84,16 @@ public class ClientPacketHandler extends PacketHandler
 	public void handle(UserJoin join) throws Exception
 	{
 		GameState gs = SpaceInvaders.getInstance().getGameState();
+		System.out.println("[JOIN] " + join.getName() + " " + join.getUuid());
 		if (gs instanceof ServerMenu)
 		{
 			ServerMenu sm = (ServerMenu) gs;
-			sm.getGui().addPlayer(join.getName(), join.getUuid());
+			sm.addPlayer(join.getName(), join.getUuid());
 		}
 		else if (gs instanceof Ingame)
 		{
 			Ingame ig = (Ingame) gs;
-			Player p = new Player(Textures.PLAYER.getTexture(), join.getUuid());
-			p.setName(join.getName());
-			p.setVisible(false);
-			ig.prepareSpawn(p);
+			ig.joinInvisiblePlayer(join.getUuid(), join.getName());
 		}
 	}
 
@@ -101,6 +101,7 @@ public class ClientPacketHandler extends PacketHandler
 	public void handle(UserLeave leave) throws Exception
 	{
 		GameState gs = SpaceInvaders.getInstance().getGameState();
+		System.out.println("[QUIT] " + leave.getUuid());
 		if (gs instanceof ServerMenu)
 		{
 			ServerMenu sm = (ServerMenu) gs;
@@ -112,12 +113,15 @@ public class ClientPacketHandler extends PacketHandler
 			ig.prepareSpawn(ig.getEntity(leave.getUuid()));
 		}
 	}
-	
+
 	@Override
 	public void handle(JoinGame game) throws Exception
 	{
 		GameState gs = SpaceInvaders.getInstance().getGameState();
 		Ingame ig = (Ingame) gs;
-		ig.getEntity(game.getUuid()).setVisible(true);
+		Entity e = ig.getEntity(game.getUuid());
+		if (e == null) return;
+		e.setVisible(true);
+		System.out.println("[PLAY] " + ((Player) ig.getEntity(game.getUuid())).getName());
 	}
 }

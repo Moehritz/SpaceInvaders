@@ -27,6 +27,7 @@ public class RocketFire implements Drawable
 
 	public void update()
 	{
+		if (!(SpaceInvaders.getInstance().getGameState() instanceof Ingame)) return;
 		List<SingleRocketFire> ended = new ArrayList<>();
 		for (SingleRocketFire fire : fires)
 		{

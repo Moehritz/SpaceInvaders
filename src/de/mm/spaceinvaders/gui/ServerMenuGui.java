@@ -90,8 +90,9 @@ public class ServerMenuGui extends Menu
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_Q) && !sent && !changeName)
 		{
-			serverMenu.getConnection().sendPackets(new GameStart());
-			//sent = true;
+			serverMenu.getConnection()
+					.sendPackets(new GameStart(serverMenu.getOwnUUID()));
+			sent = true;
 		}
 		super.draw();
 	}
@@ -135,32 +136,32 @@ public class ServerMenuGui extends Menu
 		}
 	}
 
-	public void addPlayer(String name, String uuid)
+	public void addPlayer(String name)
 	{
-		if (players.containsKey(uuid)) return;
+		if (players.containsKey(name)) return;
 
 		MenuText mt = new MenuText(new Rectangle(0, 100 + players.size() * 50,
-				Display.getWidth(), 40), name + " -> " + uuid, 15, Color.blue);
+				Display.getWidth(), 40), name, 15, Color.blue);
 		mt.setAlignment(TextAlignment.CENTER);
 		addObject(mt);
 
-		players.put(uuid, mt);
+		players.put(name, mt);
 	}
 
-	public void removePlayer(String uuid)
+	public void removePlayer(String name)
 	{
 		boolean move = false;
 		for (Entry<String, MenuText> e : players.entrySet())
 		{
-			if (!move && e.getKey().equals(uuid))
+			if (!move && e.getKey().equals(name))
 				move = true;
 			else
 			{
 				MenuText mt = e.getValue();
-				mt.getRect().setY(mt.getRect().getY() - 50);
+				mt.getRect().setY(mt.getRect().getY() - 25);
 			}
 		}
-		removeObject(players.get(uuid));
-		players.remove(uuid);
+		removeObject(players.get(name));
+		players.remove(name);
 	}
 }

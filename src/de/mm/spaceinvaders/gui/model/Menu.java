@@ -3,6 +3,8 @@ package de.mm.spaceinvaders.gui.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import de.mm.spaceinvaders.gfx.Drawable;
 import de.mm.spaceinvaders.gfx.TextDrawable;
 import lombok.Getter;
@@ -33,6 +35,7 @@ public class Menu implements Drawable
 				((TextDrawable) object).drawText();
 			}
 		}
+		while (Keyboard.next());
 	}
 
 	protected void addObject(MenuObject object)

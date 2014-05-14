@@ -86,9 +86,6 @@ public class Entity implements Drawable
 			ret = false;
 		}
 
-		// SpaceInvaders.getInstance().getClient()
-		// .write(new UpdatePosition(uuid, x, y, rotation));
-
 		if (speed.getX() < 0.01 && speed.getX() > -0.01) speed.setX(0);
 		if (speed.getY() < 0.01 && speed.getY() > -0.01) speed.setY(0);
 		return ret;

@@ -53,7 +53,8 @@ public class IngameGui extends Menu
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_R))
 		{
-			ingame.getConnection().sendPackets(new ResetGame());
+			ingame.getConnection().sendPackets(
+					new ResetGame(ingame.getThePlayer().getUuid()));
 		}
 	}
 

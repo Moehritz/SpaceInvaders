@@ -1,6 +1,7 @@
 package de.mm.spaceinvaders;
 
 import java.io.IOException;
+import java.util.Map;
 
 import lombok.Getter;
 
@@ -17,6 +18,7 @@ import de.mm.spaceinvaders.gfx.Frame;
 import de.mm.spaceinvaders.gfx.StarBackground;
 import de.mm.spaceinvaders.io.ConnectionHandler;
 import de.mm.spaceinvaders.protocol.Protocol;
+import de.mm.spaceinvaders.protocol.packets.Respawn;
 
 @Getter
 public class SpaceInvaders
@@ -111,10 +113,10 @@ public class SpaceInvaders
 		return (ServerMenu) gameState;
 	}
 
-	public Ingame switchToIngame(ConnectionHandler connection)
+	public Ingame switchToIngame(ConnectionHandler connection, Respawn respawn,
+			Map<String, String> players, String uuid)
 	{
-		gameState.end();
-		Ingame ig = new Ingame(connection);
+		Ingame ig = new Ingame(connection, respawn, players, uuid);
 		gameState = ig;
 		ig.run();
 		return ig;

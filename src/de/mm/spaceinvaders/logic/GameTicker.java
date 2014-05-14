@@ -13,7 +13,7 @@ import de.mm.spaceinvaders.SpaceInvaders;
 public class GameTicker
 {
 
-	public static int tps = 500;
+	public static int tps = 60;
 
 	private Timer timer;
 	private long last = (Sys.getTime() * 1000) / Sys.getTimerResolution();
@@ -28,7 +28,7 @@ public class GameTicker
 			{
 				runTick();
 			}
-		}, 1000, 1000 / tps);
+		}, 0, 1000 / tps);
 	}
 
 	public void stop()
