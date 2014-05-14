@@ -14,7 +14,7 @@ public class ServerMenu extends GameState
 {
 	private String ownName = System.getProperty("user.name");
 	private final String ownUUID = UUID.randomUUID().toString();
-	
+
 	private Map<String, String> otherPlayers = new HashMap<String, String>();
 
 	private ConnectionHandler connection;
@@ -46,14 +46,16 @@ public class ServerMenu extends GameState
 	{
 		return (ServerMenuGui) super.visibleMenu;
 	}
-	
-	public void addPlayer(String name, String uuid) {
+
+	public void addPlayer(String name, String uuid)
+	{
 		if (otherPlayers.containsKey(uuid)) return;
 		otherPlayers.put(uuid, name);
 		getGui().addPlayer(name);
 	}
-	
-	public void removePlayer(String uuid) {
+
+	public void removePlayer(String uuid)
+	{
 		if (!otherPlayers.containsKey(uuid)) return;
 		getGui().removePlayer(otherPlayers.get(uuid));
 		otherPlayers.remove(uuid);

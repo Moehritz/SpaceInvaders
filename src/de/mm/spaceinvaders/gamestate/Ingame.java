@@ -28,7 +28,7 @@ public class Ingame extends GameState
 	private ConnectionHandler connection;
 
 	public Ingame(ConnectionHandler connection, Respawn respawn,
-			Map<String, String> players,  String uuid)
+			Map<String, String> players, String uuid)
 	{
 		this.connection = connection;
 
@@ -36,8 +36,9 @@ public class Ingame extends GameState
 		thePlayer.setX(respawn.getX());
 		thePlayer.setY(respawn.getY());
 		thePlayer.setRotation(respawn.getRotation());
-		
-		for (Entry<String, String> e : players.entrySet()) {
+
+		for (Entry<String, String> e : players.entrySet())
+		{
 			joinInvisiblePlayer(e.getKey(), e.getValue());
 		}
 	}
@@ -87,8 +88,7 @@ public class Ingame extends GameState
 					entities.add(e);
 				}
 			}
-			if (outstandingSpawns.size() >= 1)
-			outstandingSpawns.clear();
+			if (outstandingSpawns.size() >= 1) outstandingSpawns.clear();
 		}
 
 	}
