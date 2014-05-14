@@ -34,8 +34,12 @@ public class Ingame extends GameState
 		super.visibleMenu = new IngameGui(this);
 
 		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture());
-		prepareSpawn(thePlayer);
 		ticker = new GameTicker();
+	}
+
+	public void run()
+	{
+		prepareSpawn(thePlayer);
 
 		ticker.start();
 	}

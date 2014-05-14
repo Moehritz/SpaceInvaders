@@ -26,9 +26,9 @@ public class GameTicker
 			@Override
 			public void run()
 			{
-				run();
+				runTick();
 			}
-		}, 0, 1000 / tps);
+		}, 1000, 1000 / tps);
 	}
 
 	public void stop()
@@ -36,7 +36,7 @@ public class GameTicker
 		if (timer != null) timer.cancel();
 	}
 
-	public void run()
+	public void runTick()
 	{
 		long thisFrame = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 		long delta = thisFrame - last;

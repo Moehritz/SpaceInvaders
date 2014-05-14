@@ -12,9 +12,21 @@ public enum Textures
 
 	PLAYER("player"), BULLET("bullet");
 
+	public static void init()
+	{
+		for (Textures t : Textures.values())
+			t.load();
+	}
+
+	private String name;
 	private Texture texture;
 
 	private Textures(String name)
+	{
+		this.name = name;
+	}
+
+	private void load()
 	{
 		try
 		{

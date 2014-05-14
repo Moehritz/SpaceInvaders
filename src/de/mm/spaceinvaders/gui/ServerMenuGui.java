@@ -26,6 +26,7 @@ public class ServerMenuGui extends Menu
 	private ServerMenu serverMenu;
 
 	private boolean changeName = false;
+	private boolean sent = false;
 
 	private MenuButton changeNameButton;
 	private MenuTextField changeNameTextField;
@@ -87,9 +88,10 @@ public class ServerMenuGui extends Menu
 		{
 			SpaceInvaders.getInstance().switchToMainMenu();
 		}
-		else if (Keyboard.isKeyDown(Keyboard.KEY_Q))
+		else if (Keyboard.isKeyDown(Keyboard.KEY_Q) && !sent && !changeName)
 		{
 			serverMenu.getConnection().sendPackets(new GameStart());
+			//sent = true;
 		}
 		super.draw();
 	}
@@ -128,14 +130,17 @@ public class ServerMenuGui extends Menu
 		{
 			addObject(changeNameButton);
 			removeObject(changeNameTextField);
-			serverMenu.setOwnName(getName());
+			if (!serverMenu.getOwnName().equalsIgnoreCase(getName()))
+				serverMenu.setOwnName(getName());
 		}
 	}
 
 	public void addPlayer(String name, String uuid)
 	{
+		if (players.containsKey(uuid)) return;
+
 		MenuText mt = new MenuText(new Rectangle(0, 100 + players.size() * 50,
-				Display.getWidth(), 40), name + " -> " + uuid, 15, Color.magenta);
+				Display.getWidth(), 40), name + " -> " + uuid, 15, Color.blue);
 		mt.setAlignment(TextAlignment.CENTER);
 		addObject(mt);
 

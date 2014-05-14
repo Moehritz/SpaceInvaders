@@ -114,7 +114,9 @@ public class SpaceInvaders
 	public Ingame switchToIngame(ConnectionHandler connection)
 	{
 		gameState.end();
-		gameState = new Ingame(connection);
-		return (Ingame) gameState;
+		Ingame ig = new Ingame(connection);
+		gameState = ig;
+		ig.run();
+		return ig;
 	}
 }

@@ -34,6 +34,8 @@ public class Frame
 		Display.setVSyncEnabled(true);
 		Display.create();
 
+		Textures.init();
+
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
