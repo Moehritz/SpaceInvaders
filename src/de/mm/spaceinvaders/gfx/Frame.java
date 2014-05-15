@@ -14,6 +14,7 @@ import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.SpaceInvaders;
@@ -108,7 +109,10 @@ public class Frame
 				.getThingsToDraw();
 		for (Drawable d : allEntities)
 		{
+			if (d == null) continue;
 			d.draw();
+
+			TextureImpl.bindNone();
 		}
 	}
 }

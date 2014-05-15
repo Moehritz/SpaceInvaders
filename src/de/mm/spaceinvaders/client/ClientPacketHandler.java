@@ -93,7 +93,7 @@ public class ClientPacketHandler extends PacketHandler
 		else if (gs instanceof Ingame)
 		{
 			Ingame ig = (Ingame) gs;
-			ig.joinInvisiblePlayer(join.getUuid(), join.getName());
+			ig.prepareSpawn(ig.createInvisiblePlayer(join.getUuid(), join.getName()));
 		}
 	}
 
@@ -107,7 +107,7 @@ public class ClientPacketHandler extends PacketHandler
 			ServerMenu sm = (ServerMenu) gs;
 			sm.getGui().removePlayer(leave.getUuid());
 		}
-		else
+		else if (gs instanceof Ingame)
 		{
 			Ingame ig = (Ingame) gs;
 			ig.prepareSpawn(ig.getEntity(leave.getUuid()));
@@ -120,7 +120,7 @@ public class ClientPacketHandler extends PacketHandler
 		GameState gs = SpaceInvaders.getInstance().getGameState();
 		Ingame ig = (Ingame) gs;
 		Entity e = ig.getEntity(game.getUuid());
-		if (e == null) return;
+		if (e == null || e.getUuid().equals(ig.getThePlayer().getUuid())) return;
 		e.setVisible(true);
 		System.out.println("[PLAY] " + ((Player) ig.getEntity(game.getUuid())).getName());
 	}

@@ -47,6 +47,7 @@ public class GameTicker
 		{
 			if (e instanceof ControllablePlayer)
 				((ControllablePlayer) e).handleInput(delta);
+			if (e == null) continue;
 			boolean out = e.updatePosition(delta);
 			if (!out && e instanceof Bullet)
 			{

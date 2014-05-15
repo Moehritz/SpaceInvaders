@@ -94,6 +94,7 @@ public class Entity implements Drawable
 	@Override
 	public void draw()
 	{
+		if (!visible) return;
 		float rx = x, ry = y;
 		texture.bind();
 		double rotation = this.rotation;

@@ -150,18 +150,14 @@ public class ServerMenuGui extends Menu
 
 	public void removePlayer(String name)
 	{
-		boolean move = false;
-		for (Entry<String, MenuText> e : players.entrySet())
-		{
-			if (!move && e.getKey().equals(name))
-				move = true;
-			else
-			{
-				MenuText mt = e.getValue();
-				mt.getRect().setY(mt.getRect().getY() - 25);
-			}
-		}
 		removeObject(players.get(name));
 		players.remove(name);
+		// Rearrange List
+		int i = 0;
+		for (Entry<String, MenuText> e : players.entrySet())
+		{
+			e.getValue().getRect().setY(100 + i * 50);
+			i++;
+		}
 	}
 }

@@ -28,27 +28,29 @@ public class Ingame extends GameState
 	private ConnectionHandler connection;
 
 	public Ingame(ConnectionHandler connection, Respawn respawn,
-			Map<String, String> players, String uuid)
+			Map<String, String> players, String ownUuid)
 	{
 		this.connection = connection;
 
-		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture(), uuid);
+		thePlayer = new ControllablePlayer(Textures.PLAYER.getTexture(), ownUuid);
 		thePlayer.setX(respawn.getX());
 		thePlayer.setY(respawn.getY());
 		thePlayer.setRotation(respawn.getRotation());
 
 		for (Entry<String, String> e : players.entrySet())
 		{
-			joinInvisiblePlayer(e.getKey(), e.getValue());
+			if (e.getKey().equalsIgnoreCase(ownUuid)) continue;
+			Player p = createInvisiblePlayer(e.getKey(), e.getValue());
+			entities.add(p);
 		}
 	}
 
-	public void joinInvisiblePlayer(String uuid, String name)
+	public Player createInvisiblePlayer(String uuid, String name)
 	{
 		Player p = new Player(Textures.PLAYER.getTexture(), uuid);
 		p.setName(name);
 		p.setVisible(false);
-		prepareSpawn(p);
+		return p;
 	}
 
 	@Override
@@ -79,6 +81,7 @@ public class Ingame extends GameState
 		{
 			for (Entity e : outstandingSpawns)
 			{
+				if (e == null) continue;
 				if (entities.contains(e))
 				{
 					entities.remove(e);
@@ -107,7 +110,7 @@ public class Ingame extends GameState
 
 	public void prepareSpawn(Entity e)
 	{
-		if (!outstandingSpawns.contains(e)) outstandingSpawns.add(e);
+		if (!outstandingSpawns.contains(e) && e != null) outstandingSpawns.add(e);
 	}
 
 	@Override
