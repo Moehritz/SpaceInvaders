@@ -9,9 +9,10 @@ public class Bullet extends Entity
 
 	private Entity sender;
 
-	public Bullet(Texture texture) throws IOException
+	public Bullet(String uuid, Texture texture) throws IOException
 	{
-		super(texture);
+		super(texture, uuid);
+		setType((byte) 2);
 	}
 
 	public Entity getSender()

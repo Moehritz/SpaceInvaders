@@ -81,7 +81,6 @@ public class Ingame extends GameState
 		{
 			for (Entity e : outstandingSpawns)
 			{
-				if (e == null) continue;
 				if (entities.contains(e))
 				{
 					entities.remove(e);
@@ -91,7 +90,7 @@ public class Ingame extends GameState
 					entities.add(e);
 				}
 			}
-			if (outstandingSpawns.size() >= 1) outstandingSpawns.clear();
+			outstandingSpawns.clear();
 		}
 
 	}
@@ -108,15 +107,20 @@ public class Ingame extends GameState
 		return null;
 	}
 
-	public void prepareSpawn(Entity e)
-	{
-		if (!outstandingSpawns.contains(e) && e != null) outstandingSpawns.add(e);
-	}
-
 	@Override
 	public void end()
 	{
 		getConnection().closeConnection();
 		ticker.stop();
+	}
+
+	public void prepareSpawn(Entity e)
+	{
+		if (!outstandingSpawns.contains(e) && e != null) outstandingSpawns.add(e);
+	}
+
+	public void prepareDespawn(Entity e)
+	{
+		if (entities.contains(e) && e != null) outstandingSpawns.add(e);
 	}
 }

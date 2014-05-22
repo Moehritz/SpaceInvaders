@@ -4,14 +4,17 @@ import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gamestate.GameState;
 import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.gamestate.ServerMenu;
+import de.mm.spaceinvaders.gfx.Textures;
 import de.mm.spaceinvaders.io.PacketHandler;
+import de.mm.spaceinvaders.logic.Bullet;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.logic.Player;
 import de.mm.spaceinvaders.protocol.Protocol;
 import de.mm.spaceinvaders.protocol.packets.ChatMessage;
-import de.mm.spaceinvaders.protocol.packets.JoinGame;
+import de.mm.spaceinvaders.protocol.packets.DespawnEntity;
 import de.mm.spaceinvaders.protocol.packets.Login;
 import de.mm.spaceinvaders.protocol.packets.Respawn;
+import de.mm.spaceinvaders.protocol.packets.SpawnEntity;
 import de.mm.spaceinvaders.protocol.packets.UpdatePlayerName;
 import de.mm.spaceinvaders.protocol.packets.UpdatePosition;
 import de.mm.spaceinvaders.protocol.packets.UserJoin;
@@ -115,13 +118,39 @@ public class ClientPacketHandler extends PacketHandler
 	}
 
 	@Override
-	public void handle(JoinGame game) throws Exception
+	public void handle(SpawnEntity game) throws Exception
 	{
 		GameState gs = SpaceInvaders.getInstance().getGameState();
 		Ingame ig = (Ingame) gs;
-		Entity e = ig.getEntity(game.getUuid());
-		if (e == null || e.getUuid().equals(ig.getThePlayer().getUuid())) return;
-		e.setVisible(true);
-		System.out.println("[PLAY] " + ((Player) ig.getEntity(game.getUuid())).getName());
+		if (ig.getEntity(game.getUuid()) != null) return;
+		Entity e = null;
+		switch (game.getType())
+		{
+		case 1:
+			e = new Player(Textures.PLAYER.getTexture(), game.getUuid());
+			break;
+		case 2:
+			e = new Bullet(game.getUuid(), Textures.BULLET.getTexture());
+			break;
+		default:
+			break;
+		}
+		if (e != null)
+		{
+			e.setX(game.getX());
+			e.setY(game.getY());
+			e.setRotation(game.getRotation());
+			ig.prepareSpawn(e);
+		}
+	}
+
+	@Override
+	public void handle(DespawnEntity despawn) throws Exception
+	{
+		GameState gs = SpaceInvaders.getInstance().getGameState();
+		Ingame ig = (Ingame) gs;
+
+		Entity e = ig.getEntity(despawn.getUuid());
+		ig.prepareDespawn(e);
 	}
 }

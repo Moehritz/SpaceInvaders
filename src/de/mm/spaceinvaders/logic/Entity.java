@@ -21,11 +21,14 @@ public class Entity implements Drawable
 	@NonNull
 	private final String uuid;
 
-	private float x = 200, y = 200, health, width, height;
+	private float width, height;
+	private double x;
+	private double y;
 	private double rotation = 0;
 	private Vector speed = new Vector();
 	private Texture texture;
 	private boolean visible = true;
+	private byte type = 0;
 
 	public Entity(Texture texture)
 	{
@@ -95,7 +98,7 @@ public class Entity implements Drawable
 	public void draw()
 	{
 		if (!visible) return;
-		float rx = x, ry = y;
+		double rx = x, ry = y;
 		texture.bind();
 		double rotation = this.rotation;
 		glColor3f(1.0f, 1.0f, 1.0f);

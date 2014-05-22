@@ -11,11 +11,6 @@ import de.mm.spaceinvaders.gfx.RocketFire;
 @Setter
 public class Player extends Entity
 {
-	@Getter
-	private static final int shotCooldown = 100, maxAmmo = 50;
-
-	private int ammo = maxAmmo;
-	private long lastShot;
 
 	private String name;
 
@@ -25,23 +20,13 @@ public class Player extends Entity
 	{
 		super(texture);
 		fire = new RocketFire();
+		setType((byte) 1);
 	}
 
 	public Player(Texture texture, String uuid)
 	{
 		super(texture, uuid);
 		fire = new RocketFire();
-	}
-
-	public void setAmmo(int ammo)
-	{
-		this.ammo = ammo;
-	}
-
-	public void shoot()
-	{
-		setAmmo(ammo - 1);
-		// TODO
 	}
 
 	@Override

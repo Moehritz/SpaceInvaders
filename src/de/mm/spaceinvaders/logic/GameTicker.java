@@ -45,14 +45,10 @@ public class GameTicker
 		List<Entity> allEntities = new ArrayList<>(ing.getEntities());
 		for (Entity e : allEntities)
 		{
+			if (e == null) continue;
 			if (e instanceof ControllablePlayer)
 				((ControllablePlayer) e).handleInput(delta);
-			if (e == null) continue;
-			boolean out = e.updatePosition(delta);
-			if (!out && e instanceof Bullet)
-			{
-				ing.prepareSpawn(e);
-			}
+			e.updatePosition(delta);
 		}
 	}
 }

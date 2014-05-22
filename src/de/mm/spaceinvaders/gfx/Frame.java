@@ -26,7 +26,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Frame
 {
 
-	private static int width = 800, height = 600, fps = 50;
+	private static int width = 800, height = 600, fps = 30;
 
 	private boolean exit = false;
 
@@ -36,12 +36,14 @@ public class Frame
 		Display.setTitle("SpaceInversion");
 		Display.setVSyncEnabled(true);
 		Display.create();
+		
+		Display.setResizable(true);
 
 		Textures.init();
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+		glOrtho(0, 1, 1, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
@@ -80,6 +82,11 @@ public class Frame
 	{
 		while (!exit)
 		{
+			if (Display.wasResized()) {
+				glLoadIdentity();
+				glViewport(0, 0, Display.getWidth(), Display.getHeight());
+			}
+			
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			SpaceInvaders.getInstance().getBackground().update();
 
