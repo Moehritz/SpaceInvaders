@@ -1,7 +1,7 @@
 package de.mm.spaceinvaders.gui;
 
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Rectangle;
+import java.awt.geom.Rectangle2D;
+
 import org.newdawn.slick.Color;
 
 import de.mm.spaceinvaders.SpaceInvaders;
@@ -18,10 +18,10 @@ public class MainMenuGui extends Menu
 	{
 		super.init();
 
-		addObject(new MenuText(new Rectangle(40, 40, Display.getWidth() - 80, 80),
+		addObject(new MenuText(new Rectangle2D.Double(0.1, 0.1, 0.8, 0.3),
 				"SPACE INVERSION", 30, Color.green));
-		MenuButton button = new MenuButton(new Rectangle(160, 270,
-				Display.getWidth() - 320, 50), "Spiel starten!", 25);
+		MenuButton button = new MenuButton(new Rectangle2D.Double(0.2, 0.4, 0.6, 0.15),
+				"Spiel starten!", 25);
 		button.setListener(new MenuActionListener()
 		{
 
@@ -38,7 +38,8 @@ public class MainMenuGui extends Menu
 		});
 		addObject(button);
 
-		MenuButton exit = new MenuButton(new Rectangle(10, 10, 100, 30), "Exit", 20);
+		MenuButton exit = new MenuButton(new Rectangle2D.Double(0.2, 0.65, 0.6, 0.1),
+				"Exit", 20);
 		exit.setListener(new MenuActionListener()
 		{
 

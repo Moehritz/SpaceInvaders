@@ -1,7 +1,8 @@
 package de.mm.spaceinvaders.gui.model;
 
+import java.awt.geom.Rectangle2D;
+
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 
 public class MenuTextField extends MenuObject
@@ -12,14 +13,10 @@ public class MenuTextField extends MenuObject
 	private ObjectBorder border;
 	private MenuText textContainer;
 
-	public MenuTextField(Rectangle rect)
+	public MenuTextField(Rectangle2D.Double rect)
 	{
 		super(rect);
 		border = new ObjectBorder(rect);
-		border.setBorderLeft(1);
-		border.setBorderRight(1);
-		border.setBorderDown(2);
-		border.setBorderUp(2);
 
 		textContainer = new MenuText(rect, text.toString(), 20f, Color.white);
 	}

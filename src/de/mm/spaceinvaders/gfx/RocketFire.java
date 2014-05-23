@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.glVertex2d;
 
 public class RocketFire implements Drawable
 {
@@ -81,10 +81,10 @@ public class RocketFire implements Drawable
 		glColor4f(1.0f, rand.nextFloat() / 2, 0.0f, opacity / 100);
 		glBegin(GL_QUADS);
 		{
-			glVertex2f(x, y);
-			glVertex2f((x + 1) + sizePerPixel, y);
-			glVertex2f((x + 1) + sizePerPixel, (y + 1) + sizePerPixel);
-			glVertex2f(x, (y + 1) + sizePerPixel);
+			glVertex2d(x, y);
+			glVertex2d((x + 1) + sizePerPixel, y);
+			glVertex2d((x + 1) + sizePerPixel, (y + 1) + sizePerPixel);
+			glVertex2d(x, (y + 1) + sizePerPixel);
 		}
 		glEnd();
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);

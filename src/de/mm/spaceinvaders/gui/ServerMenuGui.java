@@ -1,5 +1,6 @@
 package de.mm.spaceinvaders.gui;
 
+import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,7 +9,6 @@ import lombok.Getter;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 
 import de.mm.spaceinvaders.SpaceInvaders;
@@ -43,7 +43,8 @@ public class ServerMenuGui extends Menu
 	{
 		super.init();
 
-		MenuButton exit = new MenuButton(new Rectangle(10, 10, 100, 30), "<-", 20);
+		MenuButton exit = new MenuButton(new Rectangle2D.Double(10, 10, 100, 30), "<-",
+				20);
 		exit.setListener(new MenuActionListener()
 		{
 			@Override
@@ -59,8 +60,8 @@ public class ServerMenuGui extends Menu
 		});
 		addObject(exit);
 
-		changeNameButton = new MenuButton(new Rectangle(Display.getWidth() - 245, 10,
-				235, 30), "Name", 20);
+		changeNameButton = new MenuButton(new Rectangle2D.Double(
+				Display.getWidth() - 245, 10, 235, 30), "Name", 20);
 		changeNameButton.setListener(new MenuActionListener()
 		{
 			@Override
@@ -75,7 +76,7 @@ public class ServerMenuGui extends Menu
 			}
 		});
 
-		changeNameTextField = new MenuTextField(new Rectangle(160, 400,
+		changeNameTextField = new MenuTextField(new Rectangle2D.Double(160, 400,
 				Display.getWidth() - 320, 50));
 		changeNameTextField.setText(serverMenu.getOwnName());
 		addObject(changeNameButton);
@@ -140,7 +141,7 @@ public class ServerMenuGui extends Menu
 	{
 		if (players.containsKey(name)) return;
 
-		MenuText mt = new MenuText(new Rectangle(0, 100 + players.size() * 50,
+		MenuText mt = new MenuText(new Rectangle2D.Double(0, 100 + players.size() * 50,
 				Display.getWidth(), 40), name, 15, Color.blue);
 		mt.setAlignment(TextAlignment.CENTER);
 		addObject(mt);
@@ -156,7 +157,7 @@ public class ServerMenuGui extends Menu
 		int i = 0;
 		for (Entry<String, MenuText> e : players.entrySet())
 		{
-			e.getValue().getRect().setY(100 + i * 50);
+			e.getValue().getRect().y = 100 + i * 50;
 			i++;
 		}
 	}

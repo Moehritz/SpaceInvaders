@@ -1,14 +1,14 @@
 package de.mm.spaceinvaders.gui.model;
 
+import java.awt.geom.Rectangle2D;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import org.lwjgl.util.Rectangle;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glVertex2i;
+import static org.lwjgl.opengl.GL11.glVertex2d;
 
 public class MenuStatusBar extends MenuObject
 {
@@ -22,15 +22,10 @@ public class MenuStatusBar extends MenuObject
 
 	private ObjectBorder border;
 
-	public MenuStatusBar(Rectangle rect)
+	public MenuStatusBar(Rectangle2D.Double rect)
 	{
 		super(rect);
 		border = new ObjectBorder(rect);
-		border.setBorderLeft(1);
-		border.setBorderRight(1);
-		border.setBorderDown(2);
-		border.setBorderUp(2);
-
 	}
 
 	@Override
@@ -43,19 +38,19 @@ public class MenuStatusBar extends MenuObject
 
 		if (right)
 		{
-			glVertex2i(getRect().getX() + getRect().getWidth() - sizeX, getRect().getY());
-			glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY());
-			glVertex2i(getRect().getX() + getRect().getWidth(), getRect().getY()
+			glVertex2d(getRect().getX() + getRect().getWidth() - sizeX, getRect().getY());
+			glVertex2d(getRect().getX() + getRect().getWidth(), getRect().getY());
+			glVertex2d(getRect().getX() + getRect().getWidth(), getRect().getY()
 					+ getRect().getHeight());
-			glVertex2i(getRect().getX() + getRect().getWidth() - sizeX, getRect().getY()
+			glVertex2d(getRect().getX() + getRect().getWidth() - sizeX, getRect().getY()
 					+ getRect().getHeight());
 		}
 		else
 		{
-			glVertex2i(getRect().getX(), getRect().getY());
-			glVertex2i(getRect().getX() + sizeX, getRect().getY());
-			glVertex2i(getRect().getX() + sizeX, getRect().getY() + getRect().getHeight());
-			glVertex2i(getRect().getX(), getRect().getY() + getRect().getHeight());
+			glVertex2d(getRect().getX(), getRect().getY());
+			glVertex2d(getRect().getX() + sizeX, getRect().getY());
+			glVertex2d(getRect().getX() + sizeX, getRect().getY() + getRect().getHeight());
+			glVertex2d(getRect().getX(), getRect().getY() + getRect().getHeight());
 		}
 
 		glEnd();

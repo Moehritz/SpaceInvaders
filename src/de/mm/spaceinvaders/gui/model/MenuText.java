@@ -1,9 +1,10 @@
 package de.mm.spaceinvaders.gui.model;
 
+import java.awt.geom.Rectangle2D;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -25,7 +26,7 @@ public class MenuText extends MenuObject implements TextDrawable
 	private float fontSize;
 	private boolean fontInitialized = false;
 
-	public MenuText(Rectangle rect, String text, float size, Color color)
+	public MenuText(Rectangle2D.Double rect, String text, float size, Color color)
 	{
 		super(rect);
 		this.text = text;
@@ -42,8 +43,8 @@ public class MenuText extends MenuObject implements TextDrawable
 	@Override
 	public void drawText()
 	{
-		if (!fontInitialized) initThisFont();
-		int fx = getRect().getX(); // LEFT
+		/*if (!fontInitialized) initThisFont();
+		double fx = getRect().getX(); // LEFT
 		if (alignment == TextAlignment.CENTER)
 		{
 			fx += (getRect().getWidth() / 2) - (ttf.getWidth(text) / 2);
@@ -52,9 +53,9 @@ public class MenuText extends MenuObject implements TextDrawable
 		{
 			fx += getRect().getWidth() - ttf.getWidth(text);
 		}
-		int fy = getRect().getY() + (getRect().getHeight() / 2)
+		double fy = getRect().getY() + (getRect().getHeight() / 2)
 				- (ttf.getHeight(text) / 2);
-		ttf.drawString(fx, fy, text, color);
+		ttf.drawString(fx, fy, text, color);*/
 	}
 
 	public void setSize(float size)

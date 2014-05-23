@@ -1,8 +1,8 @@
 package de.mm.spaceinvaders.gui;
 
+import java.awt.geom.Rectangle2D;
+
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Rectangle;
 import org.newdawn.slick.Color;
 
 import de.mm.spaceinvaders.SpaceInvaders;
@@ -30,13 +30,14 @@ public class IngameGui extends Menu
 	{
 		super.init();
 
-		score = new MenuText(new Rectangle(7, 13, 200, 10), "", 25.0f, Color.white);
+		score = new MenuText(new Rectangle2D.Double(0.001, 0.001, 0.3, 0.05), "", 25.0f,
+				Color.white);
 		updateScore(0);
 		score.setAlignment(TextAlignment.LEFT);
 		addObject(score);
 
-		statusBar = new MenuStatusBar(
-				new Rectangle(Display.getWidth() - 150, 10, 143, 10));
+		statusBar = new MenuStatusBar(new Rectangle2D.Double(0.7,
+				0.001, 0.299, 0.05));
 		statusBar.setPercent(100);
 		statusBar.setRight(true);
 		addObject(statusBar);

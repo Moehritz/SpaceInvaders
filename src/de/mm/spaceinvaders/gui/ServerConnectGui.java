@@ -1,7 +1,7 @@
 package de.mm.spaceinvaders.gui;
 
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Rectangle;
+import java.awt.geom.Rectangle2D;
+
 import org.newdawn.slick.Color;
 
 import de.mm.spaceinvaders.SpaceInvaders;
@@ -21,15 +21,15 @@ public class ServerConnectGui extends Menu
 	{
 		super.init();
 
-		title = new MenuText(new Rectangle(160, 200, Display.getWidth() - 320, 50),
+		title = new MenuText(new Rectangle2D.Double(0.3, 0.3, 0.4, 0.1),
 				"Verbinde zu ...", 20f, Color.white);
 		addObject(title);
 
-		input = new MenuTextField(new Rectangle(160, 270, Display.getWidth() - 320, 50));
+		input = new MenuTextField(new Rectangle2D.Double(0.2, 0.45, 0.6, 0.1));
 		addObject(input);
 
-		MenuButton button = new MenuButton(new Rectangle(200, 340,
-				Display.getWidth() - 400, 50), "Los", 20f);
+		MenuButton button = new MenuButton(new Rectangle2D.Double(0.35, 0.6, 0.3, 0.07),
+				"Los", 20f);
 		button.setListener(new MenuActionListener()
 		{
 

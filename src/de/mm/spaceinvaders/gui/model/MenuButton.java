@@ -1,11 +1,12 @@
 package de.mm.spaceinvaders.gui.model;
 
 import static org.lwjgl.opengl.GL11.*;
+
+import java.awt.geom.Rectangle2D;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import org.lwjgl.util.Rectangle;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
 import de.mm.spaceinvaders.gfx.TextDrawable;
@@ -18,7 +19,7 @@ public class MenuButton extends MenuObject implements TextDrawable
 	private ObjectBorder border;
 	private TrueTypeFont ttf;
 
-	public MenuButton(Rectangle rect, String text, float size)
+	public MenuButton(Rectangle2D.Double rect, String text, float size)
 	{
 		super(rect);
 		this.text = text;
@@ -54,7 +55,7 @@ public class MenuButton extends MenuObject implements TextDrawable
 	@Override
 	public void drawText()
 	{
-		int fx = getRect().getX() + (getRect().getWidth() / 2) - (ttf.getWidth(text) / 2);
+		/*int fx = getRect().getX() + (getRect().getWidth() / 2) - (ttf.getWidth(text) / 2);
 		int fy = getRect().getY() + (getRect().getHeight() / 2)
 				- (ttf.getHeight(text) / 2);
 		Color color = Color.white;
@@ -62,7 +63,7 @@ public class MenuButton extends MenuObject implements TextDrawable
 		{
 			color = Color.red;
 		}
-		ttf.drawString(fx, fy, text, color);
+		ttf.drawString(fx, fy, text, color);*/
 	}
 
 }
