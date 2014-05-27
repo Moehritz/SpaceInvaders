@@ -21,7 +21,7 @@ public class Entity implements Drawable
 	@NonNull
 	private final String uuid;
 
-	private float width, height;
+	private double width, height;
 	private double x;
 	private double y;
 	private double rotation = 0;
@@ -49,9 +49,9 @@ public class Entity implements Drawable
 		switch (side)
 		{
 		case 0:
-			return y + height / 2 > Display.getHeight();
+			return y + height / 2 > 1;
 		case 1:
-			return x + width / 2 > Display.getWidth();
+			return x + width / 2 > 1;
 		case 2:
 			return y - height / 2 < 0;
 		case 3:
@@ -63,8 +63,8 @@ public class Entity implements Drawable
 	public void setTexture(Texture texture)
 	{
 		this.texture = texture;
-		width = texture.getImageWidth() * 3;
-		height = texture.getImageHeight() * 3;
+		width = texture.getImageWidth() * 0.003125;
+		height = texture.getImageHeight() * 0.003125;
 	}
 
 	public boolean updatePosition(long delta)
@@ -89,8 +89,8 @@ public class Entity implements Drawable
 			ret = false;
 		}
 
-		if (speed.getX() < 0.01 && speed.getX() > -0.01) speed.setX(0);
-		if (speed.getY() < 0.01 && speed.getY() > -0.01) speed.setY(0);
+		if (speed.getX() < 0.00001 && speed.getX() > -0.00001) speed.setX(0);
+		if (speed.getY() < 0.00001 && speed.getY() > -0.00001) speed.setY(0);
 		return ret;
 	}
 
@@ -103,26 +103,35 @@ public class Entity implements Drawable
 		double rotation = this.rotation;
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glTranslated(rx, ry, 0);
+
+		if (Display.getHeight() < Display.getWidth())
+		{
+			glScaled(1, Display.getWidth() / (double) Display.getHeight(), 1);
+		}
+		else
+		{
+			glScaled(Display.getHeight() / (double) Display.getWidth(), 1, 1);
+		}
+
 		if (!Double.isNaN(rotation))
 		{
 			glRotated(rotation, 0, 0, 1);
 		}
+
 		glBegin(GL_QUADS);
 		{
-			glTexCoord2f(0.0f, 0.0f);
-			glVertex2f(-width / 2, -height / 2);
-			glTexCoord2f(1.0f, 0.0f);
-			glVertex2f(width / 2, -height / 2);
-			glTexCoord2f(1.0f, 1.0f);
-			glVertex2f(width / 2, height / 2);
-			glTexCoord2f(0.0f, 1.0f);
-			glVertex2f(-width / 2, height / 2);
+			glTexCoord2d(0.0f, 0.0f);
+			glVertex2d(-width / 2, -height / 2);
+			glTexCoord2d(1.0f, 0.0f);
+			glVertex2d(width / 2, -height / 2);
+			glTexCoord2d(1.0f, 1.0f);
+			glVertex2d(width / 2, height / 2);
+			glTexCoord2d(0.0f, 1.0f);
+			glVertex2d(-width / 2, height / 2);
 		}
+
 		glEnd();
-		if (!Double.isNaN(rotation))
-		{
-			glRotated(-rotation, 0, 0, 1);
-		}
-		glTranslated(-rx, -ry, 0);
+
+		glLoadIdentity();
 	}
 }

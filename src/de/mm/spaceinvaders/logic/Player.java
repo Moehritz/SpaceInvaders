@@ -39,7 +39,7 @@ public class Player extends Entity
 	public void draw()
 	{
 		fire.update();
-		fire.draw();
+		//fire.draw();
 		super.draw();
 	}
 

@@ -26,7 +26,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Frame
 {
 
-	private static int width = 800, height = 600, fps = 30;
+	private static int width = 800, height = 600, fps = 60;
 
 	private boolean exit = false;
 

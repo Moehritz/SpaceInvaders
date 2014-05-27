@@ -32,6 +32,8 @@ public class ControllablePlayer extends Player
 	public ControllablePlayer(Texture texture, String uuid)
 	{
 		super(texture, uuid);
+		setX(0.5);
+		setY(0.5);
 		setName("User" + new Random().nextInt(Integer.MAX_VALUE));
 	}
 
@@ -39,8 +41,8 @@ public class ControllablePlayer extends Player
 	{
 		boolean moved = false;
 
-		int mouseX = Mouse.getX();
-		int mouseY = Display.getHeight() - Mouse.getY();
+		double mouseX = (double) Mouse.getX() / (double) Display.getWidth();
+		double mouseY = 1 - ((double) Mouse.getY() / (double) Display.getHeight());
 
 		double newRotation = Util.calcRotationAngleInDegrees(new Vector(getX(), getY()),
 				new Vector(mouseX, mouseY));
@@ -61,7 +63,7 @@ public class ControllablePlayer extends Player
 		getSpeed().setX(getSpeed().getX() * 0.9);
 		getSpeed().setY(getSpeed().getY() * 0.9);
 
-		double flySpeed = 0.3f;
+		double flySpeed = 0.0005d;
 
 		Vector direction = Util.calcVectorFromDegrees(newRotation).normalize()
 				.multiply(flySpeed);
