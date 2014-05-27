@@ -5,23 +5,20 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.lwjgl.opengl.Display;
+
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gamestate.Ingame;
 import de.mm.spaceinvaders.logic.Entity;
 import de.mm.spaceinvaders.util.Util;
 import de.mm.spaceinvaders.util.Vector;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glVertex2d;
 
 public class RocketFire implements Drawable
 {
 
 	private int livingTimeMin = 30, livingTimeMax = 50, maxSpawnsPerTick = 2,
 			rotChangeMax = 100;
-	private float speed = 2f;
+	private float speed = 0.004f;
 	private ConcurrentLinkedQueue<SingleRocketFire> fires = new ConcurrentLinkedQueue<SingleRocketFire>();
 	private Random rand = new Random();
 
@@ -55,8 +52,8 @@ public class RocketFire implements Drawable
 	private void newFire()
 	{
 		Entity p = ((Ingame) SpaceInvaders.getInstance().getGameState()).getThePlayer();
-		int x = (int) p.getX();
-		int y = (int) p.getY();
+		double x = p.getX();
+		double y = p.getY();
 		long time = livingTimeMin + rand.nextInt(livingTimeMax - livingTimeMin);
 		fires.add(new SingleRocketFire(x, y, time, p.getRotation()
 				+ (rand.nextInt(rotChangeMax))));
@@ -68,40 +65,28 @@ public class RocketFire implements Drawable
 		for (SingleRocketFire fire : fires)
 		{
 			float opacity = fire.getOpacity();
-			float x = fire.x;
-			float y = fire.y;
-			drawPixel((int) x, (int) y, opacity, 10);
+			double x = fire.x;
+			double y = fire.y;
+			double sizeX = 0.01;
+			double sizeY = Display.getWidth() * sizeX / Display.getHeight();
+			StarBackground.drawPixel(x, y, 1, rand.nextFloat() / 2, 0, opacity, sizeX,
+					sizeY);
 		}
-	}
-
-	public void drawPixel(int x, int y, float opacity, int size)
-	{
-		if (opacity == 0) return;
-		float sizePerPixel = size / 2;
-		glColor4f(1.0f, rand.nextFloat() / 2, 0.0f, opacity / 100);
-		glBegin(GL_QUADS);
-		{
-			glVertex2d(x, y);
-			glVertex2d((x + 1) + sizePerPixel, y);
-			glVertex2d((x + 1) + sizePerPixel, (y + 1) + sizePerPixel);
-			glVertex2d(x, (y + 1) + sizePerPixel);
-		}
-		glEnd();
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
 	private class SingleRocketFire
 	{
-		private SingleRocketFire(int x, int y, long start, double rot)
+		private SingleRocketFire(double x2, double y2, long start, double rot)
 		{
-			this.x = x;
-			this.y = y;
+			this.x = x2;
+			this.y = y2;
 			this.start = start;
 			this.timeToLive = start;
-			move = Util.calcVectorFromDegrees(rot + 135).normalize().multiply(speed);
+			move = Util.calcVectorFromDegrees(rot - (rotChangeMax / 2) - 180).normalize()
+					.multiply(speed);
 		}
 
-		private float x, y;
+		private double x, y;
 		private Vector move;
 		private long timeToLive, start;
 

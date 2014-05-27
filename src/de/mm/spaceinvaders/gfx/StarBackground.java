@@ -70,23 +70,23 @@ public class StarBackground implements Drawable
 			float opacity = star.getOpacity();
 			double x = star.x;
 			double y = star.y;
-			drawPixel(x, y, opacity, sizeX, sizeY);
-			drawPixel(x + sizeX, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)),
-					sizeX, sizeY);
-			drawPixel(x - sizeX, y, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)),
-					sizeX, sizeY);
-			drawPixel(x, y + sizeY, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)),
-					sizeX, sizeY);
-			drawPixel(x, y - sizeY, Math.abs(opacity / 2 + (rand.nextInt(10) - 5)),
-					sizeX, sizeY);
+			drawPixel(x, y, 1, 1, 1, opacity, sizeX, sizeY);
+			drawPixel(x + sizeX, y, 1, 1, 1,
+					Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), sizeX, sizeY);
+			drawPixel(x - sizeX, y, 1, 1, 1,
+					Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), sizeX, sizeY);
+			drawPixel(x, y + sizeY, 1, 1, 1,
+					Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), sizeX, sizeY);
+			drawPixel(x, y - sizeY, 1, 1, 1,
+					Math.abs(opacity / 2 + (rand.nextInt(10) - 5)), sizeX, sizeY);
 		}
-
 	}
 
-	private void drawPixel(double x, double y, float opacity, double sizeX, double sizeY)
+	protected static void drawPixel(double x, double y, float red, float green,
+			float blue, float opacity, double sizeX, double sizeY)
 	{
 		if (opacity == 0) return;
-		glColor4f(1.0f, 1.0f, 1.0f, opacity / 100);
+		glColor4f(red, green, blue, opacity / 100);
 		glBegin(GL_QUADS);
 		{
 			glVertex2d(x, y);

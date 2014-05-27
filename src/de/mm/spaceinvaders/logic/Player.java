@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 
 import de.mm.spaceinvaders.gfx.RocketFire;
 
@@ -39,7 +40,8 @@ public class Player extends Entity
 	public void draw()
 	{
 		fire.update();
-		//fire.draw();
+		fire.draw();
+		TextureImpl.bindNone();
 		super.draw();
 	}
 

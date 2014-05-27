@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.TrueTypeFont;
 
 import de.mm.spaceinvaders.gfx.TextDrawable;
 
@@ -15,7 +14,7 @@ public class MenuText extends MenuObject implements TextDrawable
 	@Setter
 	@Getter
 	private String text;
-	private TrueTypeFont ttf;
+	//private TrueTypeFont ttf;
 	@Setter
 	@Getter
 	private Color color;
@@ -24,7 +23,7 @@ public class MenuText extends MenuObject implements TextDrawable
 	private TextAlignment alignment = TextAlignment.CENTER;
 	@Getter
 	private float fontSize;
-	private boolean fontInitialized = false;
+	//private boolean fontInitialized = false;
 
 	public MenuText(Rectangle2D.Double rect, String text, float size, Color color)
 	{
@@ -36,8 +35,8 @@ public class MenuText extends MenuObject implements TextDrawable
 
 	public void initThisFont()
 	{
-		ttf = new TrueTypeFont(font.deriveFont(fontSize), false);
-		fontInitialized = true;
+		//ttf = new TrueTypeFont(font.deriveFont(fontSize), false);
+		//fontInitialized = true;
 	}
 
 	@Override
@@ -60,7 +59,7 @@ public class MenuText extends MenuObject implements TextDrawable
 
 	public void setSize(float size)
 	{
-		fontInitialized = false;
+		//fontInitialized = false;
 		this.fontSize = size;
 	}
 
