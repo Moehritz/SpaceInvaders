@@ -3,7 +3,6 @@ package de.mm.spaceinvaders.gui.model;
 import java.awt.geom.Rectangle2D;
 
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
 
 public class MenuTextField extends MenuObject
 {
@@ -18,13 +17,13 @@ public class MenuTextField extends MenuObject
 		super(rect);
 		border = new ObjectBorder(rect);
 
-		textContainer = new MenuText(rect, text.toString(), 20f, Color.white);
+		textContainer = new MenuText(rect, new Text(text.toString()));
 	}
 
 	public void setText(String text)
 	{
 		this.text = new StringBuilder(text);
-		textContainer.setText(text);
+		textContainer.getText().setContent(text);
 	}
 
 	public String getText()
@@ -63,7 +62,7 @@ public class MenuTextField extends MenuObject
 				}
 			}
 		}
-		textContainer.setText(text.toString());
+		textContainer.getText().setContent(text.toString());
 	}
 
 	@Override
@@ -71,6 +70,6 @@ public class MenuTextField extends MenuObject
 	{
 		border.draw();
 
-		textContainer.drawText();
+		textContainer.draw();
 	}
 }

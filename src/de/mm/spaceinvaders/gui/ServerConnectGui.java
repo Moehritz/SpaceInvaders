@@ -2,14 +2,13 @@ package de.mm.spaceinvaders.gui;
 
 import java.awt.geom.Rectangle2D;
 
-import org.newdawn.slick.Color;
-
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
 import de.mm.spaceinvaders.gui.model.MenuText;
 import de.mm.spaceinvaders.gui.model.MenuTextField;
+import de.mm.spaceinvaders.gui.model.Text;
 
 public class ServerConnectGui extends Menu
 {
@@ -22,14 +21,14 @@ public class ServerConnectGui extends Menu
 		super.init();
 
 		title = new MenuText(new Rectangle2D.Double(0.3, 0.3, 0.4, 0.1),
-				"Verbinde zu ...", 20f, Color.white);
+				new Text("Verbinde zu..."));
 		addObject(title);
 
 		input = new MenuTextField(new Rectangle2D.Double(0.2, 0.45, 0.6, 0.1));
 		addObject(input);
 
 		MenuButton button = new MenuButton(new Rectangle2D.Double(0.35, 0.6, 0.3, 0.07),
-				"Los", 20f);
+				new Text("LOS"));
 		button.setListener(new MenuActionListener()
 		{
 
@@ -64,12 +63,12 @@ public class ServerConnectGui extends Menu
 
 	public void setTitle(String text)
 	{
-		title.setText(text);
+		title.getText().setContent(text);
 	}
 
 	public String getTitle()
 	{
-		return title.getText();
+		return title.getText().getContent();
 	}
 
 	public void setText(String text)

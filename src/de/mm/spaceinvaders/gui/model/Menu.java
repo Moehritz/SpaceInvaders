@@ -6,7 +6,6 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import de.mm.spaceinvaders.gfx.Drawable;
-import de.mm.spaceinvaders.gfx.TextDrawable;
 import lombok.Getter;
 
 @Getter
@@ -27,13 +26,6 @@ public class Menu implements Drawable
 		{
 			objects.get(i).update();
 			objects.get(i).draw();
-		}
-		for (MenuObject object : objects)
-		{
-			if (object instanceof TextDrawable)
-			{
-				((TextDrawable) object).drawText();
-			}
 		}
 		while (Keyboard.next());
 	}

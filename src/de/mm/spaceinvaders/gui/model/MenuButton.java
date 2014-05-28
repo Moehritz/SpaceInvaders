@@ -7,34 +7,18 @@ import java.awt.geom.Rectangle2D;
 import lombok.Getter;
 import lombok.Setter;
 
-import org.newdawn.slick.TrueTypeFont;
-
-import de.mm.spaceinvaders.gfx.TextDrawable;
-
 @Getter
 @Setter
-public class MenuButton extends MenuObject implements TextDrawable
+public class MenuButton extends MenuObject
 {
-	private String text;
+	private Text text;
 	private ObjectBorder border;
-	private TrueTypeFont ttf;
 
-	public MenuButton(Rectangle2D.Double rect, String text, float size)
+	public MenuButton(Rectangle2D.Double rect, Text text)
 	{
 		super(rect);
 		this.text = text;
 		border = new ObjectBorder(getRect());
-		ttf = new TrueTypeFont(font.deriveFont(size), false);
-	}
-
-	public void setText(String text)
-	{
-		this.text = text;
-	}
-
-	public String getText()
-	{
-		return text;
 	}
 
 	@Override
@@ -51,19 +35,4 @@ public class MenuButton extends MenuObject implements TextDrawable
 
 		border.draw();
 	}
-
-	@Override
-	public void drawText()
-	{
-		/*int fx = getRect().getX() + (getRect().getWidth() / 2) - (ttf.getWidth(text) / 2);
-		int fy = getRect().getY() + (getRect().getHeight() / 2)
-				- (ttf.getHeight(text) / 2);
-		Color color = Color.white;
-		if (isHover())
-		{
-			color = Color.red;
-		}
-		ttf.drawString(fx, fy, text, color);*/
-	}
-
 }

@@ -9,7 +9,6 @@ import lombok.Getter;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 
 import de.mm.spaceinvaders.SpaceInvaders;
 import de.mm.spaceinvaders.gamestate.ServerMenu;
@@ -17,8 +16,9 @@ import de.mm.spaceinvaders.gui.model.Menu;
 import de.mm.spaceinvaders.gui.model.MenuActionListener;
 import de.mm.spaceinvaders.gui.model.MenuButton;
 import de.mm.spaceinvaders.gui.model.MenuText;
-import de.mm.spaceinvaders.gui.model.MenuText.TextAlignment;
 import de.mm.spaceinvaders.gui.model.MenuTextField;
+import de.mm.spaceinvaders.gui.model.Text;
+import de.mm.spaceinvaders.gui.model.Text.TextAlignment;
 import de.mm.spaceinvaders.protocol.packets.GameStart;
 
 public class ServerMenuGui extends Menu
@@ -43,8 +43,7 @@ public class ServerMenuGui extends Menu
 	{
 		super.init();
 
-		MenuButton exit = new MenuButton(new Rectangle2D.Double(10, 10, 100, 30), "<-",
-				20);
+		MenuButton exit = new MenuButton(new Rectangle2D.Double(10, 10, 100, 30), new Text("<-"));
 		exit.setListener(new MenuActionListener()
 		{
 			@Override
@@ -61,7 +60,7 @@ public class ServerMenuGui extends Menu
 		addObject(exit);
 
 		changeNameButton = new MenuButton(new Rectangle2D.Double(
-				Display.getWidth() - 245, 10, 235, 30), "Name", 20);
+				Display.getWidth() - 245, 10, 235, 30), new Text("name"));
 		changeNameButton.setListener(new MenuActionListener()
 		{
 			@Override
@@ -142,8 +141,8 @@ public class ServerMenuGui extends Menu
 		if (players.containsKey(name)) return;
 
 		MenuText mt = new MenuText(new Rectangle2D.Double(0, 100 + players.size() * 50,
-				Display.getWidth(), 40), name, 15, Color.blue);
-		mt.setAlignment(TextAlignment.CENTER);
+				Display.getWidth(), 40), new Text(name));
+		mt.getText().setAlign(TextAlignment.CENTER);
 		addObject(mt);
 
 		players.put(name, mt);
