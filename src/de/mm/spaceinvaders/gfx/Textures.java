@@ -25,12 +25,17 @@ public enum Textures
 	{
 		this.name = name;
 	}
-
+	
 	private void load()
+	{
+		texture = load(name);
+	}
+
+	public static Texture load(String name)
 	{
 		try
 		{
-			texture = TextureLoader.getTexture("PNG",
+			return TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/" + name + ".png"),
 					GL11.GL_NEAREST);
 		}
@@ -38,6 +43,7 @@ public enum Textures
 		{
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public Texture getTexture()

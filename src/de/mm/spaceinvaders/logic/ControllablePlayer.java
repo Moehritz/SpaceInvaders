@@ -98,8 +98,7 @@ public class ControllablePlayer extends Player
 				ammo--;
 				lastShot = System.currentTimeMillis();
 				Ingame ig = (Ingame) SpaceInvaders.getInstance().getGameState();
-				ig.getConnection().sendPackets(
-						new ShootProjectile(getX(), getY(), getRotation()));
+				ig.getConnection().sendPackets(new ShootProjectile(getX(), getY(), getRotation()));
 			}
 		}
 		if (moved)
