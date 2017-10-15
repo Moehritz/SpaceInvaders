@@ -1,17 +1,9 @@
 package de.mm.spaceinvaders.gui.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
-import java.awt.Rectangle;
+import lombok.*;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
-import static org.lwjgl.opengl.GL11.*;
 
-import de.mm.spaceinvaders.gfx.Textures;
+import static org.lwjgl.opengl.GL11.*;
 
 @Getter
 @Setter
@@ -22,31 +14,24 @@ public class Text
 
 	@NonNull
 	private String content;
-	private double textSize = 20;
+	private double textSize = 0.01;
 	private Color color = Color.white;
 	private TextAlignment align = TextAlignment.LEFT;
 
-	public void writeToScreen(double x, double y, double width, double height)
+	public void writeToScreen(double x, double y, double width, double height) {
+
+        glPushMatrix();
+        glScaled(textSize, textSize, 1);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        MenuObject.fontx.drawString((float) (x * (1 / textSize)), (float) (y * (1 / textSize)), content);
+        glPopMatrix();
+    }
+
+    public double drawZeichen(char s, double x, double y, double width, double height)
 	{
-		// TODO
-		// Text malen zwischen y und (y+height/2)
-		// und je nach TextAlignment in die Mitte, Links oder Rechts im übergebenem Viereck
-		
-//		Rectangle r;
-//		r = drawZeichen('w', 50, 50);
-//		r = drawZeichen('a', r.x+r.width, 50);
-//		r = drawZeichen('s', r.x+r.width, 50);
-//		r = drawZeichen('?', r.x+r.width, 50);
-	}
-	
-	public Rectangle drawZeichen(String s, double x, double y)
-	{
-		Texture texture = getTexture(s);
-		double width = texture.getImageWidth()*(textSize/texture.getImageWidth());
-		double height = textSize;
-		
-		texture.bind();
-		
+
+		glBindTexture(GL_TEXTURE_2D, getTexture(s));
+
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2d(0.0f, 0.0f);
@@ -58,59 +43,54 @@ public class Text
 			glTexCoord2d(0.0f, 1.0f);
 			glVertex2d(x, y+height);
 		}
-		
+
 		glEnd();
-		Rectangle bounds = new Rectangle();
-		bounds.setLocation((int)x, (int)y);
-		bounds.setSize((int)width, (int)height);
-		return bounds;
+		return width;
 	}
-	
-	public Texture getTexture(String s)
+
+	public int getTexture(char s)
 	{
-		s.toLowerCase();
-		
+
 		for(Zeichen z : Zeichen.values())
 		{
-			if(z.zeichen == s.charAt(0))
+			if(Character.toLowerCase(z.zeichen) == Character.toLowerCase(s))
 				return z.texture;
 		}
-		return null;
+		return 0;
 	}
 
 	public enum TextAlignment
 	{
 		LEFT, CENTER, RIGHT;
 	}
-	
+
 	@Getter
 	public enum Zeichen
 	{
-		A(), B(), C(), D(), E(), F(), G(), 
-		H(), I(), J(), K(), L(), M(), N(), 
-		O(), P(), Q(), R(), S(), T(), U(), 
-		V(), W(), X(), Y(), Z(), 
-		ANFÜHRUNGSZEICHEN('\''),
+		A(), B(), C(), D(), E(), F(), G(),
+		H(), I(), J(), K(), L(), M(), N(),
+		O(), P(), Q(), R(), S(), T(), U(),
+		V(), W(), X(), Y(), Z(),
+		ANFUHRUNGSZEICHEN('\''),
 		AUSRUFEZEICHEN('!'),
 		DOPPELPUNKT(':'),
 		FRAGEZEICHEN('?'),
-		KOMME(','),
+		KOMMA(','),
 		PUNKT('.'),
 		LEER(' ');
-		
-		private Texture texture;
+
+		private int texture;
 		private char zeichen;
-		
+
 		private Zeichen()
 		{
-			zeichen = name().toLowerCase().charAt(0);
-			texture = Textures.load("buchstaben/"+zeichen);
+			zeichen = name().charAt(0);
 		}
-		
-		private Zeichen(char zeichen)
+
+		Zeichen(char zeichen)
 		{
 			this.zeichen = zeichen;
-			texture = Textures.load("buchstaben/"+name());
 		}
-	}
+
+    }
 }

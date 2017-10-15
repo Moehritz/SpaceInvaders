@@ -42,7 +42,7 @@ public class ServerConnectGui extends Menu
 			{
 				String[] i = getText().split(":");
 				String host = i[0];
-				int port = 8888;
+				int port = 8889;
 				if (i.length >= 2)
 				{
 					try

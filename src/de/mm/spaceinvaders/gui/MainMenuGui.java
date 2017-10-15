@@ -18,7 +18,7 @@ public class MainMenuGui extends Menu
 		super.init();
 
 		addObject(new MenuText(new Rectangle2D.Double(0.1, 0.1, 0.8, 0.3), new Text(
-				"SPACE-INVADERS")));
+				"SPACE INVADERS")));
 		MenuButton button = new MenuButton(new Rectangle2D.Double(0.2, 0.4, 0.6, 0.15),
 				new Text("Spiel starten"));
 		button.setListener(new MenuActionListener()

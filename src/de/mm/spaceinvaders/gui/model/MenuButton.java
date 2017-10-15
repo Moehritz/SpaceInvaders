@@ -34,5 +34,6 @@ public class MenuButton extends MenuObject
 		}
 
 		border.draw();
+		text.writeToScreen(getRect().x, getRect().y, getRect().width, getRect().height);
 	}
 }

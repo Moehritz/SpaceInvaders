@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 
 import de.mm.spaceinvaders.gfx.Drawable;
@@ -23,18 +24,12 @@ public abstract class MenuObject implements Drawable
 {
 	private static boolean mouseDown = false;
 	protected static Font font;
+	protected static TrueTypeFont fontx;
 
 	public static void initFont()
 	{
-		try
-		{
-			font = Font.createFont(Font.TRUETYPE_FONT,
-					ResourceLoader.getResourceAsStream("res/arcade.ttf"));
-		}
-		catch (FontFormatException | IOException e)
-		{
-			e.printStackTrace();
-		}
+		font = new Font("Times New Roman", Font.PLAIN, 10);
+		fontx = new TrueTypeFont(font, false);
 	}
 
 	@NonNull
