@@ -20,11 +20,11 @@ public class Text
 
 	public void writeToScreen(double x, double y, double width, double height) {
 
-        /*glPushMatrix();
+        glPushMatrix();
         glScaled(textSize, textSize, 1);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         MenuObject.fontx.drawString((float) (x * (1 / textSize)), (float) (y * (1 / textSize)), content);
-        glPopMatrix();*/
+        glPopMatrix();
     }
 
     public enum TextAlignment
