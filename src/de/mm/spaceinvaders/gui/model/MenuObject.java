@@ -45,7 +45,7 @@ public abstract class MenuObject implements Drawable
 				: 1 / (Display.getHeight() / (double) Mouse.getY()));
 		if (getRect().contains(mX, mY))
 		{
-			if (hover == false && listener != null)
+			if (!hover && listener != null)
 			{
 				listener.onHover();
 			}
@@ -54,7 +54,7 @@ public abstract class MenuObject implements Drawable
 			{
 				if (!mouseDown)
 				{
-					if (clicked == false && listener != null)
+					if (!clicked && listener != null)
 					{
 						listener.onClick();
 					}
